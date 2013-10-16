@@ -67,6 +67,8 @@ class TokenException(Exception):
 
 
 class CieloToken(object):
+    create_token_template = 'token.xml'
+
     def __init__(
             self,
             affiliation_id,
@@ -92,14 +94,16 @@ class CieloToken(object):
         self.card_number = card_number
         self.sandbox = sandbox
 
+    def _get_real_path(self, filename):
+        return os.path.join(os.path.dirname(os.path.abspath(__file__)), filename)
+
     def create_token(self):
-        self.payload = open(
-            os.path.join(
-                os.path.dirname(os.path.abspath(__file__)),
-                'token.xml'), 'r').read() % self.__dict__
+        template = open(self._get_real_path(self.create_token_template)).read()
+        payload = template % self.__dict__
+
         self.response = requests.post(
             self.url,
-            data={'mensagem': self.payload, },
+            data={'mensagem': payload, },
             headers={'user-agent': 'python-cielo'},
         )
         self.dom = xml.dom.minidom.parseString(self.response.content)
@@ -117,19 +121,21 @@ class CieloToken(object):
 
 
 class Attempt(object):
-    template = None
+    authorization_template = None
+    capture_template = 'capture.xml'
+
+    def _get_real_path(self, filename):
+        return os.path.join(os.path.dirname(os.path.abspath(__file__)), filename)
 
     def get_authorized(self):
         self.date = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
-        self.payload = open(
-            os.path.join(
-                os.path.dirname(os.path.abspath(__file__)),
-                self.template),
-            'r').read() % self.__dict__
+
+        template = open(self._get_real_path(self.authorization_template)).read()
+        payload = template % self.__dict__
 
         self.response = requests.post(
             self.url,
-            data={'mensagem': self.payload, },
+            data={'mensagem': payload, },
             headers={'user-agent': 'python-cielo'},
         )
 
@@ -165,10 +171,8 @@ class Attempt(object):
         assert self._authorized, \
             u'get_authorized(...) must be called before capture(...)'
 
-        payload = open(
-            os.path.join(
-                os.path.dirname(os.path.abspath(__file__)), 'capture.xml'),
-            'r').read() % self.__dict__
+        template = open(self._get_real_path(self.capture_template)).read()
+        payload = template % self.__dict__
 
         response = requests.post(
             self.url,
@@ -218,10 +222,9 @@ class BasePaymentAttempt(Attempt):
 
 
 class PaymentAttempt(BasePaymentAttempt):
-    template = 'authorize.xml'
+    authorization_template = 'authorize.xml'
 
     def __init__(self, **kwargs):
-
         # Required arguments for attempts using the credit card data
         try:
             self.card_number = kwargs.pop('card_number')
@@ -256,7 +259,7 @@ class PaymentAttempt(BasePaymentAttempt):
 
 
 class TokenPaymentAttempt(BasePaymentAttempt):
-    template = 'authorize_token.xml'
+    authorization_template = 'authorize_token.xml'
 
     def __init__(self, **kwargs):
         # Required arguments for attempts using the credit card data
