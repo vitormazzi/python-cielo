@@ -116,7 +116,7 @@ class CieloToken(object):
 
 
 class Attempt(object):
-    template = 'authorize.xml'
+    template = None
 
     def get_authorized(self):
         self.date = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
@@ -184,84 +184,67 @@ class Attempt(object):
         return True
 
 
-class TokenPaymentAttempt(Attempt):
-    def __init__(
-            self,
-            affiliation_id,
-            token,
-            api_key,
-            total,
-            card_type,
-            order_id,
-            url_redirect,
-            installments=1,
-            transaction=CASH,
-            sandbox=False):
+class BasePaymentAttempt(Attempt):
 
-        assert isinstance(total, Decimal), u'total must be an instance of Decimal'
-        assert installments in range(1, 13), u'installments must be a integer between 1 and 12'
+    def __init__(self, **kwargs):
+        # Required arguments without default values
+        try:
+            self.affiliation_id = kwargs.pop('affiliation_id')
+            self.api_key = kwargs.pop('api_key')
+            self.order_id = kwargs.pop('order_id')
+            self.card_type = kwargs.pop('card_type')
+            self.total = moneyfmt(kwargs.pop('total'), sep='', dp='')
 
-        assert (installments == 1 and transaction == CASH) \
-                    or installments > 1 and transaction != CASH, \
-                    u'if installments = 1 then transaction must be None or "cash"'
+        except KeyError as e:
+            raise TypeError(u"'{0[0]}' is required".format(e.args))
 
-        self.url = SANDBOX_URL if sandbox else PRODUCTION_URL
-        self.card_type = card_type
-        self.token = token
-        self.affiliation_id = affiliation_id
-        self.api_key = api_key
-        self.transaction = transaction
-        self.transaction_type = transaction  # para manter assinatura do pyrcws
-        self.total = moneyfmt(total, sep='', dp='')
-        self.installments = installments
-        self.order_id = order_id
-        self._authorized = False
-        self.sandbox = sandbox
-        self.url_redirect = url_redirect
-        self.template = 'authorize_token.xml'
+        # Required arguments with default values
+        self.installments = kwargs.pop('installments', 1)
+        self.transaction_type = kwargs.pop('transaction', CASH) # para manter assinatura do pyrcws
+        self.sandbox = kwargs.pop('sandbox', False)
+        self.url_redirect = kwargs.pop('url_redirect', None)
 
-
-class PaymentAttempt(Attempt):
-    def __init__(
-            self,
-            affiliation_id,
-            api_key,
-            total,
-            card_type,
-            installments,
-            order_id,
-            card_number,
-            cvc2,
-            exp_month,
-            exp_year,
-            card_holders_name, transaction=CASH, sandbox=False):
-
-        assert isinstance(total, Decimal), u'total must be an instance of Decimal'
-        assert installments in range(1, 13), u'installments must be a integer between 1 and 12'
-
-        assert (installments == 1 and transaction == CASH) \
-                    or installments > 1 and transaction != CASH, \
-                    u'if installments = 1 then transaction must be None or "cash"'
-
-        if len(str(exp_year)) == 2:
-            exp_year = '20%s' % exp_year  # FIXME: bug do milênio em 2100
-
-        self.url = SANDBOX_URL if sandbox else PRODUCTION_URL
-        self.card_type = card_type
-        self.affiliation_id = affiliation_id
-        self.api_key = api_key
-        self.transaction = transaction
-        self.transaction_type = transaction  # para manter assinatura do pyrcws
-        self.total = moneyfmt(total, sep='', dp='')
-        self.installments = installments
-        self.order_id = order_id
-        self.card_number = card_number
-        self.cvc2 = cvc2
-        self.exp_month = exp_month
-        self.exp_year = exp_year
-        self.expiration = '%s%s' % (exp_year, exp_month)
-        self.card_holders_name = card_holders_name
+        self.url = SANDBOX_URL if self.sandbox else PRODUCTION_URL
         self._authorized = False
 
-        self.sandbox = sandbox
-        self.template = 'authorize.xml'
+        self.validate()
+
+    def validate(self):
+        assert self.installments in range(1, 13), u'installments must be a integer between 1 and 12'
+        assert (self.installments == 1 and self.transaction_type == CASH) \
+                    or self.installments > 1 and self.transaction_type != CASH, \
+                    u'if installments = 1 then transaction must be None or "cash"'
+
+
+class PaymentAttempt(BasePaymentAttempt):
+    template = 'authorize.xml'
+
+    def __init__(self, **kwargs):
+
+        # Required arguments for attempts using the credit card data
+        try:
+            self.card_number = kwargs.pop('card_number')
+            self.cvc2 = kwargs.pop('cvc2')
+            self.exp_month = kwargs.pop('exp_month')
+            self.exp_year = kwargs.pop('exp_year')
+            self.card_holders_name = kwargs.pop('card_holders_name')
+
+        except KeyError as e:
+            raise TypeError(u"'{0[0]}' is required".format(e.args))
+
+        super(PaymentAttempt, self).__init__(**kwargs)
+        self.expiration = '%s%s' % (self.exp_year, self.exp_month)
+
+
+class TokenPaymentAttempt(BasePaymentAttempt):
+    template = 'authorize_token.xml'
+
+    def __init__(self, **kwargs):
+        # Required arguments for attempts using the credit card data
+        try:
+            self.token = kwargs.pop('token')
+
+        except KeyError as e:
+            raise TypeError(u"'{0[0]}' is required".format(e.args))
+
+        super(TokenPaymentAttempt, self).__init__(**kwargs)
