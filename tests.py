@@ -17,6 +17,9 @@ class MainTest(unittest.TestCase):
         self.freezer = freeze_time("2009-12-14 12:00:01")
         self.freezer.start()
 
+    def tearDown(self):
+        self.freezer.stop()
+
     def test_01_payment_attempt_authorized(self):
         params = {
             'affiliation_id': '1006993069',
