@@ -1,9 +1,10 @@
 # coding: utf-8
-from datetime import datetime
 import os
-import requests
+from datetime import date, datetime
 import xml.dom.minidom
 from decimal import Decimal
+
+import requests
 from util import moneyfmt
 
 VISA, MASTERCARD, DINERS, DISCOVER, ELO, AMEX = 'visa', \
@@ -234,6 +235,24 @@ class PaymentAttempt(BasePaymentAttempt):
 
         super(PaymentAttempt, self).__init__(**kwargs)
         self.expiration = '%s%s' % (self.exp_year, self.exp_month)
+
+    def validate(self):
+        super(PaymentAttempt, self).validate()
+        self.validate_expiration()
+
+    def validate_expiration(self):
+        exp_year_length = len(str(self.exp_year))
+        if exp_year_length == 2:
+            self.exp_year += 2000
+        elif exp_year_length != 4:
+            reason = 'exp_year must be composed of 2 or 4 digits (it has {0})'.format(exp_year_length)
+            raise ValueError(reason)
+
+        today = date.today()
+        expiration_date = date(self.exp_year, self.exp_month, 1)
+        if expiration_date < date(today.year, today.month, 1):
+            reason = 'Card expired since {0}/{1}'.format(self.exp_month, self.exp_year)
+            raise ValueError(reason)
 
 
 class TokenPaymentAttempt(BasePaymentAttempt):
