@@ -24,5 +24,5 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
-    install_requires=['requests==1.2.3'],
+    install_requires=['requests==1.2.3', 'vcrpy==0.3.3'],
 )

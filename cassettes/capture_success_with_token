@@ -1,0 +1,31 @@
+- request: !!python/object:vcr.request.Request
+    body: mensagem=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22ISO-8859-1%22%3F%3E%0A%3Crequisicao-captura+id%3D%223%22+versao%3D%221.1.1%22%3E%0A++++%3Ctid%3E10069930690A21E41001%3C%2Ftid%3E%0A++++%3Cdados-ec%3E%0A++++++++%3Cnumero%3E1006993069%3C%2Fnumero%3E%0A++++++++%3Cchave%3E25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3%3C%2Fchave%3E%0A++++%3C%2Fdados-ec%3E%0A%3C%2Frequisicao-captura%3E%0A
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Content-Length, !!python/unicode '407']
+      - !!python/tuple [Content-Type, application/x-www-form-urlencoded]
+      - !!python/tuple [Accept, '*/*']
+      - !!python/tuple [user-agent, python-cielo]
+    host: qasecommerce.cielo.com.br
+    method: POST
+    path: /servicos/ecommwsec.do
+    port: 443
+    protocol: https
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAE/5VUwW7bMAy95ysM321JcWo7gaKiQwc0h6EF6m3YkbG0VEBsuZKcDvndHfYbo2Jl
+        a4FuQC720yMp8pG0+fWPbp8clHXa9OuU5TRNVN8aqfvdOt083md1fbXMWHotZtxb6B20YE4BYII/
+        y1maaLlOizTBq3q3Tp+8H1aEqNZ0nbKtytttN+R4yrc2FbMk4V5LwSgtl8sCH/Rmzj4u8Mw4CZbg
+        MUAvNs9fjtXD8gibXfNNfl6wO/hK7j8QWW3ki/fPL9v5ARpff2rompMQESIlSOOyQUktTUiG6foR
+        6zCiun28ZWVxc4d5IoUBaD/A3thQECcTnOjOKAliWZecTHCiJXjInowFMaesyBjNWNmwelUUq6LO
+        i7LMaLGilJO/jlOgltp0IB4aTiJEPri9LZh/N7aDbIAddKr3ZxFb6KXSmPWgHXDy54h3oITBGjmi
+        L8NGRBgNgBPYgxPBcsZo4uSdNNx58KMTqDii4Amjxzp0Czj52NGwIDsT/CJCP6wC63WwU51o7HlT
+        nOqS1xdgLxUuUXCaYuT/21kt/tXOaVS4Nm+nplotKo7bp0OtnLxOfmKQMFYfL1bz66cJSk6xEi7W
+        UV2oY29FWCJ8TX0COwg2LxZXOJyAJ7Z3oyjLBS2QDRjZk+RTlXFevIXBj7g5aMQhxYlhQEQT/c7s
+        YpyEBD/exI2tcs5cKLys6SXCOYlJ8XdD/HmLxOw3cAzCt6gEAAA=
+    headers: {connection: Keep-Alive, content-encoding: gzip, content-length: '551',
+      content-type: text/xml; charset=ISO-8859-1, date: 'Wed, 16 Oct 2013 21:33:38
+        GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x, set-cookie: JSESSIONID=VgCJSfGSymb7BTz4xjqD2D6fqz89ZvnfV492nVyvhrvJCfcQtCXB!-1256102350;
+        path=/, vary: 'Accept-Encoding, User-Agent', x-powered-by: Servlet/2.5 JSP/2.1}
+    status: {code: 200, message: OK}

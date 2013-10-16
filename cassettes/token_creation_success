@@ -1,0 +1,24 @@
+- request: !!python/object:vcr.request.Request
+    body: mensagem=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22ISO-8859-1%22%3F%3E%0A%3Crequisicao-token+id%3D%228fc889c7-004f-42f1-963a-31aa26f75e5c%22+versao%3D%221.2.1%22%3E%0A%3Cdados-ec%3E%0A%09%3Cnumero%3E1006993069%3C%2Fnumero%3E%0A++++%3Cchave%3E25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3%3C%2Fchave%3E%0A%3C%2Fdados-ec%3E%0A%3Cdados-portador%3E%0A%09%3Cnumero%3E4012001037141112%3C%2Fnumero%3E%0A%09%3Cvalidade%3E20101%3C%2Fvalidade%3E%0A%09%3Cnome-portador%3EJOAO+DA+SILVA%3C%2Fnome-portador%3E%0A%3C%2Fdados-portador%3E%0A%3C%2Frequisicao-token%3E
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [user-agent, python-cielo]
+      - !!python/tuple [Content-Type, application/x-www-form-urlencoded]
+      - !!python/tuple [Accept, '*/*']
+      - !!python/tuple [Content-Length, !!python/unicode '570']
+    host: qasecommerce.cielo.com.br
+    method: POST
+    path: /servicos/ecommwsec.do
+    port: 443
+    protocol: https
+  response:
+    body: {string: "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n<retorno-token\
+        \ versao=\"1.2.1\" id=\"8fc889c7-004f-42f1-963a-31aa26f75e5c\" xmlns=\"http://ecommerce.cbmp.com.br\"\
+        >\n  <token>\n    <dados-token>\n      <codigo-token>O/sN7IgUNo4FKXy6SeQRc+BbuZiFvYo4Sqdph0EWaoI=</codigo-token>\n\
+        \      <status>1</status>\n      <numero-cartao-truncado>401200******1112</numero-cartao-truncado>\n\
+        \    </dados-token>\n  </token>\n</retorno-token>\n"}
+    headers: {content-length: '406', content-type: text/xml; charset=ISO-8859-1, date: 'Wed,
+        16 Oct 2013 21:33:37 GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x,
+      set-cookie: JSESSIONID=sGkNSfGRpPRxgJ4pZhd1xf04bJQr98n6GqTYd117T7d3gpmh8VF3!-1256102350;
+        path=/, x-powered-by: Servlet/2.5 JSP/2.1}
+    status: {code: 200, message: OK}

@@ -1,9 +1,17 @@
+# -*- coding: utf-8 -*-
+from os import path
 import unittest
+from vcr import VCR
+
 from decimal import Decimal
 from cielo import *
 
 
 class MainTest(unittest.TestCase):
+
+    cassettes = path.join(path.dirname(__file__), 'cassettes')
+    vcr = VCR(cassette_library_dir=cassettes)
+
     def test_01_payment_attempt_authorized(self):
         params = {
             'affiliation_id': '1006993069',
@@ -20,9 +28,10 @@ class MainTest(unittest.TestCase):
             'transaction': CASH,
             'sandbox': True,
         }
-
         attempt = PaymentAttempt(**params)
-        self.assertTrue(attempt.get_authorized())
+
+        with MainTest.vcr.use_cassette('authorization_success'):
+            self.assertTrue(attempt.get_authorized())
 
     def test_02_payment_attempt_unauthorized(self):
         params = {
@@ -40,9 +49,10 @@ class MainTest(unittest.TestCase):
             'transaction': CASH,
             'sandbox': True,
         }
-
         attempt = PaymentAttempt(**params)
-        self.assertRaises(GetAuthorizedException, attempt.get_authorized)
+
+        with MainTest.vcr.use_cassette('authorization_failure'):
+            self.assertRaises(GetAuthorizedException, attempt.get_authorized)
 
     def test_03_payment_attempt_capture(self):
         params = {
@@ -60,10 +70,13 @@ class MainTest(unittest.TestCase):
             'transaction': CASH,
             'sandbox': True,
         }
-
         attempt = PaymentAttempt(**params)
-        self.assertTrue(attempt.get_authorized())
-        self.assertTrue(attempt.capture())
+
+        with MainTest.vcr.use_cassette('authorization_success'):
+            self.assertTrue(attempt.get_authorized())
+
+        with MainTest.vcr.use_cassette('capture_success'):
+            self.assertTrue(attempt.capture())
 
     def test_04_create_cielo_token(self):
         params = {
@@ -76,8 +89,10 @@ class MainTest(unittest.TestCase):
             'card_holders_name': 'JOAO DA SILVA',
             'sandbox': True,
         }
-        token = CieloToken(**params)
-        token.create_token()
+        with MainTest.vcr.use_cassette('token_creation_success'):
+            token = CieloToken(**params)
+            token.create_token()
+
         self.assertEqual(token.status, '1')
         self.assertTrue('1112' in token.card)
 
@@ -92,7 +107,9 @@ class MainTest(unittest.TestCase):
             'card_holders_name': 'JOAO DA SILVA',
             'sandbox': True,
         }
-        token = CieloToken(**params)
+        with MainTest.vcr.use_cassette('token_creation_failure'):
+            token = CieloToken(**params)
+
         self.assertRaises(TokenException, token.create_token)
 
     def test_06_token_payment_attempt(self):
@@ -107,7 +124,10 @@ class MainTest(unittest.TestCase):
             'sandbox': True,
         }
         token = CieloToken(**params)
-        token.create_token()
+
+        with MainTest.vcr.use_cassette('token_creation_success'):
+            token.create_token()
+
         self.assertEqual(token.status, '1')
         self.assertTrue('1112' in token.card)
 
@@ -124,8 +144,12 @@ class MainTest(unittest.TestCase):
             'url_redirect': 'http://127.0.0.1:8000/',
         }
         attempt = TokenPaymentAttempt(**params)
-        self.assertTrue(attempt.get_authorized())
-        self.assertTrue(attempt.capture())
+
+        with MainTest.vcr.use_cassette('authorization_success_with_token'):
+            self.assertTrue(attempt.get_authorized())
+
+        with MainTest.vcr.use_cassette('capture_success_with_token'):
+            self.assertTrue(attempt.capture())
 
 if __name__ == '__main__':
     unittest.main()
