@@ -66,7 +66,24 @@ class TokenException(Exception):
     pass
 
 
-class CieloToken(object):
+class CieloRequest(object):
+
+    def _get_real_path(self, filename):
+        return os.path.join(os.path.dirname(os.path.abspath(__file__)), filename)
+
+    def make_request(self, url, template):
+        template = open(self._get_real_path(template)).read()
+        payload = template % self.__dict__
+
+        self.response = requests.post(
+            url,
+            data={'mensagem': payload, },
+            headers={'user-agent': 'python-cielo'},
+        )
+        return xml.dom.minidom.parseString(self.response.content)
+
+
+class CieloToken(CieloRequest):
     create_token_template = 'token.xml'
 
     def __init__(
@@ -94,19 +111,8 @@ class CieloToken(object):
         self.card_number = card_number
         self.sandbox = sandbox
 
-    def _get_real_path(self, filename):
-        return os.path.join(os.path.dirname(os.path.abspath(__file__)), filename)
-
     def create_token(self):
-        template = open(self._get_real_path(self.create_token_template)).read()
-        payload = template % self.__dict__
-
-        self.response = requests.post(
-            self.url,
-            data={'mensagem': payload, },
-            headers={'user-agent': 'python-cielo'},
-        )
-        self.dom = xml.dom.minidom.parseString(self.response.content)
+        self.dom = self.make_request(self.url, self.create_token_template)
 
         if self.dom.getElementsByTagName('erro'):
             raise TokenException('Erro ao gerar token!')
@@ -120,7 +126,7 @@ class CieloToken(object):
         return True
 
 
-class Attempt(object):
+class Attempt(CieloRequest):
     authorization_template = None
     capture_template = 'capture.xml'
 
@@ -130,16 +136,7 @@ class Attempt(object):
     def get_authorized(self):
         self.date = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
 
-        template = open(self._get_real_path(self.authorization_template)).read()
-        payload = template % self.__dict__
-
-        self.response = requests.post(
-            self.url,
-            data={'mensagem': payload, },
-            headers={'user-agent': 'python-cielo'},
-        )
-
-        self.dom = xml.dom.minidom.parseString(self.response.content)
+        self.dom = self.make_request(self.url, self.authorization_template)
 
         if self.dom.getElementsByTagName('erro'):
             self.error = self.dom.getElementsByTagName(
@@ -171,17 +168,9 @@ class Attempt(object):
         assert self._authorized, \
             u'get_authorized(...) must be called before capture(...)'
 
-        template = open(self._get_real_path(self.capture_template)).read()
-        payload = template % self.__dict__
+        self.dom = self.make_request(self.url, self.authorization_template)
 
-        response = requests.post(
-            self.url,
-            data={'mensagem': payload, },
-            headers={'user-agent': 'python-cielo'},
-        )
-
-        dom = xml.dom.minidom.parseString(response.content)
-        status = int(dom.getElementsByTagName('status')[0].childNodes[0].data)
+        status = int(self.dom.getElementsByTagName('status')[0].childNodes[0].data)
 
         if status != 6:
             # 6 = capturado
@@ -262,7 +251,7 @@ class TokenPaymentAttempt(BasePaymentAttempt):
     authorization_template = 'authorize_token.xml'
 
     def __init__(self, **kwargs):
-        # Required arguments for attempts using the credit card data
+        # Required arguments for attempts using tokens
         try:
             self.token = kwargs.pop('token')
 
