@@ -79,6 +79,7 @@ class CieloRequest(object):
             url,
             data={'mensagem': payload, },
             headers={'user-agent': 'python-cielo'},
+            timeout=30,
         )
         return xml.dom.minidom.parseString(self.response.content)
 
