@@ -112,10 +112,10 @@ class MainTest(unittest.TestCase):
             'card_holders_name': 'JOAO DA SILVA',
             'sandbox': True,
         }
-        with MainTest.vcr.use_cassette('token_creation_failure'):
-            token = CieloToken(**params)
+        token = CieloToken(**params)
 
-        self.assertRaises(TokenException, token.create_token)
+        with MainTest.vcr.use_cassette('token_creation_failure'):
+            self.assertRaises(TokenException, token.create_token)
 
     def test_06_token_payment_attempt(self):
         params = {
