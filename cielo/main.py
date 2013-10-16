@@ -98,7 +98,9 @@ class CieloToken(object):
                 'token.xml'), 'r').read() % self.__dict__
         self.response = requests.post(
             self.url,
-            data={'mensagem': self.payload, })
+            data={'mensagem': self.payload, },
+            headers={'user-agent': 'python-cielo'},
+        )
         self.dom = xml.dom.minidom.parseString(self.response.content)
 
         if self.dom.getElementsByTagName('erro'):
@@ -126,7 +128,9 @@ class Attempt(object):
 
         self.response = requests.post(
             self.url,
-            data={'mensagem': self.payload, })
+            data={'mensagem': self.payload, },
+            headers={'user-agent': 'python-cielo'},
+        )
 
         self.dom = xml.dom.minidom.parseString(self.response.content)
 
@@ -165,9 +169,11 @@ class Attempt(object):
                 os.path.dirname(os.path.abspath(__file__)), 'capture.xml'),
             'r').read() % self.__dict__
 
-        response = requests.post(self.url, data={
-            'mensagem': payload,
-        })
+        response = requests.post(
+            self.url,
+            data={'mensagem': payload, },
+            headers={'user-agent': 'python-cielo'},
+        )
 
         dom = xml.dom.minidom.parseString(response.content)
         status = int(dom.getElementsByTagName('status')[0].childNodes[0].data)
