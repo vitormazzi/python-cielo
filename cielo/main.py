@@ -43,7 +43,7 @@ class CieloRequest(object):
 
     def make_request(self, url, template_name):
         template_path = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)), template_name
+            os.path.dirname(os.path.abspath(__file__)), 'templates', template_name
         )
         template = open(template_path).read()
         payload = template % self.__dict__

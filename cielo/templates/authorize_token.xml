@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<requisicao-transacao id="1" versao="1.1.1">
+<requisicao-transacao id="f094958b-3b68-4c0b-9e68-3137f24fb308" versao="1.3.0">
     <dados-ec>
         <numero>%(affiliation_id)s</numero>
         <chave>%(api_key)s</chave>
     </dados-ec>
     <dados-portador>
-        <numero>%(card_number)s</numero>
-        <validade>%(expiration)s</validade>
-        <indicador>1</indicador>
-        <codigo-seguranca>%(cvc2)s</codigo-seguranca>
-        <nome-portador>%(card_holders_name)s</nome-portador>
+        <token>%(token)s</token>
     </dados-portador>
     <dados-pedido>
         <numero>%(order_id)s</numero>
@@ -17,12 +13,15 @@
         <moeda>986</moeda>
         <data-hora>%(date)s</data-hora>
         <idioma>PT</idioma>
+        <soft-descriptor></soft-descriptor>
     </dados-pedido>
     <forma-pagamento>
         <bandeira>%(card_type)s</bandeira>
         <produto>%(transaction_type)s</produto>
         <parcelas>%(installments)s</parcelas>
     </forma-pagamento>
+    <url-retorno>%(url_redirect)s</url-retorno>
     <autorizar>3</autorizar>
     <capturar>false</capturar>
+    <gerar-token>false</gerar-token>
 </requisicao-transacao>

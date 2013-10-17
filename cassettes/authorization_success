@@ -1,7 +1,7 @@
 - request: !!python/object:vcr.request.Request
-    body: mensagem=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22ISO-8859-1%22%3F%3E%0A%3Crequisicao-transacao+id%3D%221%22+versao%3D%221.1.1%22%3E%0A++++%3Cdados-ec%3E%0A++++++++%3Cnumero%3E1006993069%3C%2Fnumero%3E%0A++++++++%3Cchave%3E25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3%3C%2Fchave%3E%0A++++%3C%2Fdados-ec%3E%0A++++%3Cdados-portador%3E%0A++++++++%3Cnumero%3E4012001037141112%3C%2Fnumero%3E%0A++++++++%3Cvalidade%3E20101%3C%2Fvalidade%3E%0A++++++++%3Cindicador%3E1%3C%2Findicador%3E%0A++++++++%3Ccodigo-seguranca%3E423%3C%2Fcodigo-seguranca%3E%0A++++++++%3Cnome-portador%3EJOAO+DA+SILVA%3C%2Fnome-portador%3E%0A++++%3C%2Fdados-portador%3E%0A++++%3Cdados-pedido%3E%0A++++++++%3Cnumero%3E7DSD163AH1%3C%2Fnumero%3E%0A++++++++%3Cvalor%3E100%3C%2Fvalor%3E%0A++++++++%3Cmoeda%3E986%3C%2Fmoeda%3E%0A++++++++%3Cdata-hora%3E2013-10-16T18%3A36%3A10%3C%2Fdata-hora%3E%0A++++++++%3Cidioma%3EPT%3C%2Fidioma%3E%0A++++%3C%2Fdados-pedido%3E%0A++++%3Cforma-pagamento%3E%0A++++++++%3Cbandeira%3Evisa%3C%2Fbandeira%3E%0A++++++++%3Cproduto%3E1%3C%2Fproduto%3E%0A++++++++%3Cparcelas%3E1%3C%2Fparcelas%3E%0A++++%3C%2Fforma-pagamento%3E%0A++++%3Cautorizar%3E3%3C%2Fautorizar%3E%0A++++%3Ccapturar%3Efalse%3C%2Fcapturar%3E%0A%3C%2Frequisicao-transacao%3E%0A
+    body: mensagem=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22ISO-8859-1%22%3F%3E%0A%3Crequisicao-transacao+id%3D%22f094958b-3b68-4c0b-9e68-3137f24fb308%22+versao%3D%221.3.0%22%3E%0A++++%3Cdados-ec%3E%0A++++++++%3Cnumero%3E1006993069%3C%2Fnumero%3E%0A++++++++%3Cchave%3E25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3%3C%2Fchave%3E%0A++++%3C%2Fdados-ec%3E%0A++++%3Cdados-portador%3E%0A++++++++%3Cnumero%3E4012001037141112%3C%2Fnumero%3E%0A++++++++%3Cvalidade%3E20101%3C%2Fvalidade%3E%0A++++++++%3Cindicador%3E1%3C%2Findicador%3E%0A++++++++%3Ccodigo-seguranca%3E423%3C%2Fcodigo-seguranca%3E%0A++++++++%3Cnome-portador%3EJOAO+DA+SILVA%3C%2Fnome-portador%3E%0A++++%3C%2Fdados-portador%3E%0A++++%3Cdados-pedido%3E%0A++++++++%3Cnumero%3E7DSD163AH1%3C%2Fnumero%3E%0A++++++++%3Cvalor%3E100%3C%2Fvalor%3E%0A++++++++%3Cmoeda%3E986%3C%2Fmoeda%3E%0A++++++++%3Cdata-hora%3E2009-12-14T12%3A00%3A01%3C%2Fdata-hora%3E%0A++++++++%3Cidioma%3EPT%3C%2Fidioma%3E%0A++++++++%3Csoft-descriptor%3E%3C%2Fsoft-descriptor%3E%0A++++%3C%2Fdados-pedido%3E%0A++++%3Cforma-pagamento%3E%0A++++++++%3Cbandeira%3Evisa%3C%2Fbandeira%3E%0A++++++++%3Cproduto%3E1%3C%2Fproduto%3E%0A++++++++%3Cparcelas%3E1%3C%2Fparcelas%3E%0A++++%3C%2Fforma-pagamento%3E%0A++++%3Curl-retorno%3ENone%3C%2Furl-retorno%3E%0A++++%3Cautorizar%3E3%3C%2Fautorizar%3E%0A++++%3Ccapturar%3Efalse%3C%2Fcapturar%3E%0A++++%3Cgerar-token%3Efalse%3C%2Fgerar-token%3E%0A%3C%2Frequisicao-transacao%3E%0A
     headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Content-Length, !!python/unicode '1251']
+    - - !!python/tuple [Content-Length, !!python/unicode '1439']
       - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
       - !!python/tuple [Content-Type, application/x-www-form-urlencoded]
       - !!python/tuple [Accept, '*/*']
@@ -14,26 +14,18 @@
   response:
     body:
       string: !!binary |
-        PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iSVNPLTg4NTktMSI/Pgo8dHJhbnNhY2FvIHZl
-        cnNhbz0iMS4xLjEiIGlkPSIxIiB4bWxucz0iaHR0cDovL2Vjb21tZXJjZS5jYm1wLmNvbS5iciI+
-        CiAgPHRpZD4xMDA2OTkzMDY5MEEyMUUyMTAwMTwvdGlkPgogIDxwYW4+SXFWejdQOXphSWdUWWRV
-        NDFIYVcvT0IvZDdJZHd0dHF3YjJ2YVR0OE1UMD08L3Bhbj4KICA8ZGFkb3MtcGVkaWRvPgogICAg
-        PG51bWVybz43RFNEMTYzQUgxPC9udW1lcm8+CiAgICA8dmFsb3I+MTAwPC92YWxvcj4KICAgIDxt
-        b2VkYT45ODY8L21vZWRhPgogICAgPGRhdGEtaG9yYT4yMDEzLTEwLTE2VDE4OjMzOjM2Ljc2MC0w
-        MzowMDwvZGF0YS1ob3JhPgogICAgPGlkaW9tYT5QVDwvaWRpb21hPgogIDwvZGFkb3MtcGVkaWRv
-        PgogIDxmb3JtYS1wYWdhbWVudG8+CiAgICA8YmFuZGVpcmE+dmlzYTwvYmFuZGVpcmE+CiAgICA8
-        cHJvZHV0bz4xPC9wcm9kdXRvPgogICAgPHBhcmNlbGFzPjE8L3BhcmNlbGFzPgogIDwvZm9ybWEt
-        cGFnYW1lbnRvPgogIDxzdGF0dXM+NDwvc3RhdHVzPgogIDxhdXRlbnRpY2FjYW8+CiAgICA8Y29k
-        aWdvPjQ8L2NvZGlnbz4KICAgIDxtZW5zYWdlbT5UcmFuc2FjYW8gc2VtIGF1dGVudGljYWNhbzwv
-        bWVuc2FnZW0+CiAgICA8ZGF0YS1ob3JhPjIwMTMtMTAtMTZUMTg6MzM6MzYuNzgwLTAzOjAwPC9k
-        YXRhLWhvcmE+CiAgICA8dmFsb3I+MTAwPC92YWxvcj4KICAgIDxlY2k+NzwvZWNpPgogIDwvYXV0
-        ZW50aWNhY2FvPgogIDxhdXRvcml6YWNhbz4KICAgIDxjb2RpZ28+NDwvY29kaWdvPgogICAgPG1l
-        bnNhZ2VtPlRyYW5zYefjbyBhdXRvcml6YWRhPC9tZW5zYWdlbT4KICAgIDxkYXRhLWhvcmE+MjAx
-        My0xMC0xNlQxODozMzozNi43ODctMDM6MDA8L2RhdGEtaG9yYT4KICAgIDx2YWxvcj4xMDA8L3Zh
-        bG9yPgogICAgPGxyPjAwPC9scj4KICAgIDxhcnA+MTIzNDU2PC9hcnA+CiAgICA8bnN1PjY2NDAz
-        NDwvbnN1PgogIDwvYXV0b3JpemFjYW8+CjwvdHJhbnNhY2FvPgo=
-    headers: {content-length: '1007', content-type: text/xml; charset=ISO-8859-1,
-      date: 'Wed, 16 Oct 2013 21:33:36 GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22
-        OpenSSL/0.9.8x, set-cookie: JSESSIONID=yJtCSfGQCJ3cSF2tS6n3y65m4hgD74Td2M72G90GYhpG44hNzhCQ!-292205217;
-        path=/, x-powered-by: Servlet/2.5 JSP/2.1}
+        H4sIAAAAAAAE/5VTTY/aMBC98ytQ7sE2DvlAxqut9rAcql1paaseJ7FhLZE4OA674u/20L/RMQnt
+        IrWVuMDzm/c8M56JuHuv99Ojdp2xzSpiMxpNdVNZZZrdKlq/PMV5vihiFt3JifAOmg4qsGcD2KDn
+        wWHUKtrSIikWeRnzMs3jpKJlXGhEnPFsO0+2Jad5NMVsTbeKXr1vl4Toyta1dpWeVWXdzvA0K10k
+        J9Op8EZJRmlaFBx/6P08X3A8M0FCJChaaOT68PWUPRcnWO8239WXhD3CN/L0iahsrd68P7yV8yNs
+        fP55Q1eCBEdwKlC2i1utjLIhGaZreqzDyuzh5YGl/P4R84wUGjB+hL11oSBBBjjQtdUKZJGnggxw
+        oBV4iF+tAzmnjMeMxizbsGxJ0yXjs6xIYsqXlAryRzgYjTK2Bvm8EWSEA+/hHWJdl+AOvZZovCZQ
+        FO667kpsrashbmEHtW78pdMSGqUNlnY0HQjy+4h3YJ+ts6pHLRPkAscA4Jj20MkQuWAMCfKXNKLz
+        4PtOJoKMKCih91iHqQA3aHz2sGg7G3QjQh1WgfV2sNO13LjLxnW6nn68AB9c4zIG0eBR/33znNJ/
+        vfkwT9yt69HqyshM4IqaUKsgH5OfGSSsM6ebu/n5w4ZOzl4FN/eR3NjH3smwafg3vBO4VrI5Txa4
+        swEPbNP1Mk0Xac4FCRjZc8vnKs/zwg/vMgw5+QXEOs1PNwQAAA==
+    headers: {connection: Keep-Alive, content-encoding: gzip, content-length: '550',
+      content-type: text/xml; charset=ISO-8859-1, date: 'Thu, 17 Oct 2013 20:06:13
+        GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x, set-cookie: JSESSIONID=vhhvSgDV1pvpF56wnNjWrBdwGc7vwnGVwTn1PpJKLRwQyt1231jL!-292205217;
+        path=/, vary: 'Accept-Encoding, User-Agent', x-powered-by: Servlet/2.5 JSP/2.1}
     status: {code: 200, message: OK}
