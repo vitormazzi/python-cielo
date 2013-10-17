@@ -1,3 +1,5 @@
 include README.rst
 include cielo/authorize.xml
 include cielo/capture.xml
+include cielo/authorize_token.xml
+include cielo/token.xml
