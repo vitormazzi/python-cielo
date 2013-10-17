@@ -239,6 +239,48 @@ class MainTest(unittest.TestCase):
         with MainTest.vcr.use_cassette('authorization_success'):
             self.assertTrue(attempt.get_authorized())
 
+    def test_11_payment_attempt_failed_bad_api_key(self):
+        params = {
+            'affiliation_id': '1006993069',
+            'api_key': '25fbb99741c739dd84d',
+            'card_type': VISA,
+            'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
+            'order_id': '7DSD163AH1',  # strings are allowed here
+            'card_number': '4012001037141112',
+            'cvc2': 423,
+            'exp_month': 1,
+            'exp_year': 2010,
+            'card_holders_name': 'JOAO DA SILVA',
+            'installments': 1,
+            'transaction': CASH,
+            'sandbox': True,
+        }
+        attempt = PaymentAttempt(**params)
+
+        with MainTest.vcr.use_cassette('authorization_bad_api_key'):
+            self.assertRaises(CieloException, attempt.get_authorized)
+
+    def test_12_payment_attempt_failed_bad_affiliation_id(self):
+        params = {
+            'affiliation_id': '1',
+            'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
+            'card_type': VISA,
+            'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
+            'order_id': '7DSD163AH1',  # strings are allowed here
+            'card_number': '4012001037141112',
+            'cvc2': 423,
+            'exp_month': 1,
+            'exp_year': 2010,
+            'card_holders_name': 'JOAO DA SILVA',
+            'installments': 1,
+            'transaction': CASH,
+            'sandbox': True,
+        }
+        attempt = PaymentAttempt(**params)
+
+        with MainTest.vcr.use_cassette('authorization_bad_affiliation_id'):
+            self.assertRaises(CieloException, attempt.get_authorized)
+
 
 if __name__ == '__main__':
     unittest.main()
