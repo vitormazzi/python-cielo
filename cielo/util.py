@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 from decimal import Decimal
-import xml.dom.minidom
 
-__all__ = ['moneyfmt', 'xmltodict']
+__all__ = ['moneyfmt', ]
 
 def moneyfmt(value, places=2, curr='', sep=',', dp='.',
              pos='', neg='-', trailneg=''):
@@ -52,38 +51,3 @@ def moneyfmt(value, places=2, curr='', sep=',', dp='.',
     build(curr)
     build(neg if sign else pos)
     return ''.join(reversed(result))
-
-def xmltodict(xmlstring):
-    doc = xml.dom.minidom.parseString(xmlstring)
-    remove_whitespace_nodes(doc.documentElement)
-    content_dict = elementtodict(doc.documentElement)
-    return {doc.documentElement.tagName: content_dict}
-
-def elementtodict(parent):
-    child = parent.firstChild
-    if (not child):
-        return None
-    elif (child.nodeType == xml.dom.minidom.Node.TEXT_NODE):
-        return child.nodeValue
-
-    d = {}
-    while child is not None:
-        if (child.nodeType == xml.dom.minidom.Node.ELEMENT_NODE):
-            if child.tagName not in d:
-                d[child.tagName] = []
-
-            d[child.tagName].append(elementtodict(child))
-        child = child.nextSibling
-    return d
-
-def remove_whitespace_nodes(node, unlink=True):
-    remove_list = []
-    for child in node.childNodes:
-        if child.nodeType == xml.dom.Node.TEXT_NODE and not child.data.strip():
-            remove_list.append(child)
-        elif child.hasChildNodes():
-            remove_whitespace_nodes(child, unlink)
-    for node in remove_list:
-        node.parentNode.removeChild(node)
-        if unlink:
-            node.unlink()

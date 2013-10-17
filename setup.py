@@ -24,5 +24,5 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
-    install_requires=['requests==1.2.3', 'vcrpy==0.3.3', 'freezegun==0.1.8'],
+    install_requires=['requests==1.2.3', 'xmltodict==0.8.1', 'vcrpy==0.3.3', 'freezegun==0.1.8'],
 )

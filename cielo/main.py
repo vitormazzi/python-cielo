@@ -2,11 +2,12 @@
 import os
 from datetime import date, datetime
 from decimal import Decimal
-
 import requests
+import xmltodict
+
 from exceptions import CieloException, GetAuthorizedException, CaptureException, TokenException
 from constants import *
-from util import moneyfmt, xmltodict
+from util import moneyfmt
 
 __all__ = ['PaymentAttempt', 'TokenPaymentAttempt', 'CieloToken']
 
@@ -52,12 +53,12 @@ class CieloRequest(object):
             timeout=30,
         )
 
-        response_dict = xmltodict(self.cielo_response.content)
+        response_dict = xmltodict.parse(self.cielo_response.content, encoding='latin-1')
 
         if 'erro' in response_dict:
             erro = response_dict['erro']
-            self.error_id = erro['codigo'][0]
-            self.error_message = CIELO_MSG_ERRORS.get(self.error_id, erro['mensagem'][0])
+            self.error_id = erro['codigo']
+            self.error_message = CIELO_MSG_ERRORS.get(self.error_id, erro['mensagem'])
             raise CieloException(self.error_id, self.error_message, self.cielo_response.content)
 
         return response_dict
@@ -103,7 +104,6 @@ class Attempt(CieloRequest):
     May be used with the credit card data or with a token.
 
     TODO:
-    - authorization and capture in a single step
     - authorization with tokenization
     """
 
@@ -157,24 +157,24 @@ class Attempt(CieloRequest):
             '6': self.handle_capture,
         }
         transaction = response['transacao']
-        status = transaction['status'][0]
+        status = transaction['status']
 
         handler = handlers.get(status, self.handle_unexpected_response)
         return handler(transaction)
 
     def handle_authorization(self, transaction):
         self._authorized = True
-        self.transaction_id = transaction['tid'][0]
-        self.pan = transaction['pan'][0]
+        self.transaction_id = transaction['tid']
+        self.pan = transaction['pan']
 
     def handle_capture(self, transaction):
         self._authorized = True
         self._captured = True
 
     def handle_unexpected_response(self, transaction):
-        autorization = transaction['autorizacao'][0]
-        error_id = autorization['codigo'][0]
-        error_message = autorization['mensagem'][0]
+        autorization = transaction['autorizacao']
+        error_id = autorization['codigo']
+        error_message = autorization['mensagem']
         raise CieloException(error_id, error_message, self.cielo_response.content)
 
 
@@ -211,8 +211,8 @@ class CieloToken(WithCardData, CieloRequest):
     def create_token(self):
         response_dict = self.make_request(self.url, self.create_token_template)
 
-        dados_token = response_dict['retorno-token']['token'][0]['dados-token'][0]
-        self.token = dados_token['codigo-token'][0]
-        self.status = dados_token['status'][0]
-        self.card = dados_token['numero-cartao-truncado'][0]
+        dados_token = response_dict['retorno-token']['token']['dados-token']
+        self.token = dados_token['codigo-token']
+        self.status = dados_token['status']
+        self.card = dados_token['numero-cartao-truncado']
         return True
