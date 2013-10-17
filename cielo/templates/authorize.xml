@@ -27,5 +27,5 @@
     <url-retorno>%(url_redirect)s</url-retorno>
     <autorizar>3</autorizar>
     <capturar>%(auto_capture)s</capturar>
-    <gerar-token>false</gerar-token>
+    <gerar-token>%(tokenize)s</gerar-token>
 </requisicao-transacao>

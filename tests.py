@@ -472,5 +472,70 @@ class MainTest(unittest.TestCase):
         self.assertFalse(attempt._authorized)
         self.assertFalse(attempt._captured)
 
+    def test_payment_attempt_with_tokenization(self):
+        params = {
+            'affiliation_id': '1006993069',
+            'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
+            'card_type': VISA,
+            'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
+            'order_id': '7DSD163AH1',  # strings are allowed here
+            'card_number': '4012001037141112',
+            'cvc2': 423,
+            'exp_month': 1,
+            'exp_year': 2010,
+            'card_holders_name': 'JOAO DA SILVA',
+            'installments': 1,
+            'transaction': CASH,
+            'tokenize': True,
+            'sandbox': True,
+        }
+        attempt = PaymentAttempt(**params)
+
+        with MainTest.vcr.use_cassette('authorization_and_tokenization'):
+            self.assertTrue(attempt.get_authorized())
+
+        self.assertTrue(attempt._authorized)
+        self.assertFalse(attempt._captured)
+        self.assertEquals(attempt.transaction['token'], {
+            u'dados-token': {
+                u'status': u'1',
+                u'numero-cartao-truncado': u'401200******1112',
+                u'codigo-token': u'O/sN7IgUNo4FKXy6SeQRc+BbuZiFvYo4Sqdph0EWaoI='
+            }
+        })
+
+    def test_payment_attempt_with_capture_and_tokenization(self):
+        params = {
+            'affiliation_id': '1006993069',
+            'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
+            'card_type': VISA,
+            'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
+            'order_id': '7DSD163AH1',  # strings are allowed here
+            'card_number': '4012001037141112',
+            'cvc2': 423,
+            'exp_month': 1,
+            'exp_year': 2010,
+            'card_holders_name': 'JOAO DA SILVA',
+            'installments': 1,
+            'transaction': CASH,
+            'capture': True,
+            'tokenize': True,
+            'sandbox': True,
+        }
+        attempt = PaymentAttempt(**params)
+
+        with MainTest.vcr.use_cassette('authorization_capture_and_tokenization'):
+            self.assertTrue(attempt.get_authorized())
+
+        self.assertTrue(attempt._authorized)
+        self.assertTrue(attempt._captured)
+        self.assertEquals(attempt.transaction['token'], {
+            u'dados-token': {
+                u'status': u'1',
+                u'numero-cartao-truncado': u'401200******1112',
+                u'codigo-token': u'O/sN7IgUNo4FKXy6SeQRc+BbuZiFvYo4Sqdph0EWaoI='
+            }
+        })
+
 if __name__ == '__main__':
     unittest.main()

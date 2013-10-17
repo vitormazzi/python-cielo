@@ -115,6 +115,8 @@ class Attempt(CieloRequest):
         self.installments = kwargs.pop('installments', 1)
         self.transaction_type = kwargs.pop('transaction', CASH) # para manter assinatura do pyrcws
         self.auto_capture = 'true' if kwargs.pop('capture', False) else 'false'
+        self.tokenize = 'true' if kwargs.pop('tokenize', False) else 'false'
+
         self._authorized = False
         self._captured = False
 
@@ -152,30 +154,22 @@ class Attempt(CieloRequest):
         return True
 
     def handle_response(self, response):
-        handlers = {
-            '4': self.handle_authorization,
-            '6': self.handle_capture,
-        }
-        transaction = response['transacao']
-        status = transaction['status']
+        self.transaction = response['transacao']
+        status = self.transaction['status']
 
-        handler = handlers.get(status, self.handle_unexpected_response)
-        return handler(transaction)
+        if status == '4':
+            self._authorized = True
+        elif status == '6':
+            self._authorized = True
+            self._captured = True
+        else:
+            autorization = self.transaction['autorizacao']
+            error_id = autorization['codigo']
+            error_message = autorization['mensagem']
+            raise CieloException(error_id, error_message, self.cielo_response.content)
 
-    def handle_authorization(self, transaction):
-        self._authorized = True
-        self.transaction_id = transaction['tid']
-        self.pan = transaction['pan']
-
-    def handle_capture(self, transaction):
-        self._authorized = True
-        self._captured = True
-
-    def handle_unexpected_response(self, transaction):
-        autorization = transaction['autorizacao']
-        error_id = autorization['codigo']
-        error_message = autorization['mensagem']
-        raise CieloException(error_id, error_message, self.cielo_response.content)
+        self.transaction_id = self.transaction['tid']
+        self.pan = self.transaction['pan']
 
 
 class TokenPaymentAttempt(Attempt):
