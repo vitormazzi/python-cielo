@@ -6,6 +6,8 @@ from freezegun import freeze_time
 
 from decimal import Decimal
 from cielo import *
+from cielo.exceptions import *
+from cielo.constants import *
 
 
 class MainTest(unittest.TestCase):
