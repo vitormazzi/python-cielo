@@ -65,7 +65,7 @@ class CieloRequest(object):
 
 class WithCardData(object):
     """
-    Mixin which handles the credit card parameters
+    Mixin which handles the credit card parameters, expects be used in a subclass of CieloRequest
     """
 
     def __init__(self, **kwargs):
@@ -97,22 +97,6 @@ class WithCardData(object):
             raise ValueError(reason)
 
 
-class CieloToken(WithCardData, CieloRequest):
-    """
-    Tokenizes a credit card without charging it.
-    """
-    create_token_template = 'token.xml'
-
-    def create_token(self):
-        response_dict = self.make_request(self.url, self.create_token_template)
-
-        dados_token = response_dict['retorno-token']['token'][0]['dados-token'][0]
-        self.token = dados_token['codigo-token'][0]
-        self.status = dados_token['status'][0]
-        self.card = dados_token['numero-cartao-truncado'][0]
-        return True
-
-
 class Attempt(CieloRequest):
     """
     Base class implementing the methods for authorizing and capturing a transaction.
@@ -141,11 +125,12 @@ class Attempt(CieloRequest):
         self.total = moneyfmt(kwargs.pop('total'), sep='', dp='')
 
     def validate(self):
+        if self.installments not in range(1, 13):
+            raise ValueError(u'installments must be a integer between 1 and 12')
+        elif (self.transaction_type == CASH) and (self.installments != 1):
+            raise ValueError('Payments in cash must have installments = 1')
+
         super(Attempt, self).validate()
-        assert self.installments in range(1, 13), u'installments must be a integer between 1 and 12'
-        assert (self.installments == 1 and self.transaction_type == CASH) \
-                    or self.installments > 1 and self.transaction_type != CASH, \
-                    u'if installments = 1 then transaction must be None or "cash"'
 
     def get_authorized(self):
         self.date = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
@@ -159,7 +144,7 @@ class Attempt(CieloRequest):
             autorizacao = transacao['autorizacao'][0]
             error_id = autorizacao['codigo'][0]
             error_message = autorizacao['mensagem'][0]
-            raise GetAuthorizedException(error_id, error_message)
+            raise GetAuthorizedException(error_id, error_message, self.cielo_response.content)
 
         self.transaction_id = transacao['tid'][0]
         self.pan = transacao['pan'][0]
@@ -168,8 +153,8 @@ class Attempt(CieloRequest):
         return True
 
     def capture(self):
-        assert self._authorized, \
-            u'get_authorized(...) must be called before capture(...)'
+        if not self._authorized:
+            raise ValueError(u'get_authorized(...) must be called before capture(...)')
 
         response_dict = self.make_request(self.url, self.capture_template)
 
@@ -188,15 +173,10 @@ class TokenPaymentAttempt(Attempt):
     """
     authorization_template = 'authorize_token.xml'
 
-    def __init__(self, **kwargs):
-        # Required arguments for attempts using tokens
-        try:
-            self.token = kwargs.pop('token')
+    def fetch_required_arguments(self, **kwargs):
+        super(TokenPaymentAttempt, self).fetch_required_arguments(**kwargs)
 
-        except KeyError as e:
-            raise TypeError(u"'{0[0]}' is required".format(e.args))
-
-        super(TokenPaymentAttempt, self).__init__(**kwargs)
+        self.token = kwargs.pop('token')
 
 
 class PaymentAttempt(WithCardData, Attempt):
@@ -209,3 +189,19 @@ class PaymentAttempt(WithCardData, Attempt):
         super(PaymentAttempt, self).fetch_required_arguments(**kwargs)
 
         self.cvc2 = kwargs.pop('cvc2')
+
+
+class CieloToken(WithCardData, CieloRequest):
+    """
+    Tokenizes a credit card without charging it.
+    """
+    create_token_template = 'token.xml'
+
+    def create_token(self):
+        response_dict = self.make_request(self.url, self.create_token_template)
+
+        dados_token = response_dict['retorno-token']['token'][0]['dados-token'][0]
+        self.token = dados_token['codigo-token'][0]
+        self.status = dados_token['status'][0]
+        self.card = dados_token['numero-cartao-truncado'][0]
+        return True
