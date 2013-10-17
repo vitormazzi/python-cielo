@@ -25,10 +25,9 @@ class CieloRequest(object):
 
         # Required arguments with default values
         self.sandbox = kwargs.pop('sandbox', False)
-        self.url_redirect = kwargs.pop('url_redirect', None)
+        self.url_redirect = kwargs.pop('url_redirect', 'null')
 
         self.url = SANDBOX_URL if self.sandbox else PRODUCTION_URL
-        self._authorized = False
 
         self.validate()
 
@@ -44,12 +43,11 @@ class CieloRequest(object):
         template_path = os.path.join(
             os.path.dirname(os.path.abspath(__file__)), 'templates', template_name
         )
-        template = open(template_path).read()
-        payload = template % self.__dict__
+        payload = open(template_path).read() % self.__dict__
 
         self.cielo_response = requests.post(
             url,
-            data={'mensagem': payload, },
+            data={'mensagem': payload},
             headers={'user-agent': 'python-cielo'},
             timeout=30,
         )
@@ -65,17 +63,17 @@ class CieloRequest(object):
         return response_dict
 
 
-class RequestWithCardData(CieloRequest):
+class WithCardData(object):
     """
     Mixin which handles the credit card parameters
     """
 
     def __init__(self, **kwargs):
-        super(RequestWithCardData, self).__init__(**kwargs)
+        super(WithCardData, self).__init__(**kwargs)
         self.expiration = '%s%s' % (self.exp_year, self.exp_month)
 
     def fetch_required_arguments(self, **kwargs):
-        super(RequestWithCardData, self).fetch_required_arguments(**kwargs)
+        super(WithCardData, self).fetch_required_arguments(**kwargs)
 
         self.card_number = kwargs.pop('card_number')
         self.exp_month = kwargs.pop('exp_month')
@@ -83,7 +81,7 @@ class RequestWithCardData(CieloRequest):
         self.card_holders_name = kwargs.pop('card_holders_name')
 
     def validate(self):
-        super(RequestWithCardData, self).validate()
+        super(WithCardData, self).validate()
 
         exp_year_length = len(str(self.exp_year))
         if exp_year_length == 2:
@@ -99,7 +97,7 @@ class RequestWithCardData(CieloRequest):
             raise ValueError(reason)
 
 
-class CieloToken(RequestWithCardData):
+class CieloToken(WithCardData, CieloRequest):
     """
     Tokenizes a credit card without charging it.
     """
@@ -132,6 +130,7 @@ class Attempt(CieloRequest):
         # Required arguments with default values
         self.installments = kwargs.pop('installments', 1)
         self.transaction_type = kwargs.pop('transaction', CASH) # para manter assinatura do pyrcws
+        self._authorized = False
 
         super(Attempt, self).__init__(**kwargs)
 
@@ -200,7 +199,7 @@ class TokenPaymentAttempt(Attempt):
         super(TokenPaymentAttempt, self).__init__(**kwargs)
 
 
-class PaymentAttempt(Attempt, RequestWithCardData):
+class PaymentAttempt(WithCardData, Attempt):
     """
     Interface for creating payments using the credit card data.
     """
