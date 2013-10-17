@@ -11,7 +11,11 @@ from util import moneyfmt
 
 __all__ = ['PaymentAttempt', 'TokenPaymentAttempt', 'CieloToken']
 
+
 class CieloRequest(object):
+    """
+    Base class containg the http communication and processing logic
+    """
 
     def __init__(self, **kwargs):
         # Required arguments for all request types
@@ -54,6 +58,9 @@ class CieloRequest(object):
 
 
 class RequestWithCardData(CieloRequest):
+    """
+    Mixin which handles the credit card parameters
+    """
 
     def __init__(self, **kwargs):
         super(RequestWithCardData, self).__init__(**kwargs)
@@ -85,6 +92,9 @@ class RequestWithCardData(CieloRequest):
 
 
 class CieloToken(RequestWithCardData):
+    """
+    Tokenizes a credit card without charging it.
+    """
     create_token_template = 'token.xml'
 
     def create_token(self):
@@ -103,6 +113,15 @@ class CieloToken(RequestWithCardData):
 
 
 class Attempt(CieloRequest):
+    """
+    Base class implementing the methods for authorizing and capturing a transaction.
+    May be used with the credit card data or with a token.
+
+    TODO:
+    - authorization and capture in a single step
+    - authorization with tokenization
+    """
+
     authorization_template = None
     capture_template = 'capture.xml'
 
@@ -174,6 +193,9 @@ class Attempt(CieloRequest):
 
 
 class TokenPaymentAttempt(Attempt):
+    """
+    Interface for creating payments using tokenized credit cards.
+    """
     authorization_template = 'authorize_token.xml'
 
     def __init__(self, **kwargs):
@@ -188,6 +210,9 @@ class TokenPaymentAttempt(Attempt):
 
 
 class PaymentAttempt(Attempt, RequestWithCardData):
+    """
+    Interface for creating payments using the credit card data.
+    """
     authorization_template = 'authorize.xml'
 
     def fetch_required_arguments(self, **kwargs):
