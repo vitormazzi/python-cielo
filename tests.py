@@ -120,7 +120,7 @@ class MainTest(unittest.TestCase):
         token = CieloToken(**params)
 
         with MainTest.vcr.use_cassette('token_creation_failure'):
-            self.assertRaises(TokenException, token.create_token)
+            self.assertRaises(CieloException, token.create_token)
 
     def test_06_token_payment_attempt(self):
         params = {

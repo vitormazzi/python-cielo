@@ -1,13 +1,12 @@
 # coding: utf-8
 import os
 from datetime import date, datetime
-import xml.dom.minidom
 from decimal import Decimal
 
 import requests
-from exceptions import GetAuthorizedException, CaptureException, TokenException
+from exceptions import CieloException, GetAuthorizedException, CaptureException, TokenException
 from constants import *
-from util import moneyfmt
+from util import moneyfmt, xmltodict
 
 __all__ = ['PaymentAttempt', 'TokenPaymentAttempt', 'CieloToken']
 
@@ -48,13 +47,22 @@ class CieloRequest(object):
         template = open(template_path).read()
         payload = template % self.__dict__
 
-        self.response = requests.post(
+        self.cielo_response = requests.post(
             url,
             data={'mensagem': payload, },
             headers={'user-agent': 'python-cielo'},
             timeout=30,
         )
-        return xml.dom.minidom.parseString(self.response.content)
+
+        response_dict = xmltodict(self.cielo_response.content)
+
+        if 'erro' in response_dict:
+            erro = response_dict['erro']
+            self.error_id = erro['codigo'][0]
+            self.error_message = CIELO_MSG_ERRORS.get(self.error_id, erro['mensagem'][0])
+            raise CieloException(self.error_id, self.error_message, self.cielo_response.content)
+
+        return response_dict
 
 
 class RequestWithCardData(CieloRequest):
@@ -98,17 +106,12 @@ class CieloToken(RequestWithCardData):
     create_token_template = 'token.xml'
 
     def create_token(self):
-        self.dom = self.make_request(self.url, self.create_token_template)
+        response_dict = self.make_request(self.url, self.create_token_template)
 
-        if self.dom.getElementsByTagName('erro'):
-            raise TokenException('Erro ao gerar token!')
-
-        self.token = self.dom.getElementsByTagName(
-            'codigo-token')[0].childNodes[0].data
-        self.status = self.dom.getElementsByTagName(
-            'status')[0].childNodes[0].data
-        self.card = self.dom.getElementsByTagName(
-            'numero-cartao-truncado')[0].childNodes[0].data
+        dados_token = response_dict['retorno-token']['token'][0]['dados-token'][0]
+        self.token = dados_token['codigo-token'][0]
+        self.status = dados_token['status'][0]
+        self.card = dados_token['numero-cartao-truncado'][0]
         return True
 
 
@@ -148,32 +151,19 @@ class Attempt(CieloRequest):
     def get_authorized(self):
         self.date = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
 
-        self.dom = self.make_request(self.url, self.authorization_template)
+        response_dict = self.make_request(self.url, self.authorization_template)
 
-        if self.dom.getElementsByTagName('erro'):
-            self.error_id = self.dom.getElementsByTagName(
-                'erro')[0].getElementsByTagName('codigo')[0].childNodes[0].data
-            try:
-                self.error_message = CIELO_MSG_ERRORS[self.error_id]
-            except IndexError:
-                self.error_message = u'Erro não especificado, ver documentação (código %s)' % self.error_id
-            raise GetAuthorizedException(self.error_id, self.error_message)
-
-        self.status = int(
-            self.dom.getElementsByTagName('status')[0].childNodes[0].data)
-        if self.status != 4:
-            self.error_id = self.dom.getElementsByTagName(
-                'autorizacao')[0].getElementsByTagName(
-                    'codigo')[0].childNodes[0].data
-            self.error_message = self.dom.getElementsByTagName(
-                'autorizacao')[0].getElementsByTagName(
-                    'mensagem')[0].childNodes[0].data
+        transacao = response_dict['transacao']
+        status = int(transacao['status'][0])
+        if status != 4:
             self._authorized = False
-            raise GetAuthorizedException(self.error_id, self.error_message)
+            autorizacao = transacao['autorizacao'][0]
+            error_id = autorizacao['codigo'][0]
+            error_message = autorizacao['mensagem'][0]
+            raise GetAuthorizedException(error_id, error_message)
 
-        self.transaction_id = self.dom.getElementsByTagName(
-            'tid')[0].childNodes[0].data
-        self.pan = self.dom.getElementsByTagName('pan')[0].childNodes[0].data
+        self.transaction_id = transacao['tid'][0]
+        self.pan = transacao['pan'][0]
 
         self._authorized = True
         return True
@@ -182,13 +172,14 @@ class Attempt(CieloRequest):
         assert self._authorized, \
             u'get_authorized(...) must be called before capture(...)'
 
-        self.dom = self.make_request(self.url, self.authorization_template)
+        response_dict = self.make_request(self.url, self.capture_template)
 
-        status = int(self.dom.getElementsByTagName('status')[0].childNodes[0].data)
-
+        transacao = response_dict['transacao']
+        status = int(transacao['status'][0])
         if status != 6:
             # 6 = capturado
             raise CaptureException()
+
         return True
 
 
