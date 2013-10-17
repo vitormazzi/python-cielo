@@ -22,7 +22,7 @@ class MainTest(unittest.TestCase):
     def tearDown(self):
         self.freezer.stop()
 
-    def test_01_payment_attempt_authorized(self):
+    def test_payment_attempt_authorized(self):
         params = {
             'affiliation_id': '1006993069',
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
@@ -43,7 +43,7 @@ class MainTest(unittest.TestCase):
         with MainTest.vcr.use_cassette('authorization_success'):
             self.assertTrue(attempt.get_authorized())
 
-    def test_02_payment_attempt_unauthorized(self):
+    def test_payment_attempt_unauthorized(self):
         params = {
             'affiliation_id': '1006993069',
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
@@ -64,7 +64,7 @@ class MainTest(unittest.TestCase):
         with MainTest.vcr.use_cassette('authorization_failure'):
             self.assertRaises(GetAuthorizedException, attempt.get_authorized)
 
-    def test_03_payment_attempt_capture(self):
+    def test_payment_attempt_capture(self):
         params = {
             'affiliation_id': '1006993069',
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
@@ -88,7 +88,7 @@ class MainTest(unittest.TestCase):
         with MainTest.vcr.use_cassette('capture_success'):
             self.assertTrue(attempt.capture())
 
-    def test_04_create_cielo_token(self):
+    def test_create_cielo_token(self):
         params = {
             'affiliation_id': '1006993069',
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
@@ -106,7 +106,7 @@ class MainTest(unittest.TestCase):
         self.assertEqual(token.status, '1')
         self.assertTrue('1112' in token.card)
 
-    def test_05_raises_create_cielo_token(self):
+    def test_raises_create_cielo_token(self):
         params = {
             'affiliation_id': '323298379',
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
@@ -122,7 +122,7 @@ class MainTest(unittest.TestCase):
         with MainTest.vcr.use_cassette('token_creation_failure'):
             self.assertRaises(CieloException, token.create_token)
 
-    def test_06_token_payment_attempt(self):
+    def test_token_payment_attempt_authorized(self):
         params = {
             'affiliation_id': '1006993069',
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
@@ -151,7 +151,6 @@ class MainTest(unittest.TestCase):
             'installments': 1,
             'transaction': CASH,
             'sandbox': token.sandbox,
-            'url_redirect': 'http://127.0.0.1:8000/',
         }
         attempt = TokenPaymentAttempt(**params)
 
@@ -161,7 +160,7 @@ class MainTest(unittest.TestCase):
         with MainTest.vcr.use_cassette('capture_success_with_token'):
             self.assertTrue(attempt.capture())
 
-    def test_07_payment_attempt_expired_card(self):
+    def test_payment_attempt_expired_card(self):
         params = {
             'affiliation_id': '1006993069',
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
@@ -180,7 +179,7 @@ class MainTest(unittest.TestCase):
 
         self.assertRaises(ValueError, PaymentAttempt, **params)
 
-    def test_08_payment_attempt_invalid_exp_year(self):
+    def test_payment_attempt_invalid_exp_year(self):
         params = {
             'affiliation_id': '1006993069',
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
@@ -199,7 +198,7 @@ class MainTest(unittest.TestCase):
 
         self.assertRaises(ValueError, PaymentAttempt, **params)
 
-    def test_09_payment_attempt_invalid_exp_month(self):
+    def test_payment_attempt_invalid_exp_month(self):
         params = {
             'affiliation_id': '1006993069',
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
@@ -218,7 +217,7 @@ class MainTest(unittest.TestCase):
 
         self.assertRaises(ValueError, PaymentAttempt, **params)
 
-    def test_10_payment_attempt_authorized_using_exp_year_as_2_digits(self):
+    def test_payment_attempt_authorized_using_exp_year_as_2_digits(self):
         params = {
             'affiliation_id': '1006993069',
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
@@ -239,7 +238,7 @@ class MainTest(unittest.TestCase):
         with MainTest.vcr.use_cassette('authorization_success'):
             self.assertTrue(attempt.get_authorized())
 
-    def test_11_payment_attempt_failed_bad_api_key(self):
+    def test_payment_attempt_failed_bad_api_key(self):
         params = {
             'affiliation_id': '1006993069',
             'api_key': '25fbb99741c739dd84d',
@@ -260,7 +259,7 @@ class MainTest(unittest.TestCase):
         with MainTest.vcr.use_cassette('authorization_bad_api_key'):
             self.assertRaises(CieloException, attempt.get_authorized)
 
-    def test_12_payment_attempt_failed_bad_affiliation_id(self):
+    def test_payment_attempt_failed_bad_affiliation_id(self):
         params = {
             'affiliation_id': '1',
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
