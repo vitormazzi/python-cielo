@@ -216,7 +216,7 @@ class MainTest(unittest.TestCase):
 
         self.assertRaises(ValueError, PaymentAttempt, **params)
 
-    def test_10_payment_attempt_authorized_uging_exp_year_as_2_digits(self):
+    def test_10_payment_attempt_authorized_using_exp_year_as_2_digits(self):
         params = {
             'affiliation_id': '1006993069',
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
