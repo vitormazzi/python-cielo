@@ -26,6 +26,6 @@
     </forma-pagamento>
     <url-retorno>%(url_redirect)s</url-retorno>
     <autorizar>3</autorizar>
-    <capturar>false</capturar>
+    <capturar>%(auto_capture)s</capturar>
     <gerar-token>false</gerar-token>
 </requisicao-transacao>

@@ -114,7 +114,9 @@ class Attempt(CieloRequest):
         # Required arguments with default values
         self.installments = kwargs.pop('installments', 1)
         self.transaction_type = kwargs.pop('transaction', CASH) # para manter assinatura do pyrcws
+        self.auto_capture = 'true' if kwargs.pop('capture', False) else 'false'
         self._authorized = False
+        self._captured = False
 
         super(Attempt, self).__init__(**kwargs)
 
@@ -136,35 +138,44 @@ class Attempt(CieloRequest):
         self.date = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
 
         response_dict = self.make_request(self.url, self.authorization_template)
-
-        transacao = response_dict['transacao']
-        status = int(transacao['status'][0])
-        if status != 4:
-            self._authorized = False
-            autorizacao = transacao['autorizacao'][0]
-            error_id = autorizacao['codigo'][0]
-            error_message = autorizacao['mensagem'][0]
-            raise GetAuthorizedException(error_id, error_message, self.cielo_response.content)
-
-        self.transaction_id = transacao['tid'][0]
-        self.pan = transacao['pan'][0]
-
-        self._authorized = True
+        self.handle_response(response_dict)
         return True
 
     def capture(self):
+        if self._captured:
+            raise ValueError('Already captured')
         if not self._authorized:
             raise ValueError(u'get_authorized(...) must be called before capture(...)')
 
         response_dict = self.make_request(self.url, self.capture_template)
-
-        transacao = response_dict['transacao']
-        status = int(transacao['status'][0])
-        if status != 6:
-            # 6 = capturado
-            raise CaptureException()
-
+        self.handle_response(response_dict)
         return True
+
+    def handle_response(self, response):
+        handlers = {
+            '4': self.handle_authorization,
+            '6': self.handle_capture,
+        }
+        transaction = response['transacao']
+        status = transaction['status'][0]
+
+        handler = handlers.get(status, self.handle_unexpected_response)
+        return handler(transaction)
+
+    def handle_authorization(self, transaction):
+        self._authorized = True
+        self.transaction_id = transaction['tid'][0]
+        self.pan = transaction['pan'][0]
+
+    def handle_capture(self, transaction):
+        self._authorized = True
+        self._captured = True
+
+    def handle_unexpected_response(self, transaction):
+        autorization = transaction['autorizacao'][0]
+        error_id = autorization['codigo'][0]
+        error_message = autorization['mensagem'][0]
+        raise CieloException(error_id, error_message, self.cielo_response.content)
 
 
 class TokenPaymentAttempt(Attempt):
