@@ -3,3 +3,5 @@ include cielo/templates/authorize.xml
 include cielo/templates/capture.xml
 include cielo/templates/authorize_token.xml
 include cielo/templates/token.xml
+include cielo/templates/cancel.xml
+include cielo/templates/status_using_tid.xml

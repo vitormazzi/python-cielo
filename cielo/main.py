@@ -107,6 +107,7 @@ class Attempt(CieloRequest):
     authorization_template = None
     capture_template = 'capture.xml'
     cancelation_template = 'cancel.xml'
+    status_template = 'status_using_tid.xml'
 
     def __init__(self, **kwargs):
         # Required arguments with default values
@@ -181,6 +182,14 @@ class Attempt(CieloRequest):
 
         self.amount_to_cancel = moneyfmt(kwargs.pop('amount'), sep='', dp='')
         response_dict = self.make_request(self.url, self.cancelation_template)
+        self.handle_response(response_dict)
+        return True
+
+    def get_status(self, **kwargs):
+        if not hasattr(self, 'transaction_id'):
+            self.transaction_id = kwargs['transaction_id']
+
+        response_dict = self.make_request(self.url, self.status_template)
         self.handle_response(response_dict)
         return True
 

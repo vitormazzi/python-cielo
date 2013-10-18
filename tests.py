@@ -720,6 +720,156 @@ class MainTest(unittest.TestCase):
             u'mensagem': u'Transação com o Tid [10069930690A29531001] já está cancelada.'
         })
 
+    def test_status_for_authorized_transaction(self):
+        params = {
+            'affiliation_id': '1006993069',
+            'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
+            'card_type': VISA,
+            'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
+            'order_id': '7DSD163AH1',  # strings are allowed here
+            'card_number': '4012001037141112',
+            'cvc2': 423,
+            'exp_month': 1,
+            'exp_year': 2010,
+            'card_holders_name': 'JOAO DA SILVA',
+            'installments': 1,
+            'transaction': CASH,
+            'sandbox': True,
+        }
+        attempt = PaymentAttempt(**params)
+
+        with MainTest.vcr.use_cassette('authorization_success'):
+            self.assertTrue(attempt.get_authorized())
+
+        self.assertTrue(attempt._authorized)
+        self.assertFalse(attempt._captured)
+
+        with MainTest.vcr.use_cassette('status_for_authorized_transaction'):
+            self.assertTrue(attempt.get_status())
+
+        self.assertEquals(attempt.transaction['status'], '4')
+
+    def test_status_for_captured_transaction(self):
+        params = {
+            'affiliation_id': '1006993069',
+            'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
+            'card_type': VISA,
+            'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
+            'order_id': '7DSD163AH1',  # strings are allowed here
+            'card_number': '4012001037141112',
+            'cvc2': 423,
+            'exp_month': 1,
+            'exp_year': 2010,
+            'card_holders_name': 'JOAO DA SILVA',
+            'installments': 1,
+            'transaction': CASH,
+            'capture': True,
+            'sandbox': True,
+        }
+        attempt = PaymentAttempt(**params)
+
+        with MainTest.vcr.use_cassette('authorization_with_capture_success'):
+            self.assertTrue(attempt.get_authorized())
+
+        self.assertTrue(attempt._authorized)
+        self.assertTrue(attempt._captured)
+
+        with MainTest.vcr.use_cassette('status_for_captured_transaction'):
+            self.assertTrue(attempt.get_status())
+
+        self.assertEquals(attempt.transaction['status'], '6')
+
+    def test_status_for_cancelled_transaction(self):
+        params = {
+            'affiliation_id': '1006993069',
+            'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
+            'card_type': VISA,
+            'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
+            'order_id': '7DSD163AH1',  # strings are allowed here
+            'card_number': '4012001037141112',
+            'cvc2': 423,
+            'exp_month': 1,
+            'exp_year': 2010,
+            'card_holders_name': 'JOAO DA SILVA',
+            'installments': 1,
+            'transaction': CASH,
+            'capture': True,
+            'sandbox': True,
+        }
+        attempt = PaymentAttempt(**params)
+
+        with MainTest.vcr.use_cassette('authorization_with_capture_success'):
+            self.assertTrue(attempt.get_authorized())
+
+        self.assertTrue(attempt._authorized)
+        self.assertTrue(attempt._captured)
+
+        with MainTest.vcr.use_cassette('cancel_captured_transaction'):
+            self.assertTrue(attempt.cancel(amount=attempt.total))
+
+        self.assertTrue(attempt._cancelled)
+
+        with MainTest.vcr.use_cassette('status_for_canceled_transaction'):
+            self.assertTrue(attempt.get_status())
+
+        self.assertEquals(attempt.transaction['status'], '9')
+
+    def test_status_for_invalid_transaction(self):
+        params = {
+            'affiliation_id': '1006993069',
+            'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
+            'card_type': VISA,
+            'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
+            'order_id': '7DSD163AH1',  # strings are allowed here
+            'card_number': '4012001037141112',
+            'cvc2': 423,
+            'exp_month': 1,
+            'exp_year': 2010,
+            'card_holders_name': 'JOAO DA SILVA',
+            'installments': 1,
+            'transaction': CASH,
+            'capture': True,
+            'sandbox': True,
+        }
+        attempt = PaymentAttempt(**params)
+
+        with MainTest.vcr.use_cassette('status_for_invalid_transaction'):
+            self.assertRaises(CieloException, attempt.get_status, transaction_id=1)
+
+        self.assertEquals(attempt.error, {
+            u'@xmlns': u'http://ecommerce.cbmp.com.br',
+            u'codigo': u'001',
+            u'mensagem': u"O XML informado não é valido:\n- string value '1' does not match pattern for tidType in namespace http://ecommerce.cbmp.com.br: '<xml-fragment/>'"
+        })
+
+    def test_status_for_unknown_transaction(self):
+        params = {
+            'affiliation_id': '1006993069',
+            'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
+            'card_type': VISA,
+            'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
+            'order_id': '7DSD163AH1',  # strings are allowed here
+            'card_number': '4012001037141112',
+            'cvc2': 423,
+            'exp_month': 1,
+            'exp_year': 2010,
+            'card_holders_name': 'JOAO DA SILVA',
+            'installments': 1,
+            'transaction': CASH,
+            'capture': True,
+            'sandbox': True,
+        }
+        attempt = PaymentAttempt(**params)
+
+        with MainTest.vcr.use_cassette('status_for_unknown_transaction'):
+            self.assertRaises(CieloException, attempt.get_status, transaction_id='00000000000000000000')
+
+        self.assertEquals(attempt.error, {
+            u'@xmlns': u'http://ecommerce.cbmp.com.br',
+            u'codigo': u'003',
+            u'mensagem': u"Não foi encontrada transação para o Tid '00000000000000000000'."
+        })
+
 
 if __name__ == '__main__':
     unittest.main()
