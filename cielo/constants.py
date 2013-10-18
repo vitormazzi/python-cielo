@@ -19,6 +19,19 @@ TRANSACTION_TYPE_C = (
     (INSTALLMENT_CIELO, u'Parcelado (Cielo)'),
 )
 
+TRANSACTION_STATUS = {
+    '0': u'Criada',
+    '1': u'Em andamento',
+    '2': u'Autenticada',
+    '3': u'Não autenticada',
+    '4': u'Autorizada',
+    '5': u'Não autorizada',
+    '6': u'Capturada',
+    '9': u'Cancelada',
+    '10': u'Autenticação em andamento',
+    '12': u'Cancelamento em andamento',
+}
+
 SANDBOX_URL = 'https://qasecommerce.cielo.com.br/servicos/ecommwsec.do'
 PRODUCTION_URL = 'https://ecommerce.cbmp.com.br/servicos/ecommwsec.do'
 CIELO_MSG_ERRORS = {
