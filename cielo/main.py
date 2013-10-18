@@ -9,32 +9,31 @@ from exceptions import CieloException, GetAuthorizedException, CaptureException,
 from constants import *
 from util import moneyfmt
 
-__all__ = ['PaymentAttempt', 'TokenPaymentAttempt', 'CieloToken']
+__all__ = ['PaymentAttempt', 'TokenPaymentAttempt', 'BuyPageCieloAttempt', 'CieloToken']
 
 
 class CieloRequest(object):
     """
     Base class containg the http communication and processing logic
     """
-
     def __init__(self, **kwargs):
-        # Required arguments for all request types
+        # Required arguments
         try:
             self.fetch_required_arguments(**kwargs)
         except KeyError as e:
             raise TypeError(u"'{0[0]}' is required".format(e.args))
 
         # Required arguments with default values
-        self.sandbox = kwargs.pop('sandbox', False)
-        self.url_redirect = kwargs.pop('url_redirect', 'null')
+        self.sandbox = kwargs.get('sandbox', False)
+        self.url_redirect = kwargs.get('url_redirect', '')
 
         self.url = SANDBOX_URL if self.sandbox else PRODUCTION_URL
 
         self.validate()
 
     def fetch_required_arguments(self, **kwargs):
-        self.affiliation_id = kwargs.pop('affiliation_id')
-        self.api_key = kwargs.pop('api_key')
+        self.affiliation_id = kwargs['affiliation_id']
+        self.api_key = kwargs['api_key']
 
     def validate(self):
         pass
@@ -62,6 +61,11 @@ class CieloRequest(object):
 
         return response_dict
 
+    def handle_response(self, response):
+        self.transaction = response['transacao']
+        self.status = self.transaction['status']
+        self.transaction_id = self.transaction['tid']
+
 
 class WithCardData(object):
     """
@@ -75,11 +79,11 @@ class WithCardData(object):
     def fetch_required_arguments(self, **kwargs):
         super(WithCardData, self).fetch_required_arguments(**kwargs)
 
-        self.card_type = kwargs.pop('card_type')
-        self.card_number = kwargs.pop('card_number')
-        self.exp_month = kwargs.pop('exp_month')
-        self.exp_year = kwargs.pop('exp_year')
-        self.card_holders_name = kwargs.pop('card_holders_name')
+        self.card_type = kwargs['card_type']
+        self.card_number = kwargs['card_number']
+        self.exp_month = kwargs['exp_month']
+        self.exp_year = kwargs['exp_year']
+        self.card_holders_name = kwargs['card_holders_name']
 
     def validate(self):
         super(WithCardData, self).validate()
@@ -98,6 +102,17 @@ class WithCardData(object):
             raise ValueError(reason)
 
 
+class WithRedirect(object):
+    """
+    Mixin which handles payments which need to redirect the customer.
+    """
+
+    def fetch_required_arguments(self, **kwargs):
+        super(WithRedirect, self).fetch_required_arguments(**kwargs)
+
+        self.url_redirect = kwargs['url_redirect']
+
+
 class Attempt(CieloRequest):
     """
     Base class implementing the methods for authorizing and capturing a transaction.
@@ -111,10 +126,10 @@ class Attempt(CieloRequest):
 
     def __init__(self, **kwargs):
         # Required arguments with default values
-        self.installments = kwargs.pop('installments', 1)
-        self.transaction_type = kwargs.pop('transaction', CASH) # para manter assinatura do pyrcws
-        self.auto_capture = 'true' if kwargs.pop('capture', False) else 'false'
-        self.tokenize = 'true' if kwargs.pop('tokenize', False) else 'false'
+        self.installments = kwargs.get('installments', 1)
+        self.transaction_type = kwargs.get('transaction', CASH) # para manter assinatura do pyrcws
+        self.auto_capture = 'true' if kwargs.get('capture', False) else 'false'
+        self.tokenize = 'true' if kwargs.get('tokenize', False) else 'false'
 
         self._authorized = False
         self._captured = False
@@ -125,8 +140,8 @@ class Attempt(CieloRequest):
     def fetch_required_arguments(self, **kwargs):
         super(Attempt, self).fetch_required_arguments(**kwargs)
 
-        self.order_id = kwargs.pop('order_id')
-        self.total = moneyfmt(kwargs.pop('total'), sep='', dp='')
+        self.order_id = kwargs['order_id']
+        self.total = moneyfmt(kwargs['total'], sep='', dp='')
 
     def validate(self):
         if self.installments not in range(1, 13):
@@ -137,24 +152,15 @@ class Attempt(CieloRequest):
         super(Attempt, self).validate()
 
     def handle_response(self, response):
-        self.transaction = response['transacao']
-        status = self.transaction['status']
+        super(Attempt, self).handle_response(response)
 
-        if status == '4':
+        if self.status == '4':
             self._authorized = True
-        elif status == '6':
+        elif self.status == '6':
             self._authorized = True
             self._captured = True
-        elif status == '9':
+        elif self.status == '9':
             self._cancelled = True
-        else:
-            autorization = self.transaction['autorizacao']
-            error_id = autorization['codigo']
-            error_message = autorization['mensagem']
-            raise CieloException(error_id, error_message, self.cielo_response.content)
-
-        self.transaction_id = self.transaction['tid']
-        self.pan = self.transaction['pan']
 
     def get_authorized(self):
         self.date = datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
@@ -180,7 +186,7 @@ class Attempt(CieloRequest):
         if not hasattr(self, 'transaction_id'):
             self.transaction_id = kwargs['transaction_id']
 
-        self.amount_to_cancel = moneyfmt(kwargs.pop('amount'), sep='', dp='')
+        self.amount_to_cancel = moneyfmt(kwargs.get('amount'), sep='', dp='')
         response_dict = self.make_request(self.url, self.cancelation_template)
         self.handle_response(response_dict)
         return True
@@ -203,8 +209,8 @@ class TokenPaymentAttempt(Attempt):
     def fetch_required_arguments(self, **kwargs):
         super(TokenPaymentAttempt, self).fetch_required_arguments(**kwargs)
 
-        self.card_type = kwargs.pop('card_type')
-        self.token = kwargs.pop('token')
+        self.card_type = kwargs['card_type']
+        self.token = kwargs['token']
 
 
 class PaymentAttempt(WithCardData, Attempt):
@@ -216,7 +222,28 @@ class PaymentAttempt(WithCardData, Attempt):
     def fetch_required_arguments(self, **kwargs):
         super(PaymentAttempt, self).fetch_required_arguments(**kwargs)
 
-        self.cvc2 = kwargs.pop('cvc2')
+        self.cvc2 = kwargs['cvc2']
+
+
+class BuyPageCieloAttempt(WithRedirect, Attempt):
+    """
+    Interface for creating payments with card data collected my cielo
+    """
+    authorization_template = 'authorize_buypagecielo.xml'
+
+    def fetch_required_arguments(self, **kwargs):
+        super(BuyPageCieloAttempt, self).fetch_required_arguments(**kwargs)
+
+        self.description = kwargs['description']
+        self.card_type = kwargs['card_type']
+
+    def get_authorized(self):
+        super(BuyPageCieloAttempt, self).get_authorized()
+
+        if self.status == '0':
+            self.authentication_url = self.transaction['url-autenticacao']
+
+        return True
 
 
 class CieloToken(WithCardData, CieloRequest):

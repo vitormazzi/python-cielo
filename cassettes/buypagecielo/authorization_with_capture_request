@@ -1,0 +1,28 @@
+- request: !!python/object:vcr.request.Request
+    body: mensagem=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22ISO-8859-1%22%3F%3E%0D%0A%3Crequisicao-transacao+id%3D%22b646a02f-9983-4df8-91b9-75b48345715a%22+versao%3D%221.3.0%22%3E%0D%0A++++%3Cdados-ec%3E%0D%0A++++++++%3Cnumero%3E1001734898%3C%2Fnumero%3E%0D%0A++++++++%3Cchave%3Ee84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832%3C%2Fchave%3E%0D%0A++++%3C%2Fdados-ec%3E%0D%0A++++%3Cdados-pedido%3E%0D%0A++++++++%3Cnumero%3E7DSD163AH4%3C%2Fnumero%3E%0D%0A++++++++%3Cvalor%3E100%3C%2Fvalor%3E%0D%0A++++++++%3Cmoeda%3E986%3C%2Fmoeda%3E%0D%0A++++++++%3Cdata-hora%3E2009-12-14T12%3A00%3A01%3C%2Fdata-hora%3E%0D%0A++++++++%3Cdescricao%3ETransacao+teste+BuyPage+Cielo%3C%2Fdescricao%3E%0D%0A++++++++%3Cidioma%3EPT%3C%2Fidioma%3E%0D%0A++++++++%3Csoft-descriptor%3E%3C%2Fsoft-descriptor%3E%0D%0A++++%3C%2Fdados-pedido%3E%0D%0A++++%3Cforma-pagamento%3E%0D%0A++++++++%3Cbandeira%3Evisa%3C%2Fbandeira%3E%0D%0A++++++++%3Cproduto%3E1%3C%2Fproduto%3E%0D%0A++++++++%3Cparcelas%3E1%3C%2Fparcelas%3E%0D%0A++++%3C%2Fforma-pagamento%3E%0D%0A++++%3Curl-retorno%3Ehttp%3A%2F%2Flocalhost%3A7777%2Forders%2F7DSD163AH4%2F%3C%2Furl-retorno%3E%0D%0A++++%3Cautorizar%3E3%3C%2Fautorizar%3E%0D%0A++++%3Ccapturar%3Etrue%3C%2Fcapturar%3E%0D%0A++++%3Cgerar-token%3Efalse%3C%2Fgerar-token%3E%0D%0A%3C%2Frequisicao-transacao%3E%0D%0A%0D%0A
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [user-agent, python-cielo]
+      - !!python/tuple [Content-Type, application/x-www-form-urlencoded]
+      - !!python/tuple [Accept, '*/*']
+      - !!python/tuple [Content-Length, !!python/unicode '1313']
+    host: qasecommerce.cielo.com.br
+    method: POST
+    path: /servicos/ecommwsec.do
+    port: 443
+    protocol: https
+  response:
+    body: {string: "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n<transacao versao=\"\
+        1.3.0\" id=\"b646a02f-9983-4df8-91b9-75b48345715a\" xmlns=\"http://ecommerce.cbmp.com.br\"\
+        >\n  <tid>10017348980066391001</tid>\n  <dados-pedido>\n    <numero>7DSD163AH4</numero>\n\
+        \    <valor>100</valor>\n    <moeda>986</moeda>\n    <data-hora>2013-10-18T19:28:43.855-03:00</data-hora>\n\
+        \    <descricao>Transacao teste BuyPage Cielo</descricao>\n    <idioma>PT</idioma>\n\
+        \    <taxa-embarque>0</taxa-embarque>\n  </dados-pedido>\n  <forma-pagamento>\n\
+        \    <bandeira>visa</bandeira>\n    <produto>1</produto>\n    <parcelas>1</parcelas>\n\
+        \  </forma-pagamento>\n  <status>0</status>\n  <url-autenticacao>https://qasecommerce.cielo.com.br/web/index.cbmp?id=8c5b73ced4ea093c9c4757b426a99979</url-autenticacao>\n\
+        </transacao>\n"}
+    headers: {content-length: '753', content-type: text/xml; charset=ISO-8859-1, date: 'Fri,
+        18 Oct 2013 22:28:43 GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x,
+      set-cookie: JSESSIONID=8GGGSh2bndxGGQHXJSh4Gqrj04D5qk0Y83pTCKk3mSnJ6nGspGGP!-1256102350;
+        path=/, x-powered-by: Servlet/2.5 JSP/2.1}
+    status: {code: 200, message: OK}
