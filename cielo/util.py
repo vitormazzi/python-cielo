@@ -29,6 +29,9 @@ def moneyfmt(value, places=2, curr='', sep=',', dp='.',
     '<0.02>'
 
     """
+    if isinstance(value, basestring):
+        value = Decimal(value) ** -places
+
     q = Decimal(10) ** -places      # 2 places --> '0.01'
     sign, digits, exp = value.quantize(q).as_tuple()
     result = []

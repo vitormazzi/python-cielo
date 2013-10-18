@@ -537,5 +537,189 @@ class MainTest(unittest.TestCase):
             }
         })
 
+    def test_cancel_transaction_after_authorization(self):
+        params = {
+            'affiliation_id': '1006993069',
+            'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
+            'card_type': VISA,
+            'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
+            'order_id': '7DSD163AH1',  # strings are allowed here
+            'card_number': '4012001037141112',
+            'cvc2': 423,
+            'exp_month': 1,
+            'exp_year': 2010,
+            'card_holders_name': 'JOAO DA SILVA',
+            'installments': 1,
+            'transaction': CASH,
+            'sandbox': True,
+        }
+        attempt = PaymentAttempt(**params)
+
+        with MainTest.vcr.use_cassette('authorization_success'):
+            self.assertTrue(attempt.get_authorized())
+
+        self.assertTrue(attempt._authorized)
+        self.assertFalse(attempt._captured)
+
+        with MainTest.vcr.use_cassette('cancel_authorized_transaction'):
+            self.assertTrue(attempt.cancel(amount=attempt.total))
+
+    def test_cancel_transaction_after_capture(self):
+        params = {
+            'affiliation_id': '1006993069',
+            'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
+            'card_type': VISA,
+            'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
+            'order_id': '7DSD163AH1',  # strings are allowed here
+            'card_number': '4012001037141112',
+            'cvc2': 423,
+            'exp_month': 1,
+            'exp_year': 2010,
+            'card_holders_name': 'JOAO DA SILVA',
+            'installments': 1,
+            'transaction': CASH,
+            'capture': True,
+            'sandbox': True,
+        }
+        attempt = PaymentAttempt(**params)
+
+        with MainTest.vcr.use_cassette('authorization_with_capture_success'):
+            self.assertTrue(attempt.get_authorized())
+
+        self.assertTrue(attempt._authorized)
+        self.assertTrue(attempt._captured)
+
+        with MainTest.vcr.use_cassette('cancel_captured_transaction'):
+            self.assertTrue(attempt.cancel(amount=attempt.total))
+
+    def test_cancel_transaction_using_tid(self):
+        params = {
+            'affiliation_id': '1006993069',
+            'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
+            'card_type': VISA,
+            'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
+            'order_id': '7DSD163AH1',  # strings are allowed here
+            'card_number': '4012001037141112',
+            'cvc2': 423,
+            'exp_month': 1,
+            'exp_year': 2010,
+            'card_holders_name': 'JOAO DA SILVA',
+            'installments': 1,
+            'transaction': CASH,
+            'capture': True,
+            'sandbox': True,
+        }
+        attempt = PaymentAttempt(**params)
+
+        with MainTest.vcr.use_cassette('authorization_with_capture_success'):
+            self.assertTrue(attempt.get_authorized())
+
+        new_attempt = PaymentAttempt(**params)
+
+        with MainTest.vcr.use_cassette('cancel_transaction_using_tid'):
+            self.assertTrue(new_attempt.cancel(amount=attempt.total, transaction_id=attempt.transaction_id))
+
+    def test_cancel_partial_amount(self):
+        params = {
+            'affiliation_id': '1006993069',
+            'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
+            'card_type': VISA,
+            'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
+            'order_id': '7DSD163AH1',  # strings are allowed here
+            'card_number': '4012001037141112',
+            'cvc2': 423,
+            'exp_month': 1,
+            'exp_year': 2010,
+            'card_holders_name': 'JOAO DA SILVA',
+            'installments': 1,
+            'transaction': CASH,
+            'capture': True,
+            'sandbox': True,
+        }
+        attempt = PaymentAttempt(**params)
+
+        with MainTest.vcr.use_cassette('authorization_with_capture_success'):
+            self.assertTrue(attempt.get_authorized())
+
+        self.assertTrue(attempt._authorized)
+        self.assertTrue(attempt._captured)
+
+        with MainTest.vcr.use_cassette('cancel_partial_amount'):
+            self.assertTrue(attempt.cancel(amount=Decimal('0.5')))
+
+    def test_cancelation_amount_bigger_than_transaction_amount(self):
+        params = {
+            'affiliation_id': '1006993069',
+            'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
+            'card_type': VISA,
+            'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
+            'order_id': '7DSD163AH1',  # strings are allowed here
+            'card_number': '4012001037141112',
+            'cvc2': 423,
+            'exp_month': 1,
+            'exp_year': 2010,
+            'card_holders_name': 'JOAO DA SILVA',
+            'installments': 1,
+            'transaction': CASH,
+            'capture': True,
+            'sandbox': True,
+        }
+        attempt = PaymentAttempt(**params)
+
+        with MainTest.vcr.use_cassette('authorization_with_capture_success'):
+            self.assertTrue(attempt.get_authorized())
+
+        self.assertTrue(attempt._authorized)
+        self.assertTrue(attempt._captured)
+
+        with MainTest.vcr.use_cassette('cancelation_amount_bigger_than_transaction_amount'):
+            self.assertRaises(CieloException, attempt.cancel, amount=Decimal('5'))
+
+        self.assertEquals(attempt.error, {
+            u'@xmlns': u'http://ecommerce.cbmp.com.br',
+            u'codigo': u'043',
+            u'mensagem': u"Não é possível cancelar a transação [tid='10069930690A28C91001']: valor de cancelamento é maior que valor capturado."
+        })
+
+    def test_transaction_already_cancelled(self):
+        params = {
+            'affiliation_id': '1006993069',
+            'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
+            'card_type': VISA,
+            'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
+            'order_id': '7DSD163AH1',  # strings are allowed here
+            'card_number': '4012001037141112',
+            'cvc2': 423,
+            'exp_month': 1,
+            'exp_year': 2010,
+            'card_holders_name': 'JOAO DA SILVA',
+            'installments': 1,
+            'transaction': CASH,
+            'capture': True,
+            'sandbox': True,
+        }
+        attempt = PaymentAttempt(**params)
+
+        with MainTest.vcr.use_cassette('authorization_with_capture_success'):
+            self.assertTrue(attempt.get_authorized())
+
+        self.assertTrue(attempt._authorized)
+        self.assertTrue(attempt._captured)
+
+        with MainTest.vcr.use_cassette('cancel_captured_transaction'):
+            self.assertTrue(attempt.cancel(amount=attempt.total))
+
+        self.assertTrue(attempt._cancelled)
+
+        with MainTest.vcr.use_cassette('transaction_already_canceled'):
+            self.assertRaises(CieloException, attempt.cancel, amount=attempt.total)
+
+        self.assertEquals(attempt.error, {
+            u'@xmlns': u'http://ecommerce.cbmp.com.br',
+            u'codigo': u'041',
+            u'mensagem': u'Transação com o Tid [10069930690A29531001] já está cancelada.'
+        })
+
+
 if __name__ == '__main__':
     unittest.main()
