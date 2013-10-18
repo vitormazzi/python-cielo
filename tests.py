@@ -745,7 +745,7 @@ class MainTest(unittest.TestCase):
         self.assertFalse(attempt._captured)
 
         with MainTest.vcr.use_cassette('status_for_authorized_transaction'):
-            self.assertTrue(attempt.get_status())
+            self.assertTrue(attempt.refresh())
 
         self.assertEquals(attempt.transaction['status'], '4')
 
@@ -775,7 +775,7 @@ class MainTest(unittest.TestCase):
         self.assertTrue(attempt._captured)
 
         with MainTest.vcr.use_cassette('status_for_captured_transaction'):
-            self.assertTrue(attempt.get_status())
+            self.assertTrue(attempt.refresh())
 
         self.assertEquals(attempt.transaction['status'], '6')
 
@@ -810,7 +810,7 @@ class MainTest(unittest.TestCase):
         self.assertTrue(attempt._cancelled)
 
         with MainTest.vcr.use_cassette('status_for_canceled_transaction'):
-            self.assertTrue(attempt.get_status())
+            self.assertTrue(attempt.refresh())
 
         self.assertEquals(attempt.transaction['status'], '9')
 
@@ -834,7 +834,7 @@ class MainTest(unittest.TestCase):
         attempt = PaymentAttempt(**params)
 
         with MainTest.vcr.use_cassette('status_for_invalid_transaction'):
-            self.assertRaises(CieloException, attempt.get_status, transaction_id=1)
+            self.assertRaises(CieloException, attempt.refresh, transaction_id=1)
 
         self.assertEquals(attempt.error, {
             u'@xmlns': u'http://ecommerce.cbmp.com.br',
@@ -862,7 +862,7 @@ class MainTest(unittest.TestCase):
         attempt = PaymentAttempt(**params)
 
         with MainTest.vcr.use_cassette('status_for_unknown_transaction'):
-            self.assertRaises(CieloException, attempt.get_status, transaction_id='00000000000000000000')
+            self.assertRaises(CieloException, attempt.refresh, transaction_id='00000000000000000000')
 
         self.assertEquals(attempt.error, {
             u'@xmlns': u'http://ecommerce.cbmp.com.br',

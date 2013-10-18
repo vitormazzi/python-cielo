@@ -185,7 +185,7 @@ class Attempt(CieloRequest):
         self.handle_response(response_dict)
         return True
 
-    def get_status(self, **kwargs):
+    def refresh(self, **kwargs):
         if not hasattr(self, 'transaction_id'):
             self.transaction_id = kwargs['transaction_id']
 
