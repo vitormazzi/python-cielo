@@ -1,0 +1,33 @@
+- request: !!python/object:vcr.request.Request
+    body: mensagem=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22ISO-8859-1%22%3F%3E%0D%0A%3Crequisicao-consulta+id%3D%224c38f150-b67d-4059-88d1-b53b13e54a8e%22+versao%3D%221.3.0%22%3E%0D%0A++++%3Ctid%3E10069930690A310A1001%3C%2Ftid%3E%0D%0A++++%3Cdados-ec%3E%0D%0A++++++++%3Cnumero%3E1006993069%3C%2Fnumero%3E%0D%0A++++++++%3Cchave%3E25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3%3C%2Fchave%3E%0D%0A++++%3C%2Fdados-ec%3E%0D%0A%3C%2Frequisicao-consulta%3E%0D%0A
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [user-agent, python-cielo]
+      - !!python/tuple [Content-Length, !!python/unicode '468']
+      - !!python/tuple [Accept, '*/*']
+      - !!python/tuple [Content-Type, application/x-www-form-urlencoded]
+    host: qasecommerce.cielo.com.br
+    method: POST
+    path: /servicos/ecommwsec.do
+    port: 443
+    protocol: https
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAE/5VUXU/bMBR951dEeU9tNx9NKteIiU30YQKNbtMeb2JTLDVxiJ2C+Lt72N/gOkkH
+        bIDUl/bm+B77HN+T8NOHehfsVWe1aVYhm9EwUE1lpG62q3B9fRnleVpELDwVJ9x10FiowAwEML4/
+        9gwtV2FSxfkNS2lUZgsZJRRZeS5ZVKZxyWKVJpCrMMDTGrsKb51rl4SoytS16io1q8q6neHTrOxC
+        cRIE3GkpGKVZUcT4Q89iRs/wmXHiV3xHC41Y3/14XFwVj7Debn7J7wm7gJ/k8hORi7W8d+7uvpzv
+        YePyrxu64sQzPFOCNDZqldTS+MPwuKZHHUYszq/PWRafXXz7/CXmZEKRgy172JnOa+JkLEe4NkqC
+        KPKMk7EcYQkOolvTgZhTFkeMRizfzOkyKZZpPEsKGtF4SSknz40jUUttahBXG06mcsQdPECk6hK6
+        u14JJL4GsMnv9doYvzFdDVELW6hV4w5mS2ik0ihtry1w8vcR90CfbWdkj70ML2wqpwXASe3ACr9y
+        qHGJkzeO4daB660oOJkq3wm9Qx26AgzRdPM+a1vj+6YK+1AF6rWwVbXYdIfQWVUHLzfAC1eYR980
+        cuSHd56y7L07H+eJ8Xo9WlVpseCYUu21cvLy8AFBwHT68Wg3f34b72TgSjjWRzw/0seuEz5p+Dfe
+        E3StYPM4STGzvh7RxvYiyxYFSzD4WCM6WB5UTvPiFbSux+TgIg5pmljByVSN8Buzm3gSAnzJA9tX
+        ylpzrPH8KOMo6lksCm8qtRtfA+uH5+XDMzZCHsRv3/95xIU3XQ0bfOwKqR8HMy/e84XUd6JJqn+0
+        e7eDGJTpDDrED+XhzREnT0SzbXjnBQAA
+    headers: {connection: Keep-Alive, content-encoding: gzip, content-length: '651',
+      content-type: text/xml; charset=ISO-8859-1, date: 'Fri, 18 Oct 2013 23:49:54
+        GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x, set-cookie: JSESSIONID=hPLyShJCK0FPlLB3YLp7JyJrKypyhh9knFccqcb1GHsRcC319hHX!-1256102350;
+        path=/, vary: 'Accept-Encoding, User-Agent', x-powered-by: Servlet/2.5 JSP/2.1}
+    status: {code: 200, message: OK}

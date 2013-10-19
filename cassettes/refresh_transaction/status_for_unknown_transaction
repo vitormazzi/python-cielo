@@ -19,7 +19,7 @@
         ZW0+TuNvIGZvaSBlbmNvbnRyYWRhIHRyYW5zYefjbyBwYXJhIG8gVGlkICcwMDAwMDAwMDAwMDAw
         MDAwMDAwMCcuPC9tZW5zYWdlbT48L2Vycm8+Cg==
     headers: {content-length: '199', content-type: text/xml; charset=ISO-8859-1, date: 'Fri,
-        18 Oct 2013 00:17:21 GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x,
-      set-cookie: JSESSIONID=PZLHSg2R9jBnvySJrfMwr76gkTL4jyQ1KhVlfLySnml9fXcMV4TL!-1256102350;
+        18 Oct 2013 23:49:55 GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x,
+      set-cookie: JSESSIONID=RnZ3ShJDrnCsSv0LFpdZqW6KYJrXTx3vhc662wpTtXJkqXglkp9G!-1256102350;
         path=/, x-powered-by: Servlet/2.5 JSP/2.1}
     status: {code: 200, message: OK}

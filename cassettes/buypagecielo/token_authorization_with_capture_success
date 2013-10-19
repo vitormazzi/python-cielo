@@ -1,8 +1,8 @@
 - request: !!python/object:vcr.request.Request
-    body: mensagem=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22ISO-8859-1%22%3F%3E%0A%3Crequisicao-transacao+id%3D%22f094958b-3b68-4c0b-9e68-3137f24fb308%22+versao%3D%221.3.0%22%3E%0A++++%3Cdados-ec%3E%0A++++++++%3Cnumero%3E1001734898%3C%2Fnumero%3E%0A++++++++%3Cchave%3Ee84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832%3C%2Fchave%3E%0A++++%3C%2Fdados-ec%3E%0A++++%3Cdados-portador%3E%0A++++++++%3Ctoken%3EzwAEf9pjznPteWQC%2FDjP4%2Fm6j%2Fd9LdWsvtjDWZSKhiQ%3D%3C%2Ftoken%3E%0A++++%3C%2Fdados-portador%3E%0A++++%3Cdados-pedido%3E%0A++++++++%3Cnumero%3E7DSD163AH1%3C%2Fnumero%3E%0A++++++++%3Cvalor%3E100%3C%2Fvalor%3E%0A++++++++%3Cmoeda%3E986%3C%2Fmoeda%3E%0A++++++++%3Cdata-hora%3E2009-12-14T12%3A00%3A01%3C%2Fdata-hora%3E%0A++++++++%3Cidioma%3EPT%3C%2Fidioma%3E%0A++++++++%3Csoft-descriptor%3E%3C%2Fsoft-descriptor%3E%0A++++%3C%2Fdados-pedido%3E%0A++++%3Cforma-pagamento%3E%0A++++++++%3Cbandeira%3Evisa%3C%2Fbandeira%3E%0A++++++++%3Cproduto%3E1%3C%2Fproduto%3E%0A++++++++%3Cparcelas%3E1%3C%2Fparcelas%3E%0A++++%3C%2Fforma-pagamento%3E%0A++++%3Curl-retorno%3Ehttp%3A%2F%2Flocalhost%3A7777%2Forders%2F7DSD163AH5%2F%3C%2Furl-retorno%3E%0A++++%3Cautorizar%3E3%3C%2Fautorizar%3E%0A++++%3Ccapturar%3Etrue%3C%2Fcapturar%3E%0A++++%3Cgerar-token%3Efalse%3C%2Fgerar-token%3E%0A%3C%2Frequisicao-transacao%3E%0A
+    body: mensagem=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22ISO-8859-1%22%3F%3E%0A%3Crequisicao-transacao+id%3D%22f094958b-3b68-4c0b-9e68-3137f24fb308%22+versao%3D%221.3.0%22%3E%0A++++%3Cdados-ec%3E%0A++++++++%3Cnumero%3E1001734898%3C%2Fnumero%3E%0A++++++++%3Cchave%3Ee84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832%3C%2Fchave%3E%0A++++%3C%2Fdados-ec%3E%0A++++%3Cdados-portador%3E%0A++++++++%3Ctoken%3EzwAEf9pjznPteWQC%2FDjP4%2Fm6j%2Fd9LdWsvtjDWZSKhiQ%3D%3C%2Ftoken%3E%0A++++%3C%2Fdados-portador%3E%0A++++%3Cdados-pedido%3E%0A++++++++%3Cnumero%3E7DSD163AHBPC9%3C%2Fnumero%3E%0A++++++++%3Cvalor%3E100%3C%2Fvalor%3E%0A++++++++%3Cmoeda%3E986%3C%2Fmoeda%3E%0A++++++++%3Cdata-hora%3E2009-12-14T12%3A00%3A01%3C%2Fdata-hora%3E%0A++++++++%3Cidioma%3EPT%3C%2Fidioma%3E%0A++++++++%3Csoft-descriptor%3E%3C%2Fsoft-descriptor%3E%0A++++%3C%2Fdados-pedido%3E%0A++++%3Cforma-pagamento%3E%0A++++++++%3Cbandeira%3Evisa%3C%2Fbandeira%3E%0A++++++++%3Cproduto%3E1%3C%2Fproduto%3E%0A++++++++%3Cparcelas%3E1%3C%2Fparcelas%3E%0A++++%3C%2Fforma-pagamento%3E%0A++++%3Curl-retorno%3Ehttp%3A%2F%2Flocalhost%3A7777%2Forders%2F7DSD163AHBPC9%2F%3C%2Furl-retorno%3E%0A++++%3Cautorizar%3E3%3C%2Fautorizar%3E%0A++++%3Ccapturar%3Etrue%3C%2Fcapturar%3E%0A++++%3Cgerar-token%3Efalse%3C%2Fgerar-token%3E%0A%3C%2Frequisicao-transacao%3E%0A
     headers: !!python/object/apply:__builtin__.frozenset
-    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [Content-Length, !!python/unicode '1304']
+    - - !!python/tuple [Content-Length, !!python/unicode '1310']
+      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
       - !!python/tuple [Content-Type, application/x-www-form-urlencoded]
       - !!python/tuple [Accept, '*/*']
       - !!python/tuple [user-agent, python-cielo]
@@ -14,19 +14,19 @@
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAE/5VUy27bMBC85ysE3WWSkmxTAc2gbQ7xoUiAuC16XIm0Q8ASFZJygvxuD/2NLi25
-        TYCkgE8azu5yX0OJq+d2nxy088Z2q5TNaJrorrHKdLtVur6/zTifVxlLr+SFCA46Dw3YYwDY6F/E
-        CKNW6ZZWZTXndVbUC56VDa2zSiMqWLHc5uW2LihPE8zW+VX6EEJ/SYhubNtq1+hZU7f9DE+z2qXy
-        IklEMEoyStmyKHnFKV0syi/xLEi0RI8eOrl+/P6yvKteYL3b/FTfSnYDP8jtZ6KWa/UUwuNTnR9g
-        E/jXDV0JEiNipAJlfdZrZZSNyTBdN2AdVi6v76/Zovh0wwSZKAxA+wH21sWCBBnhSLdWK5AVXwgy
-        wpFWECB7sA5kTlmRMZoxvsnpJS0uczarGM8QUSrIP8cx0ChjW5B3G0EmOPIBniHTbQ3ucdASA98S
-        6BTvetuV2FrXQtbDDlrdhVOnNXRKGyztYDwI8veId2CfvbNqQF+G05rgZABc0x68jJYTRpMg76QR
-        PkAYvMSxTCh6whCwDtMAKmgaexTazka/CaEfVoH1etjpVm7cSXFet8nrC3DgGsUYncYY9f+Zz+cf
-        zXzcJ2rr7Wp1Y+RSoERNrFWQ18mPDBLWmZezu/n9y8ZOjrEKzu0DX9QH2vmgj72TUWn4GecErpcs
-        L8o5Lifike38IGm+YJyj8BEje2z5WOW0L9FAHwZUDhpxSdPG8JoJjfQ7u5viFCT4whM/NNp7e1bj
-        +Yyet0BBpqT42yLhpCJ58Qd2/RIh8AQAAA==
-    headers: {connection: Keep-Alive, content-encoding: gzip, content-length: '595',
-      content-type: text/xml; charset=ISO-8859-1, date: 'Fri, 18 Oct 2013 23:03:21
-        GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x, set-cookie: JSESSIONID=LNwySh2hnyTNyLhtxZLWYXvyHTRkqht71ynpN3LVzHpJ1kSXb7PZ!-292205217;
+        H4sIAAAAAAAE/5VUwW7bMAy99ysM3x1JthPbgaJiXQ/NYWiBpht2pC0lFRBbriSnRX93h/3GqNjZ
+        WqAdkFzyRPGJfORL+OVLu48OyjptulXMZjSOVNcYqbvdKl7f3yZlOa8SFl+KC+4tdA4aMEcCmJCf
+        BYaWq3hLq7yal3WS1YsyyRtaJ5VClLGs2Kb5ts5oGUdYrXOr+NH7fkmIakzbKtuoWVO3/QxPs9rG
+        4iKKuNdSMEpZkeVlVVK6wE84cxJuQkYPnVg/fX8t7qpXWO82P+VDzm7gB7m9IrJYy2fvn57r9AAb
+        X37b0BUngRGYEqRxSa+kliYUw3LdgH0YUVzfX7NF9uXm6u5rxckURQ6mHGBvbOiJkxGO4dYoCaIq
+        F5yMcAxL8JA8GgsipSxLGE1YuUnZkpbLOZuhqIRmS0o5+Zc4ErXUpgVxt+FkgmPcwwskqq3BPg1K
+        IPF9AJPCW++F8a2xLSQ97KBVnT+JraGTSmNrB+2Ak79HfAN19tbIAXMZDmyC0wXgpvbgRLg5Ybzi
+        5IMy3HnwgxM4lgmFTBg89qEbQBNNkw9e25mQNyHMwy6wXwc71YqNPZnOqTZ6+wAOXKEfQ9LIkf+f
+        Ofr4k5mP+0R7vV+tarQoOLpUh145eVv8GMGAsfr1bDW/f5mg5MiVcK6ORfGZdz7RsbciOA2/xjmB
+        7QVLs3yOywl4jHZuEDRdpCxH4yPG6FHysctpX7yB3g/oHLzEJU0bw2cmNIY/2N3EkxDhjzxyQ6Oc
+        M2cKz7P0HOGcTEXxn4v4k4vExR9EEsfy8wQAAA==
+    headers: {connection: Keep-Alive, content-encoding: gzip, content-length: '598',
+      content-type: text/xml; charset=ISO-8859-1, date: 'Sat, 19 Oct 2013 00:08:51
+        GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x, set-cookie: JSESSIONID=p9krShNTNMGKw3sfqrZlVTh7q12pGXmX6vnxKCN5gq6ZsR0zpbCQ!-292205217;
         path=/, vary: 'Accept-Encoding, User-Agent', x-powered-by: Servlet/2.5 JSP/2.1}
     status: {code: 200, message: OK}

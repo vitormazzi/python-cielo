@@ -19,9 +19,6 @@ __all__ = [
 
 class FrozenTimeTest(unittest.TestCase):
 
-    cassettes = path.join(path.dirname(__file__), 'cassettes')
-    vcr = VCR(cassette_library_dir=cassettes)
-
     def setUp(self):
         self.freezer = freeze_time("2009-12-14 12:00:01")
         self.freezer.start()
@@ -32,13 +29,16 @@ class FrozenTimeTest(unittest.TestCase):
 
 class BuyPageLojaTest(FrozenTimeTest):
 
+    cassettes = path.join(path.dirname(__file__), 'cassettes', 'buypageloja')
+    vcr = VCR(cassette_library_dir=cassettes, match_on = ['url', 'method', 'headers', 'body'])
+
     def test_payment_attempt_authorized(self):
         params = {
             'affiliation_id': '1006993069',
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
             'card_type': VISA,
             'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
-            'order_id': '7DSD163AH1',  # strings are allowed here
+            'order_id': '7DSD163AHBPL1',  # strings are allowed here
             'card_number': '4012001037141112',
             'cvc2': 423,
             'exp_month': 1,
@@ -62,7 +62,7 @@ class BuyPageLojaTest(FrozenTimeTest):
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
             'card_type': VISA,
             'total': Decimal('1.01'),  # when amount does not end with .00 attempt is automatically cancelled
-            'order_id': '7DSD63A1H1',  # strings are allowed here
+            'order_id': '7DSD63A1HBLP2',  # strings are allowed here
             'card_number': '4012001037141112',
             'cvc2': 423,
             'exp_month': 1,
@@ -75,10 +75,9 @@ class BuyPageLojaTest(FrozenTimeTest):
         attempt = PaymentAttempt(**params)
 
         with BuyPageLojaTest.vcr.use_cassette('authorization_failure'):
-            self.assertRaises(CieloException, attempt.get_authorized)
+            self.assertTrue(attempt.get_authorized())
 
-        self.assertFalse(attempt._authorized)
-        self.assertFalse(attempt._captured)
+        self.assertEquals(TRANSACTION_STATUS[attempt.status], u'Não autorizada')
 
     def test_payment_attempt_capture(self):
         params = {
@@ -86,7 +85,7 @@ class BuyPageLojaTest(FrozenTimeTest):
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
             'card_type': VISA,
             'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
-            'order_id': '7DSD163AH1',  # strings are allowed here
+            'order_id': '7DSD163AHBPL3',  # strings are allowed here
             'card_number': '4012001037141112',
             'cvc2': 423,
             'exp_month': 1,
@@ -114,7 +113,7 @@ class BuyPageLojaTest(FrozenTimeTest):
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
             'card_type': VISA,
             'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
-            'order_id': '7DSD163AH1',  # strings are allowed here
+            'order_id': '7DSD163AHBPL4',  # strings are allowed here
             'card_number': '4012001037141112',
             'cvc2': 423,
             'exp_month': 1,
@@ -133,7 +132,7 @@ class BuyPageLojaTest(FrozenTimeTest):
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
             'card_type': VISA,
             'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
-            'order_id': '7DSD163AH1',  # strings are allowed here
+            'order_id': '7DSD163AHBPL5',  # strings are allowed here
             'card_number': '4012001037141112',
             'cvc2': 423,
             'exp_month': 1,
@@ -152,7 +151,7 @@ class BuyPageLojaTest(FrozenTimeTest):
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
             'card_type': VISA,
             'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
-            'order_id': '7DSD163AH1',  # strings are allowed here
+            'order_id': '7DSD163AHBPL6',  # strings are allowed here
             'card_number': '4012001037141112',
             'cvc2': 423,
             'exp_month': 13,
@@ -171,7 +170,7 @@ class BuyPageLojaTest(FrozenTimeTest):
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
             'card_type': VISA,
             'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
-            'order_id': '7DSD163AH1',  # strings are allowed here
+            'order_id': '7DSD163AHBPL7',  # strings are allowed here
             'card_number': '4012001037141112',
             'cvc2': 423,
             'exp_month': 1,
@@ -195,7 +194,7 @@ class BuyPageLojaTest(FrozenTimeTest):
             'api_key': '25fbb99741c739dd84d',
             'card_type': VISA,
             'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
-            'order_id': '7DSD163AH1',  # strings are allowed here
+            'order_id': '7DSD163AHBPL8',  # strings are allowed here
             'card_number': '4012001037141112',
             'cvc2': 423,
             'exp_month': 1,
@@ -219,7 +218,7 @@ class BuyPageLojaTest(FrozenTimeTest):
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
             'card_type': VISA,
             'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
-            'order_id': '7DSD163AH1',  # strings are allowed here
+            'order_id': '7DSD163AHBPL9',  # strings are allowed here
             'card_number': '4012001037141112',
             'cvc2': 423,
             'exp_month': 1,
@@ -243,7 +242,7 @@ class BuyPageLojaTest(FrozenTimeTest):
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
             'card_type': VISA,
             'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
-            'order_id': '7DSD163AH1',  # strings are allowed here
+            'order_id': '7DSD163AHBPL10',  # strings are allowed here
             'card_number': '4012001037141112',
             'cvc2': 423,
             'exp_month': 1,
@@ -268,7 +267,7 @@ class BuyPageLojaTest(FrozenTimeTest):
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
             'card_type': VISA,
             'total': Decimal('1.01'),  # when amount does not end with .00 attempt is automatically cancelled
-            'order_id': '7DSD63A1H1',  # strings are allowed here
+            'order_id': '7DSD63A1HBLP11',  # strings are allowed here
             'card_number': '4012001037141112',
             'cvc2': 423,
             'exp_month': 1,
@@ -282,88 +281,9 @@ class BuyPageLojaTest(FrozenTimeTest):
         attempt = PaymentAttempt(**params)
 
         with BuyPageLojaTest.vcr.use_cassette('authorization_with_capture_failure'):
-            self.assertRaises(CieloException, attempt.get_authorized)
-
-        self.assertFalse(attempt._authorized)
-        self.assertFalse(attempt._captured)
-
-    def test_token_payment_attempt_with_capture_authorized(self):
-        params = {
-            'affiliation_id': '1006993069',
-            'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
-            'card_type': 'visa',
-            'card_number': '4012001037141112',
-            'exp_month': 1,
-            'exp_year': 2010,
-            'card_holders_name': 'JOAO DA SILVA',
-            'sandbox': True,
-        }
-        token = CieloToken(**params)
-
-        with BuyPageLojaTest.vcr.use_cassette('token_creation_success'):
-            token.create_token()
-
-        self.assertEqual(token.status, '1')
-        self.assertTrue('1112' in token.card)
-
-        params = {
-            'affiliation_id': token.affiliation_id,
-            'api_key': token.api_key,
-            'card_type': token.card_type,
-            'total': Decimal('1.00'),
-            'order_id': '7DSD163AH1',
-            'token': token.token,
-            'installments': 1,
-            'transaction': CASH,
-            'capture': True,
-            'sandbox': token.sandbox,
-        }
-        attempt = TokenPaymentAttempt(**params)
-
-        with BuyPageLojaTest.vcr.use_cassette('token_authorization_with_capture_success'):
             self.assertTrue(attempt.get_authorized())
 
-        self.assertTrue(attempt._authorized)
-        self.assertTrue(attempt._captured)
-
-    def test_token_payment_attempt_unauthorized(self):
-        params = {
-            'affiliation_id': '1006993069',
-            'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
-            'card_type': 'visa',
-            'card_number': '4012001037141112',
-            'exp_month': 1,
-            'exp_year': 2010,
-            'card_holders_name': 'JOAO DA SILVA',
-            'sandbox': True,
-        }
-        token = CieloToken(**params)
-
-        with BuyPageLojaTest.vcr.use_cassette('token_creation_success'):
-            token.create_token()
-
-        self.assertEqual(token.status, '1')
-        self.assertTrue('1112' in token.card)
-
-        params = {
-            'affiliation_id': token.affiliation_id,
-            'api_key': token.api_key,
-            'card_type': token.card_type,
-            'total': Decimal('1.01'),  # when amount does not end with .00 attempt is automatically cancelled
-            'order_id': '7DSD163AH1',
-            'token': token.token,
-            'installments': 1,
-            'transaction': CASH,
-            'capture': True,
-            'sandbox': token.sandbox,
-        }
-        attempt = TokenPaymentAttempt(**params)
-
-        with BuyPageLojaTest.vcr.use_cassette('token_authorization_with_capture_failure'):
-            self.assertRaises(CieloException, attempt.get_authorized)
-
-        self.assertFalse(attempt._authorized)
-        self.assertFalse(attempt._captured)
+        self.assertEquals(TRANSACTION_STATUS[attempt.status], u'Não autorizada')
 
     def test_payment_attempt_with_tokenization(self):
         params = {
@@ -371,7 +291,7 @@ class BuyPageLojaTest(FrozenTimeTest):
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
             'card_type': VISA,
             'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
-            'order_id': '7DSD163AH1',  # strings are allowed here
+            'order_id': '7DSD163AHBLP12',  # strings are allowed here
             'card_number': '4012001037141112',
             'cvc2': 423,
             'exp_month': 1,
@@ -403,7 +323,7 @@ class BuyPageLojaTest(FrozenTimeTest):
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
             'card_type': VISA,
             'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
-            'order_id': '7DSD163AH1',  # strings are allowed here
+            'order_id': '7DSD163AHBLP12',  # strings are allowed here
             'card_number': '4012001037141112',
             'cvc2': 423,
             'exp_month': 1,
@@ -430,11 +350,38 @@ class BuyPageLojaTest(FrozenTimeTest):
             }
         })
 
+    def test_authorization_fails_if_buypagecielo_is_enabled(self):
+        params = {
+            'affiliation_id': '1001734898',
+            'api_key': 'e84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832',
+            'card_type': VISA,
+            'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
+            'order_id': '7DSD163AHBLP13',  # strings are allowed here
+            'card_number': '4012001037141112',
+            'cvc2': 423,
+            'exp_month': 1,
+            'exp_year': 2010,
+            'card_holders_name': 'JOAO DA SILVA',
+            'installments': 1,
+            'transaction': CASH,
+            'sandbox': True,
+        }
+        attempt = PaymentAttempt(**params)
+
+        with BuyPageLojaTest.vcr.use_cassette('authorization_failure_if_buypagecielo_is_enabled'):
+            self.assertRaises(CieloException, attempt.get_authorized)
+
+        self.assertEquals(attempt.error, {
+            u'@xmlns': u'http://ecommerce.cbmp.com.br',
+            u'codigo': u'010',
+            u'mensagem': u'Não é permitido o envio do cartão.'
+        })
+
 
 class BuyPageCieloTest(FrozenTimeTest):
 
     cassettes = path.join(path.dirname(__file__), 'cassettes', 'buypagecielo')
-    vcr = VCR(cassette_library_dir=cassettes)
+    vcr = VCR(cassette_library_dir=cassettes, match_on = ['url', 'method', 'headers', 'body'])
 
     def test_authorization_request_only_creates_transaction(self):
         params = {
@@ -442,7 +389,7 @@ class BuyPageCieloTest(FrozenTimeTest):
             'api_key': 'e84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832',
             'card_type': VISA,
             'total': Decimal('1.00'),
-            'order_id': '7DSD163AH2',
+            'order_id': '7DSD163AHBPC1',
             'description': 'Transacao teste BuyPage Cielo',
             'url_redirect': 'http://localhost:7777/orders/7DSD163AH2/',
             'installments': 1,
@@ -462,7 +409,7 @@ class BuyPageCieloTest(FrozenTimeTest):
             'api_key': 'e84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832',
             'card_type': VISA,
             'total': Decimal('1.00'),
-            'order_id': '7DSD163AH2',
+            'order_id': '7DSD163AHBPC2',
             'description': 'Transacao teste BuyPage Cielo',
             'url_redirect': 'http://localhost:7777/orders/7DSD163AH2/',
             'installments': 1,
@@ -492,9 +439,9 @@ class BuyPageCieloTest(FrozenTimeTest):
             'api_key': 'e84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832',
             'card_type': VISA,
             'total': Decimal('1.00'),
-            'order_id': '7DSD163AH2',
+            'order_id': '7DSD163AHBPC3',
             'description': 'Transacao teste BuyPage Cielo',
-            'url_redirect': 'http://localhost:7777/orders/7DSD163AH2/',
+            'url_redirect': 'http://localhost:7777/orders/7DSD163AHBPC3/',
             'installments': 1,
             'transaction': CASH,
             'sandbox': True,
@@ -508,16 +455,17 @@ class BuyPageCieloTest(FrozenTimeTest):
             authentication_url = attempt.transaction['url-autenticacao'] 
 
         # Customer gets the authentication page
-        with BuyPageCieloTest.vcr.use_cassette('customer_viewing_authentication_page', record_mode='new_episodes', match_on=['url', 'method', 'headers', 'body']):
+        with BuyPageCieloTest.vcr.use_cassette('customer_viewing_authentication_page', record_mode='new_episodes'):
             authentication_page = requests.get(authentication_url)
 
         # Refresh the transaction status
-        with BuyPageCieloTest.vcr.use_cassette('authorization_request_being_processed', record_mode='new_episodes', match_on=['url', 'method', 'headers', 'body']):
+        with BuyPageCieloTest.vcr.use_cassette('authorization_request_being_processed', record_mode='new_episodes'):
             self.assertTrue(attempt.refresh())
             self.assertEquals(TRANSACTION_STATUS[attempt.status], u'Em andamento')
 
         # Customer authenticates the transaction
-        with BuyPageCieloTest.vcr.use_cassette('customer_authenticating_transaction', record_mode='new_episodes', match_on=['url', 'method', 'headers', 'body']):
+        auth_id = authentication_url.split('?id=')[1]
+        with BuyPageCieloTest.vcr.use_cassette('customer_authenticating_transaction', record_mode='new_episodes'):
             post_url = 'https://qasecommerce.cielo.com.br/web/verify.cbmp'
             authenticated_transaction = requests.post(post_url, {
                 'numeroCartao': '4012001037141112',
@@ -525,14 +473,14 @@ class BuyPageCieloTest(FrozenTimeTest):
                 'ano': '18',
                 'codSeguranca': '123',
                 'bandeira': 'visa',
-                'id': '6009e69b0d93676098fc255225c9c39b',
+                'id': auth_id,
                 'bin': '0',
                 'cancelar': 'false',
             }, allow_redirects=False)
             self.assertEquals(authenticated_transaction.status_code, 302)
             self.assertEquals(
                 authenticated_transaction.headers['location'],
-                'http://localhost:7777/orders/7DSD163AH2/'
+                'http://localhost:7777/orders/7DSD163AHBPC3/'
             )
 
         # Refresh the transaction status
@@ -546,9 +494,9 @@ class BuyPageCieloTest(FrozenTimeTest):
             'api_key': 'e84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832',
             'card_type': VISA,
             'total': Decimal('1.00'),
-            'order_id': '7DSD163AH4',
+            'order_id': '7DSD163AHBPC4',
             'description': 'Transacao teste BuyPage Cielo',
-            'url_redirect': 'http://localhost:7777/orders/7DSD163AH4/',
+            'url_redirect': 'http://localhost:7777/orders/7DSD163AHBPC4/',
             'installments': 1,
             'transaction': CASH,
             'capture': True,
@@ -563,16 +511,17 @@ class BuyPageCieloTest(FrozenTimeTest):
             authentication_url = attempt.transaction['url-autenticacao'] 
 
         # Customer gets the authentication page
-        with BuyPageCieloTest.vcr.use_cassette('customer_viewing_authentication_page', record_mode='new_episodes', match_on=['url', 'method', 'headers', 'body']):
+        with BuyPageCieloTest.vcr.use_cassette('customer_viewing_authentication_page', record_mode='new_episodes'):
             authentication_page = requests.get(authentication_url)
 
         # Refresh the transaction status
-        with BuyPageCieloTest.vcr.use_cassette('authorization_request_being_processed', record_mode='new_episodes', match_on=['url', 'method', 'headers', 'body']):
+        with BuyPageCieloTest.vcr.use_cassette('authorization_request_being_processed', record_mode='new_episodes'):
             self.assertTrue(attempt.refresh())
             self.assertEquals(TRANSACTION_STATUS[attempt.status], u'Em andamento')
 
         # Customer authenticates the transaction
-        with BuyPageCieloTest.vcr.use_cassette('customer_authenticating_transaction', record_mode='new_episodes', match_on=['url', 'method', 'headers', 'body']):
+        auth_id = authentication_url.split('?id=')[1]
+        with BuyPageCieloTest.vcr.use_cassette('customer_authenticating_transaction', record_mode='new_episodes'):
             post_url = 'https://qasecommerce.cielo.com.br/web/verify.cbmp'
             authenticated_transaction = requests.post(post_url, {
                 'numeroCartao': '4012001037141112',
@@ -580,14 +529,14 @@ class BuyPageCieloTest(FrozenTimeTest):
                 'ano': '18',
                 'codSeguranca': '123',
                 'bandeira': 'visa',
-                'id': '8c5b73ced4ea093c9c4757b426a99979',
+                'id': auth_id,
                 'bin': '0',
                 'cancelar': 'false',
             }, allow_redirects=False)
             self.assertEquals(authenticated_transaction.status_code, 302)
             self.assertEquals(
                 authenticated_transaction.headers['location'],
-                'http://localhost:7777/orders/7DSD163AH4/'
+                'http://localhost:7777/orders/7DSD163AHBPC4/'
             )
 
         # Refresh the transaction status
@@ -601,9 +550,9 @@ class BuyPageCieloTest(FrozenTimeTest):
             'api_key': 'e84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832',
             'card_type': VISA,
             'total': Decimal('1.00'),
-            'order_id': '7DSD163AH5',
+            'order_id': '7DSD163AHBPC5',
             'description': 'Transacao teste BuyPage Cielo',
-            'url_redirect': 'http://localhost:7777/orders/7DSD163AH5/',
+            'url_redirect': 'http://localhost:7777/orders/7DSD163AHBPC5/',
             'installments': 1,
             'transaction': CASH,
             'capture': True,
@@ -619,16 +568,17 @@ class BuyPageCieloTest(FrozenTimeTest):
             authentication_url = attempt.transaction['url-autenticacao'] 
 
         # Customer gets the authentication page
-        with BuyPageCieloTest.vcr.use_cassette('customer_viewing_authentication_page', record_mode='new_episodes', match_on=['url', 'method', 'headers', 'body']):
+        with BuyPageCieloTest.vcr.use_cassette('customer_viewing_authentication_page', record_mode='new_episodes'):
             authentication_page = requests.get(authentication_url)
 
         # Refresh the transaction status
-        with BuyPageCieloTest.vcr.use_cassette('authorization_request_being_processed', record_mode='new_episodes', match_on=['url', 'method', 'headers', 'body']):
+        with BuyPageCieloTest.vcr.use_cassette('authorization_request_being_processed', record_mode='new_episodes'):
             self.assertTrue(attempt.refresh())
             self.assertEquals(TRANSACTION_STATUS[attempt.status], u'Em andamento')
 
         # Customer authenticates the transaction
-        with BuyPageCieloTest.vcr.use_cassette('customer_authenticating_transaction', record_mode='new_episodes', match_on=['url', 'method', 'headers', 'body']):
+        auth_id = authentication_url.split('?id=')[1]
+        with BuyPageCieloTest.vcr.use_cassette('customer_authenticating_transaction', record_mode='new_episodes'):
             post_url = 'https://qasecommerce.cielo.com.br/web/verify.cbmp'
             authenticated_transaction = requests.post(post_url, {
                 'numeroCartao': '4012001037141112',
@@ -636,14 +586,14 @@ class BuyPageCieloTest(FrozenTimeTest):
                 'ano': '18',
                 'codSeguranca': '123',
                 'bandeira': 'visa',
-                'id': '42de16461501a728138980e825f12389',
+                'id': auth_id,
                 'bin': '0',
                 'cancelar': 'false',
             }, allow_redirects=False)
             self.assertEquals(authenticated_transaction.status_code, 302)
             self.assertEquals(
                 authenticated_transaction.headers['location'],
-                'http://localhost:7777/orders/7DSD163AH5/'
+                'http://localhost:7777/orders/7DSD163AHBPC5/'
             )
 
         # Refresh the transaction status
@@ -665,9 +615,9 @@ class BuyPageCieloTest(FrozenTimeTest):
             'api_key': 'e84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832',
             'card_type': VISA,
             'total': Decimal('1.01'),  # when amount does not end with .00 attempt is automatically cancelled
-            'order_id': '7DSD163AH6',
+            'order_id': '7DSD163AHBPC6',
             'description': 'Transacao teste BuyPage Cielo',
-            'url_redirect': 'http://localhost:7777/orders/7DSD163AH6/',
+            'url_redirect': 'http://localhost:7777/orders/7DSD163AHBPC6/',
             'installments': 1,
             'transaction': CASH,
             'sandbox': True,
@@ -681,16 +631,17 @@ class BuyPageCieloTest(FrozenTimeTest):
             authentication_url = attempt.transaction['url-autenticacao'] 
 
         # Customer gets the authentication page
-        with BuyPageCieloTest.vcr.use_cassette('customer_viewing_authentication_page', record_mode='new_episodes', match_on=['url', 'method', 'headers', 'body']):
+        with BuyPageCieloTest.vcr.use_cassette('customer_viewing_authentication_page', record_mode='new_episodes'):
             authentication_page = requests.get(authentication_url)
 
         # Refresh the transaction status
-        with BuyPageCieloTest.vcr.use_cassette('authorization_request_being_processed', record_mode='new_episodes', match_on=['url', 'method', 'headers', 'body']):
+        with BuyPageCieloTest.vcr.use_cassette('authorization_request_being_processed', record_mode='new_episodes'):
             self.assertTrue(attempt.refresh())
             self.assertEquals(TRANSACTION_STATUS[attempt.status], u'Em andamento')
 
         # Customer authenticates the transaction
-        with BuyPageCieloTest.vcr.use_cassette('customer_authenticating_transaction', record_mode='new_episodes', match_on=['url', 'method', 'headers', 'body']):
+        auth_id = authentication_url.split('?id=')[1]
+        with BuyPageCieloTest.vcr.use_cassette('customer_authenticating_transaction', record_mode='new_episodes'):
             post_url = 'https://qasecommerce.cielo.com.br/web/verify.cbmp'
             authenticated_transaction = requests.post(post_url, {
                 'numeroCartao': '4012001037141112',
@@ -698,14 +649,14 @@ class BuyPageCieloTest(FrozenTimeTest):
                 'ano': '18',
                 'codSeguranca': '123',
                 'bandeira': 'visa',
-                'id': '025bb1652a7073f770f7bb15da73aecd',
+                'id': auth_id,
                 'bin': '0',
                 'cancelar': 'false',
             }, allow_redirects=False)
             self.assertEquals(authenticated_transaction.status_code, 302)
             self.assertEquals(
                 authenticated_transaction.headers['location'],
-                'http://localhost:7777/orders/7DSD163AH6/'
+                'http://localhost:7777/orders/7DSD163AHBPC6/'
             )
 
         # Refresh the transaction status
@@ -720,7 +671,7 @@ class BuyPageCieloTest(FrozenTimeTest):
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
             'card_type': VISA,
             'total': Decimal('1.00'),
-            'order_id': '7DSD163AH1',
+            'order_id': '7DSD163AHBPC7',
             'description': 'Transacao teste BuyPage Cielo',
             'installments': 1,
             'transaction': CASH,
@@ -734,9 +685,9 @@ class BuyPageCieloTest(FrozenTimeTest):
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
             'card_type': VISA,
             'total': Decimal('1.01'),  # when amount does not end with .00 attempt is automatically cancelled
-            'order_id': '7DSD163AH1',
+            'order_id': '7DSD163AHBPC8',
             'description': 'Transacao teste BuyPage Cielo',
-            'url_redirect': 'http://localhost:7777/orders/7DSD163AH1/',
+            'url_redirect': 'http://localhost:7777/orders/7DSD163AHBPC8/',
             'installments': 1,
             'transaction': CASH,
             'sandbox': True,
@@ -760,9 +711,9 @@ class BuyPageCieloTest(FrozenTimeTest):
             'api_key': 'e84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832',
             'card_type': VISA,
             'total': Decimal('1.00'),
-            'order_id': '7DSD163AH1',
+            'order_id': '7DSD163AHBPC9',
             'token': token,
-            'url_redirect': 'http://localhost:7777/orders/7DSD163AH5/',
+            'url_redirect': 'http://localhost:7777/orders/7DSD163AHBPC9/',
             'installments': 1,
             'transaction': CASH,
             'capture': True,
@@ -784,9 +735,9 @@ class BuyPageCieloTest(FrozenTimeTest):
             'api_key': 'e84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832',
             'card_type': VISA,
             'total': Decimal('1.01'),  # when amount does not end with .00 attempt is automatically cancelled
-            'order_id': '7DSD163AH1',
+            'order_id': '7DSD163AHBPC10',
             'token': token,
-            'url_redirect': 'http://localhost:7777/orders/7DSD163AH5/',
+            'url_redirect': 'http://localhost:7777/orders/7DSD163AHBPC10/',
             'installments': 1,
             'transaction': CASH,
             'capture': True,
@@ -795,13 +746,15 @@ class BuyPageCieloTest(FrozenTimeTest):
         attempt = TokenPaymentAttempt(**params)
 
         with BuyPageCieloTest.vcr.use_cassette('token_authorization_with_capture_failure'):
-            self.assertRaises(CieloException, attempt.get_authorized)
+            self.assertTrue(attempt.get_authorized())
 
-        self.assertFalse(attempt._authorized)
-        self.assertFalse(attempt._captured)
+        self.assertEquals(TRANSACTION_STATUS[attempt.status], u'Não autorizada')
 
 
 class CancelTransactionTest(FrozenTimeTest):
+
+    cassettes = path.join(path.dirname(__file__), 'cassettes', 'cancel_transaction')
+    vcr = VCR(cassette_library_dir=cassettes, match_on = ['url', 'method', 'headers', 'body'])
 
     def test_cancel_transaction_after_authorization(self):
         params = {
@@ -809,7 +762,7 @@ class CancelTransactionTest(FrozenTimeTest):
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
             'card_type': VISA,
             'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
-            'order_id': '7DSD163AH1',  # strings are allowed here
+            'order_id': '7DSD163AHCAN1',  # strings are allowed here
             'card_number': '4012001037141112',
             'cvc2': 423,
             'exp_month': 1,
@@ -836,7 +789,7 @@ class CancelTransactionTest(FrozenTimeTest):
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
             'card_type': VISA,
             'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
-            'order_id': '7DSD163AH1',  # strings are allowed here
+            'order_id': '7DSD163AHCAN2',  # strings are allowed here
             'card_number': '4012001037141112',
             'cvc2': 423,
             'exp_month': 1,
@@ -864,7 +817,7 @@ class CancelTransactionTest(FrozenTimeTest):
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
             'card_type': VISA,
             'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
-            'order_id': '7DSD163AH1',  # strings are allowed here
+            'order_id': '7DSD163AHCAN3',  # strings are allowed here
             'card_number': '4012001037141112',
             'cvc2': 423,
             'exp_month': 1,
@@ -885,13 +838,22 @@ class CancelTransactionTest(FrozenTimeTest):
         with CancelTransactionTest.vcr.use_cassette('cancel_transaction_using_tid'):
             self.assertTrue(new_attempt.cancel(amount=attempt.total, transaction_id=attempt.transaction_id))
 
+        self.assertEquals(new_attempt.transaction['cancelamentos'], {
+            u'cancelamento': {
+                u'codigo': u'9',
+                u'data-hora': u'2013-10-18T20:57:12.263-03:00',
+                u'mensagem': u'Transacao cancelada com sucesso',
+                u'valor': u'100'
+            }
+        })
+
     def test_cancel_partial_amount(self):
         params = {
             'affiliation_id': '1006993069',
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
             'card_type': VISA,
             'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
-            'order_id': '7DSD163AH1',  # strings are allowed here
+            'order_id': '7DSD163AHCAN4',  # strings are allowed here
             'card_number': '4012001037141112',
             'cvc2': 423,
             'exp_month': 1,
@@ -913,13 +875,22 @@ class CancelTransactionTest(FrozenTimeTest):
         with CancelTransactionTest.vcr.use_cassette('cancel_partial_amount'):
             self.assertTrue(attempt.cancel(amount=Decimal('0.5')))
 
+        self.assertEquals(attempt.transaction['cancelamentos'], {
+            u'cancelamento': {
+                u'codigo': u'6',
+                u'data-hora': u'2013-10-18T20:57:10.290-03:00',
+                u'mensagem': u'Cancelamento parcial realizado com sucesso',
+                u'valor': u'50'
+            }
+        })
+
     def test_cancelation_amount_bigger_than_transaction_amount(self):
         params = {
             'affiliation_id': '1006993069',
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
             'card_type': VISA,
             'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
-            'order_id': '7DSD163AH1',  # strings are allowed here
+            'order_id': '7DSD163AHCAN5',  # strings are allowed here
             'card_number': '4012001037141112',
             'cvc2': 423,
             'exp_month': 1,
@@ -944,7 +915,9 @@ class CancelTransactionTest(FrozenTimeTest):
         self.assertEquals(attempt.error, {
             u'@xmlns': u'http://ecommerce.cbmp.com.br',
             u'codigo': u'043',
-            u'mensagem': u"Não é possível cancelar a transação [tid='10069930690A28C91001']: valor de cancelamento é maior que valor capturado."
+            u'mensagem': u"Não é possível cancelar a transação [tid='%s']: valor de cancelamento é maior que valor capturado." % (
+                attempt.transaction['tid']
+            )
         })
 
     def test_transaction_already_cancelled(self):
@@ -953,7 +926,7 @@ class CancelTransactionTest(FrozenTimeTest):
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
             'card_type': VISA,
             'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
-            'order_id': '7DSD163AH1',  # strings are allowed here
+            'order_id': '7DSD163AHCAN6',  # strings are allowed here
             'card_number': '4012001037141112',
             'cvc2': 423,
             'exp_month': 1,
@@ -983,11 +956,14 @@ class CancelTransactionTest(FrozenTimeTest):
         self.assertEquals(attempt.error, {
             u'@xmlns': u'http://ecommerce.cbmp.com.br',
             u'codigo': u'041',
-            u'mensagem': u'Transação com o Tid [10069930690A29531001] já está cancelada.'
+            u'mensagem': u'Transação com o Tid [%s] já está cancelada.' % attempt.transaction['tid']
         })
 
 
 class RefreshTransactionTest(FrozenTimeTest):
+
+    cassettes = path.join(path.dirname(__file__), 'cassettes', 'refresh_transaction')
+    vcr = VCR(cassette_library_dir=cassettes, match_on = ['url', 'method', 'headers', 'body'])
 
     def test_status_for_authorized_transaction(self):
         params = {
@@ -995,7 +971,7 @@ class RefreshTransactionTest(FrozenTimeTest):
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
             'card_type': VISA,
             'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
-            'order_id': '7DSD163AH1',  # strings are allowed here
+            'order_id': '7DSD163AHREF1',  # strings are allowed here
             'card_number': '4012001037141112',
             'cvc2': 423,
             'exp_month': 1,
@@ -1024,7 +1000,7 @@ class RefreshTransactionTest(FrozenTimeTest):
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
             'card_type': VISA,
             'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
-            'order_id': '7DSD163AH1',  # strings are allowed here
+            'order_id': '7DSD163AHREF2',  # strings are allowed here
             'card_number': '4012001037141112',
             'cvc2': 423,
             'exp_month': 1,
@@ -1054,7 +1030,7 @@ class RefreshTransactionTest(FrozenTimeTest):
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
             'card_type': VISA,
             'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
-            'order_id': '7DSD163AH1',  # strings are allowed here
+            'order_id': '7DSD163AHREF3',  # strings are allowed here
             'card_number': '4012001037141112',
             'cvc2': 423,
             'exp_month': 1,
@@ -1089,7 +1065,7 @@ class RefreshTransactionTest(FrozenTimeTest):
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
             'card_type': VISA,
             'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
-            'order_id': '7DSD163AH1',  # strings are allowed here
+            'order_id': '7DSD163AHREF4',  # strings are allowed here
             'card_number': '4012001037141112',
             'cvc2': 423,
             'exp_month': 1,
@@ -1117,7 +1093,7 @@ class RefreshTransactionTest(FrozenTimeTest):
             'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
             'card_type': VISA,
             'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
-            'order_id': '7DSD163AH1',  # strings are allowed here
+            'order_id': '7DSD163AHREF5',  # strings are allowed here
             'card_number': '4012001037141112',
             'cvc2': 423,
             'exp_month': 1,
@@ -1141,6 +1117,9 @@ class RefreshTransactionTest(FrozenTimeTest):
 
 
 class CreateTokenTest(FrozenTimeTest):
+
+    cassettes = path.join(path.dirname(__file__), 'cassettes', 'create_token')
+    vcr = VCR(cassette_library_dir=cassettes, match_on = ['url', 'method', 'headers', 'body'])
 
     def test_create_cielo_token(self):
         params = {
@@ -1200,8 +1179,9 @@ class CreateTokenTest(FrozenTimeTest):
             'api_key': token.api_key,
             'card_type': token.card_type,
             'total': Decimal('1.00'),
-            'order_id': '7DSD163AH1',
+            'order_id': '7DSD163AHTOK1',
             'token': token.token,
+            'url_redirect': 'http://localhost:7777/orders/7DSD163AHTOK1/',
             'installments': 1,
             'transaction': CASH,
             'sandbox': token.sandbox,
@@ -1242,8 +1222,9 @@ class CreateTokenTest(FrozenTimeTest):
             'api_key': token.api_key,
             'card_type': token.card_type,
             'total': Decimal('1.01'),  # when amount does not end with .00 attempt is automatically cancelled
-            'order_id': '7DSD163AH1',
+            'order_id': '7DSD163AHTOK2',
             'token': token.token,
+            'url_redirect': 'http://localhost:7777/orders/7DSD163AHTOK2/',
             'installments': 1,
             'transaction': CASH,
             'sandbox': token.sandbox,
@@ -1253,12 +1234,86 @@ class CreateTokenTest(FrozenTimeTest):
         with CreateTokenTest.vcr.use_cassette('authorization_failure_with_token'):
             self.assertTrue(attempt.get_authorized())
 
-        with CreateTokenTest.vcr.use_cassette('capture_failure_with_token'):
-            self.assertTrue(attempt.capture())
+        self.assertEquals(TRANSACTION_STATUS[attempt.status], u'Não autorizada')
 
-        self.assertFalse(attempt._authorized)
-        self.assertFalse(attempt._captured)
+    def test_token_payment_attempt_with_capture_authorized(self):
+        params = {
+            'affiliation_id': '1006993069',
+            'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
+            'card_type': 'visa',
+            'card_number': '4012001037141112',
+            'exp_month': 1,
+            'exp_year': 2010,
+            'card_holders_name': 'JOAO DA SILVA',
+            'sandbox': True,
+        }
+        token = CieloToken(**params)
 
+        with CreateTokenTest.vcr.use_cassette('token_creation_success'):
+            token.create_token()
+
+        self.assertEqual(token.status, '1')
+        self.assertTrue('1112' in token.card)
+
+        params = {
+            'affiliation_id': token.affiliation_id,
+            'api_key': token.api_key,
+            'card_type': token.card_type,
+            'total': Decimal('1.00'),
+            'order_id': '7DSD163AHTOK3',
+            'token': token.token,
+            'url_redirect': 'http://localhost:7777/orders/7DSD163AHTOK1/',
+            'installments': 1,
+            'transaction': CASH,
+            'capture': True,
+            'sandbox': token.sandbox,
+        }
+        attempt = TokenPaymentAttempt(**params)
+
+        with CreateTokenTest.vcr.use_cassette('token_authorization_with_capture_success'):
+            self.assertTrue(attempt.get_authorized())
+
+        self.assertTrue(attempt._authorized)
+        self.assertTrue(attempt._captured)
+
+    def test_token_payment_attempt_unauthorized(self):
+        params = {
+            'affiliation_id': '1006993069',
+            'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
+            'card_type': 'visa',
+            'card_number': '4012001037141112',
+            'exp_month': 1,
+            'exp_year': 2010,
+            'card_holders_name': 'JOAO DA SILVA',
+            'sandbox': True,
+        }
+        token = CieloToken(**params)
+
+        with CreateTokenTest.vcr.use_cassette('token_creation_success'):
+            token.create_token()
+
+        self.assertEqual(token.status, '1')
+        self.assertTrue('1112' in token.card)
+
+        params = {
+            'affiliation_id': token.affiliation_id,
+            'api_key': token.api_key,
+            'card_type': token.card_type,
+            'total': Decimal('1.01'),  # when amount does not end with .00 attempt is automatically cancelled
+            'order_id': '7DSD163AHTOK4',
+            'token': token.token,
+            'url_redirect': 'http://localhost:7777/orders/7DSD163AHTOK1/',
+            'installments': 1,
+            'transaction': CASH,
+            'capture': True,
+            'sandbox': token.sandbox,
+        }
+        attempt = TokenPaymentAttempt(**params)
+
+        with CreateTokenTest.vcr.use_cassette('token_authorization_with_capture_failure'):
+            self.assertTrue(attempt.get_authorized())
+
+        self.assertEquals(TRANSACTION_STATUS[attempt.status], u'Não autorizada')
 
 if __name__ == '__main__':
     unittest.main()

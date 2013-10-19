@@ -102,13 +102,13 @@ class WithCardData(object):
             raise ValueError(reason)
 
 
-class WithRedirect(object):
+class WithReturnURL(object):
     """
     Mixin which handles payments which need to redirect the customer.
     """
 
     def fetch_required_arguments(self, **kwargs):
-        super(WithRedirect, self).fetch_required_arguments(**kwargs)
+        super(WithReturnURL, self).fetch_required_arguments(**kwargs)
 
         self.url_redirect = kwargs['url_redirect']
 
@@ -225,7 +225,7 @@ class PaymentAttempt(WithCardData, Attempt):
         self.cvc2 = kwargs['cvc2']
 
 
-class BuyPageCieloAttempt(WithRedirect, Attempt):
+class BuyPageCieloAttempt(WithReturnURL, Attempt):
     """
     Interface for creating payments with card data collected my cielo
     """

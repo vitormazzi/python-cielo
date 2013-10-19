@@ -17,8 +17,8 @@
         >\n  <token>\n    <dados-token>\n      <codigo-token>O/sN7IgUNo4FKXy6SeQRc+BbuZiFvYo4Sqdph0EWaoI=</codigo-token>\n\
         \      <status>1</status>\n      <numero-cartao-truncado>401200******1112</numero-cartao-truncado>\n\
         \    </dados-token>\n  </token>\n</retorno-token>\n"}
-    headers: {content-length: '406', content-type: text/xml; charset=ISO-8859-1, date: 'Thu,
-        17 Oct 2013 20:06:14 GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x,
-      set-cookie: JSESSIONID=jWvGSgDWDKxQBFP2DjT3G1XWj7hz9266MrXN8ThkK1CJs4nLx6D1!-1256102350;
+    headers: {content-length: '406', content-type: text/xml; charset=ISO-8859-1, date: 'Fri,
+        18 Oct 2013 23:55:12 GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x,
+      set-cookie: JSESSIONID=TR9tShKBzQl6M9PgJCyYhycS3JQPnd7WnnQRPhTrKrgyD2GQrK4v!-292205217;
         path=/, x-powered-by: Servlet/2.5 JSP/2.1}
     status: {code: 200, message: OK}

@@ -1,0 +1,24 @@
+- request: !!python/object:vcr.request.Request
+    body: mensagem=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22ISO-8859-1%22%3F%3E%0A%3Crequisicao-transacao+id%3D%22f094958b-3b68-4c0b-9e68-3137f24fb308%22+versao%3D%221.3.0%22%3E%0A++++%3Cdados-ec%3E%0A++++++++%3Cnumero%3E1001734898%3C%2Fnumero%3E%0A++++++++%3Cchave%3Ee84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832%3C%2Fchave%3E%0A++++%3C%2Fdados-ec%3E%0A++++%3Cdados-portador%3E%0A++++++++%3Cnumero%3E4012001037141112%3C%2Fnumero%3E%0A++++++++%3Cvalidade%3E20101%3C%2Fvalidade%3E%0A++++++++%3Cindicador%3E1%3C%2Findicador%3E%0A++++++++%3Ccodigo-seguranca%3E423%3C%2Fcodigo-seguranca%3E%0A++++++++%3Cnome-portador%3EJOAO+DA+SILVA%3C%2Fnome-portador%3E%0A++++%3C%2Fdados-portador%3E%0A++++%3Cdados-pedido%3E%0A++++++++%3Cnumero%3E7DSD163AHBLP13%3C%2Fnumero%3E%0A++++++++%3Cvalor%3E100%3C%2Fvalor%3E%0A++++++++%3Cmoeda%3E986%3C%2Fmoeda%3E%0A++++++++%3Cdata-hora%3E2009-12-14T12%3A00%3A01%3C%2Fdata-hora%3E%0A++++++++%3Cidioma%3EPT%3C%2Fidioma%3E%0A++++++++%3Csoft-descriptor%3E%3C%2Fsoft-descriptor%3E%0A++++%3C%2Fdados-pedido%3E%0A++++%3Cforma-pagamento%3E%0A++++++++%3Cbandeira%3Evisa%3C%2Fbandeira%3E%0A++++++++%3Cproduto%3E1%3C%2Fproduto%3E%0A++++++++%3Cparcelas%3E1%3C%2Fparcelas%3E%0A++++%3C%2Fforma-pagamento%3E%0A++++%3Curl-retorno%3E%3C%2Furl-retorno%3E%0A++++%3Cautorizar%3E3%3C%2Fautorizar%3E%0A++++%3Ccapturar%3Efalse%3C%2Fcapturar%3E%0A++++%3Cgerar-token%3Efalse%3C%2Fgerar-token%3E%0A%3C%2Frequisicao-transacao%3E%0A
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Content-Length, !!python/unicode '1439']
+      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Content-Type, application/x-www-form-urlencoded]
+      - !!python/tuple [Accept, '*/*']
+      - !!python/tuple [user-agent, python-cielo]
+    host: qasecommerce.cielo.com.br
+    method: POST
+    path: /servicos/ecommwsec.do
+    port: 443
+    protocol: https
+  response:
+    body:
+      string: !!binary |
+        PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iSVNPLTg4NTktMSI/Pgo8ZXJybyB4bWxucz0i
+        aHR0cDovL2Vjb21tZXJjZS5jYm1wLmNvbS5iciI+PGNvZGlnbz4wMTA8L2NvZGlnbz48bWVuc2Fn
+        ZW0+TuNvIOkgcGVybWl0aWRvIG8gZW52aW8gZG8gY2FydONvLjwvbWVuc2FnZW0+PC9lcnJvPgo=
+    headers: {content-length: '170', content-type: text/xml; charset=ISO-8859-1, date: 'Sat,
+        19 Oct 2013 00:03:57 GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x,
+      set-cookie: JSESSIONID=QJk8ShMX0dCrDQZvkdJvQWTmJkrHzVwpRdv85kGdDrPHZXz1qy7B!-292205217;
+        path=/, x-powered-by: Servlet/2.5 JSP/2.1}
+    status: {code: 200, message: OK}

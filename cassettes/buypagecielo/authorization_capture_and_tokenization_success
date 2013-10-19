@@ -1,5 +1,5 @@
 - request: !!python/object:vcr.request.Request
-    body: mensagem=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22ISO-8859-1%22%3F%3E%0D%0A%3Crequisicao-consulta+id%3D%224c38f150-b67d-4059-88d1-b53b13e54a8e%22+versao%3D%221.3.0%22%3E%0D%0A++++%3Ctid%3E100173489800663F1001%3C%2Ftid%3E%0D%0A++++%3Cdados-ec%3E%0D%0A++++++++%3Cnumero%3E1001734898%3C%2Fnumero%3E%0D%0A++++++++%3Cchave%3Ee84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832%3C%2Fchave%3E%0D%0A++++%3C%2Fdados-ec%3E%0D%0A%3C%2Frequisicao-consulta%3E%0D%0A
+    body: mensagem=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22ISO-8859-1%22%3F%3E%0D%0A%3Crequisicao-consulta+id%3D%224c38f150-b67d-4059-88d1-b53b13e54a8e%22+versao%3D%221.3.0%22%3E%0D%0A++++%3Ctid%3E10017348980066641001%3C%2Ftid%3E%0D%0A++++%3Cdados-ec%3E%0D%0A++++++++%3Cnumero%3E1001734898%3C%2Fnumero%3E%0D%0A++++++++%3Cchave%3Ee84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832%3C%2Fchave%3E%0D%0A++++%3C%2Fdados-ec%3E%0D%0A%3C%2Frequisicao-consulta%3E%0D%0A
     headers: !!python/object/apply:__builtin__.frozenset
     - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
       - !!python/tuple [user-agent, python-cielo]
@@ -14,21 +14,21 @@
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAE/5VUTW/bMAy991cYOQ5wJNmO7QSKin5sWLENTdFswXZjLDV1FluuJadd/u4O+xuj
-        bKdL0fWQXEI/8YnkI0V++lRsvK2qTa7L6YAN6cBTZaZlXq6mg6vbaz9NR2OfDU7FCbc1lAYy0C0B
-        tPMPHSOX00GUhekdG1F/GSfSjyiy0lQyfzkKlyxUowhSNfAwWmmmg3trqwkhKtNFoepMDbNlUQ3x
-        a7isB+LE87jNpWCUsiSM0nFKaRyHH9w3J+7EeVRQiquHb7tkNt7B1Wr+XX6N2EdYkOtzIpMr+Wjt
-        w+My2MLcpl/mdMqJYzimBKmNXymZS+2CYbiywTy0SC5vL1kcnn0ccdJDSMDzLWx0LTABTjqzgwut
-        JIhxGnPSmR0swYJ/r2sQAWWhz6jP0jkbT8J0EgTDOI19Gk4o5eSfY09UJqtzVFjMn7W2yljlnTe/
-        ZrBS3kWuNhqJz44dMZe5LkDM5pz0ZodbeAJfFUuoHxolMOJLAJ3wLngpB7/TdQF+BSsoVGn3Ei2h
-        lCrHmra5AU6eP/EOFKiqtWzQl6HMvdkfAPZ3A0a4k72NR5z8Jww3FmxjBOrZW84TGot5oCxOGAQw
-        nJvQlXZ+vdXBmK9BlYoD+YwqvMMLsFMKp3ilir718u1mRemQjUZvNasbhFczobJcJBxnO3cBODkM
-        3iII6DrfwbHV/PmtXSUtV8KxdSTsyDo2tXAjin+dtlBXggVhNMLmOLtDS9MIGsQscS8GbUTbktss
-        +wp5BpVtcHLw8Kje9TwJHq4GzzSZMkYfWXgQJscUzkkftG2V1T9V6SxMu9saBwhi3fD5Hbh7PHt/
-        N67Wu3Jm1eLmglyuZxEp4jWR489yYbZ2fbn4cfvpPr+ZYhjcsSvdU1th8L5+6BknvbU/6JaRn0Ft
-        AUl1U2b4akVEWUDpu/bHGAv2W+uVY3vP/ql36SKEy7QrEI263+3i5C+/YJMxFAYAAA==
-    headers: {connection: Keep-Alive, content-encoding: gzip, content-length: '733',
-      content-type: text/xml; charset=ISO-8859-1, date: 'Fri, 18 Oct 2013 22:38:48
-        GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x, set-cookie: JSESSIONID=2TQTSh4YmBJn06yQyyndlG0vsJW82W5Kn9ZR1yKDTh0st1f32ygP!-1256102350;
+        H4sIAAAAAAAE/5VUwW7bMAy99yuMHAc4kmzHsQNFRdsMWLENTdFswXZjLDV1FluuJaddfneH/cYo
+        2+lSbD0kl9BPfCL5SJGfPxdbb6dqk+tyOmBDOvBUmWmZl+vp4Pruxk+SUeqzwbk447aG0kAGuiWA
+        dv6hY+RyOoiyMLlnI+qv4rH0I4qsJJHMX43CFQvVKIJEDTyMVprp4MHaakKIynRRqDpTw2xVVEP8
+        Gq7qgTjzPG5zKRilbBxGSZpQGsdx5L45cSfOo4JSXD9+3Y/n6R6u14tv8kvEPsCS3FwSOb6WT9Y+
+        Pq2CHSxs8nlBp5w4hmNKkNr4lZK51C4YhisbzEOL8exuxuLw4sPl/GrESY8iB112sNW1y4mTzuzg
+        QisJIk1iTjqzgyVY8B90DSKgLPQZ9VmyCNiEJpMoHUZx6tNwQiknfx17ojJZnaPIYvEit1XGKu+y
+        +TmHtfKucrXVSHxx7Ii5zHUBYr7gpDc73MIz+KpYQf3YKIERXwPohHfBa0X4va4L8CtYQ6FKe1Bp
+        BaVUOda0yw1w8vKJd6BAVa1lg74Mle7N/gCwxVswwp0cbDzi5D9huLFgGyNQz95yntBYzANlccIg
+        gOHckK618+utDsZ8DapUHMlnVOEdX4CdUjjIa1X03ZdvN2tEh2EYv9WsbhBwLl/PhMpyMeY43rkL
+        wMlx8BZBQNf5Hk6t5vcv7SppuRJOrSOKTqxjWws3ovjXaQt1JVgQRiNsjrM7tDSNoEEcsABfDNqI
+        tiW3WfYV8gwq2+Dk4OFJvet5EjzcDp5pMmWMPrHwiAWnFM5JH7RtldU/VOksTLtbHEcIYt3w+R24
+        f7p4f59Wm305t2p5e0Vmm3lEinhDZPpJLs3ObmbL73cfH/LbKYbBNbvWPbUVBu/rh55x0luHg24Z
+        +RnUFpBUN2WGr1ZElAWUvmt/jLU9aHfZP47tPYen3qWLEO7TrkA06n69i7M/Azw3+RcGAAA=
+    headers: {connection: Keep-Alive, content-encoding: gzip, content-length: '737',
+      content-type: text/xml; charset=ISO-8859-1, date: 'Sat, 19 Oct 2013 00:08:50
+        GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x, set-cookie: JSESSIONID=bZzDShNSHB06xQyDGV82ZJBnQT0KMvT6yjJLygdMPyGJS9xRTx3J!-292205217;
         path=/, vary: 'Accept-Encoding, User-Agent', x-powered-by: Servlet/2.5 JSP/2.1}
     status: {code: 200, message: OK}

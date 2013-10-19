@@ -1,5 +1,5 @@
 - request: !!python/object:vcr.request.Request
-    body: mensagem=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22ISO-8859-1%22%3F%3E%0D%0A%3Crequisicao-consulta+id%3D%224c38f150-b67d-4059-88d1-b53b13e54a8e%22+versao%3D%221.3.0%22%3E%0D%0A++++%3Ctid%3E10017348980066391001%3C%2Ftid%3E%0D%0A++++%3Cdados-ec%3E%0D%0A++++++++%3Cnumero%3E1001734898%3C%2Fnumero%3E%0D%0A++++++++%3Cchave%3Ee84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832%3C%2Fchave%3E%0D%0A++++%3C%2Fdados-ec%3E%0D%0A%3C%2Frequisicao-consulta%3E%0D%0A
+    body: mensagem=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22ISO-8859-1%22%3F%3E%0D%0A%3Crequisicao-consulta+id%3D%224c38f150-b67d-4059-88d1-b53b13e54a8e%22+versao%3D%221.3.0%22%3E%0D%0A++++%3Ctid%3E10017348980066611001%3C%2Ftid%3E%0D%0A++++%3Cdados-ec%3E%0D%0A++++++++%3Cnumero%3E1001734898%3C%2Fnumero%3E%0D%0A++++++++%3Cchave%3Ee84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832%3C%2Fchave%3E%0D%0A++++%3C%2Fdados-ec%3E%0D%0A%3C%2Frequisicao-consulta%3E%0D%0A
     headers: !!python/object/apply:__builtin__.frozenset
     - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
       - !!python/tuple [user-agent, python-cielo]
@@ -14,19 +14,19 @@
   response:
     body: {string: "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n<transacao versao=\"\
         1.3.0\" id=\"4c38f150-b67d-4059-88d1-b53b13e54a8e\" xmlns=\"http://ecommerce.cbmp.com.br\"\
-        >\n  <tid>10017348980066391001</tid>\n  <dados-pedido>\n    <numero>7DSD163AH4</numero>\n\
-        \    <valor>100</valor>\n    <moeda>986</moeda>\n    <data-hora>2013-10-18T19:28:43.855-03:00</data-hora>\n\
+        >\n  <tid>10017348980066611001</tid>\n  <dados-pedido>\n    <numero>7DSD163AHBPC3</numero>\n\
+        \    <valor>100</valor>\n    <moeda>986</moeda>\n    <data-hora>2013-10-18T21:08:45.167-03:00</data-hora>\n\
         \    <descricao>Transacao teste BuyPage Cielo</descricao>\n    <idioma>PT</idioma>\n\
         \    <taxa-embarque>0</taxa-embarque>\n  </dados-pedido>\n  <forma-pagamento>\n\
         \    <bandeira>visa</bandeira>\n    <produto>1</produto>\n    <parcelas>1</parcelas>\n\
         \  </forma-pagamento>\n  <status>1</status>\n</transacao>\n"}
-    headers: {content-length: '629', content-type: text/xml; charset=ISO-8859-1, date: 'Fri,
-        18 Oct 2013 22:28:44 GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x,
-      set-cookie: JSESSIONID=2H25Sh2c2YhB1Xh2XkmHlvL16y12nwT1P0YvFwKnFQRvwDDhTP5n!-292205217;
+    headers: {content-length: '632', content-type: text/xml; charset=ISO-8859-1, date: 'Sat,
+        19 Oct 2013 00:08:45 GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x,
+      set-cookie: JSESSIONID=y7jTShNNTzDh2pCGJ6v13cTl73M1pJ2tTknBTcdk94gFBlKN1sCS!-292205217;
         path=/, x-powered-by: Servlet/2.5 JSP/2.1}
     status: {code: 200, message: OK}
 - request: !!python/object:vcr.request.Request
-    body: mensagem=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22ISO-8859-1%22%3F%3E%0D%0A%3Crequisicao-consulta+id%3D%224c38f150-b67d-4059-88d1-b53b13e54a8e%22+versao%3D%221.3.0%22%3E%0D%0A++++%3Ctid%3E10017348980066331001%3C%2Ftid%3E%0D%0A++++%3Cdados-ec%3E%0D%0A++++++++%3Cnumero%3E1001734898%3C%2Fnumero%3E%0D%0A++++++++%3Cchave%3Ee84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832%3C%2Fchave%3E%0D%0A++++%3C%2Fdados-ec%3E%0D%0A%3C%2Frequisicao-consulta%3E%0D%0A
+    body: mensagem=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22ISO-8859-1%22%3F%3E%0D%0A%3Crequisicao-consulta+id%3D%224c38f150-b67d-4059-88d1-b53b13e54a8e%22+versao%3D%221.3.0%22%3E%0D%0A++++%3Ctid%3E10017348980066621001%3C%2Ftid%3E%0D%0A++++%3Cdados-ec%3E%0D%0A++++++++%3Cnumero%3E1001734898%3C%2Fnumero%3E%0D%0A++++++++%3Cchave%3Ee84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832%3C%2Fchave%3E%0D%0A++++%3C%2Fdados-ec%3E%0D%0A%3C%2Frequisicao-consulta%3E%0D%0A
     headers: !!python/object/apply:__builtin__.frozenset
     - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
       - !!python/tuple [user-agent, python-cielo]
@@ -41,19 +41,19 @@
   response:
     body: {string: "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n<transacao versao=\"\
         1.3.0\" id=\"4c38f150-b67d-4059-88d1-b53b13e54a8e\" xmlns=\"http://ecommerce.cbmp.com.br\"\
-        >\n  <tid>10017348980066331001</tid>\n  <dados-pedido>\n    <numero>7DSD163AH2</numero>\n\
-        \    <valor>100</valor>\n    <moeda>986</moeda>\n    <data-hora>2013-10-18T19:07:10.195-03:00</data-hora>\n\
+        >\n  <tid>10017348980066621001</tid>\n  <dados-pedido>\n    <numero>7DSD163AHBPC6</numero>\n\
+        \    <valor>101</valor>\n    <moeda>986</moeda>\n    <data-hora>2013-10-18T21:08:46.423-03:00</data-hora>\n\
         \    <descricao>Transacao teste BuyPage Cielo</descricao>\n    <idioma>PT</idioma>\n\
         \    <taxa-embarque>0</taxa-embarque>\n  </dados-pedido>\n  <forma-pagamento>\n\
         \    <bandeira>visa</bandeira>\n    <produto>1</produto>\n    <parcelas>1</parcelas>\n\
         \  </forma-pagamento>\n  <status>1</status>\n</transacao>\n"}
-    headers: {content-length: '629', content-type: text/xml; charset=ISO-8859-1, date: 'Fri,
-        18 Oct 2013 22:07:10 GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x,
-      set-cookie: JSESSIONID=1V54ShxPkMGGpMQb0v6Lb1J61l2mTF0NQfp9dpSLwygJBMTG1yTH!-1256102350;
+    headers: {content-length: '632', content-type: text/xml; charset=ISO-8859-1, date: 'Sat,
+        19 Oct 2013 00:08:46 GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x,
+      set-cookie: JSESSIONID=QzJMShNTnQvNlVvrtLSVgWhMvZlS8mSfw3wtMQTSt7CMCpLLGyhh!-1256102350;
         path=/, x-powered-by: Servlet/2.5 JSP/2.1}
     status: {code: 200, message: OK}
 - request: !!python/object:vcr.request.Request
-    body: mensagem=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22ISO-8859-1%22%3F%3E%0D%0A%3Crequisicao-consulta+id%3D%224c38f150-b67d-4059-88d1-b53b13e54a8e%22+versao%3D%221.3.0%22%3E%0D%0A++++%3Ctid%3E100173489800663F1001%3C%2Ftid%3E%0D%0A++++%3Cdados-ec%3E%0D%0A++++++++%3Cnumero%3E1001734898%3C%2Fnumero%3E%0D%0A++++++++%3Cchave%3Ee84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832%3C%2Fchave%3E%0D%0A++++%3C%2Fdados-ec%3E%0D%0A%3C%2Frequisicao-consulta%3E%0D%0A
+    body: mensagem=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22ISO-8859-1%22%3F%3E%0D%0A%3Crequisicao-consulta+id%3D%224c38f150-b67d-4059-88d1-b53b13e54a8e%22+versao%3D%221.3.0%22%3E%0D%0A++++%3Ctid%3E10017348980066631001%3C%2Ftid%3E%0D%0A++++%3Cdados-ec%3E%0D%0A++++++++%3Cnumero%3E1001734898%3C%2Fnumero%3E%0D%0A++++++++%3Cchave%3Ee84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832%3C%2Fchave%3E%0D%0A++++%3C%2Fdados-ec%3E%0D%0A%3C%2Frequisicao-consulta%3E%0D%0A
     headers: !!python/object/apply:__builtin__.frozenset
     - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
       - !!python/tuple [user-agent, python-cielo]
@@ -68,19 +68,19 @@
   response:
     body: {string: "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n<transacao versao=\"\
         1.3.0\" id=\"4c38f150-b67d-4059-88d1-b53b13e54a8e\" xmlns=\"http://ecommerce.cbmp.com.br\"\
-        >\n  <tid>100173489800663F1001</tid>\n  <dados-pedido>\n    <numero>7DSD163AH5</numero>\n\
-        \    <valor>100</valor>\n    <moeda>986</moeda>\n    <data-hora>2013-10-18T19:38:22.686-03:00</data-hora>\n\
+        >\n  <tid>10017348980066631001</tid>\n  <dados-pedido>\n    <numero>7DSD163AHBPC4</numero>\n\
+        \    <valor>100</valor>\n    <moeda>986</moeda>\n    <data-hora>2013-10-18T21:08:47.736-03:00</data-hora>\n\
         \    <descricao>Transacao teste BuyPage Cielo</descricao>\n    <idioma>PT</idioma>\n\
         \    <taxa-embarque>0</taxa-embarque>\n  </dados-pedido>\n  <forma-pagamento>\n\
         \    <bandeira>visa</bandeira>\n    <produto>1</produto>\n    <parcelas>1</parcelas>\n\
         \  </forma-pagamento>\n  <status>1</status>\n</transacao>\n"}
-    headers: {content-length: '629', content-type: text/xml; charset=ISO-8859-1, date: 'Fri,
-        18 Oct 2013 22:38:24 GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x,
-      set-cookie: JSESSIONID=QT0tSh4QcnTWCmyD7RlFFhMCK0WHMM0zQs8VyWQ8TFy1VGGrM4zz!-1256102350;
+    headers: {content-length: '632', content-type: text/xml; charset=ISO-8859-1, date: 'Sat,
+        19 Oct 2013 00:08:48 GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x,
+      set-cookie: JSESSIONID=1hqzShNQysfjD04HCJjD7D1vVncH81B7DtZbnKQv9vSlShfCTj2t!-292205217;
         path=/, x-powered-by: Servlet/2.5 JSP/2.1}
     status: {code: 200, message: OK}
 - request: !!python/object:vcr.request.Request
-    body: mensagem=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22ISO-8859-1%22%3F%3E%0D%0A%3Crequisicao-consulta+id%3D%224c38f150-b67d-4059-88d1-b53b13e54a8e%22+versao%3D%221.3.0%22%3E%0D%0A++++%3Ctid%3E10017348980066411001%3C%2Ftid%3E%0D%0A++++%3Cdados-ec%3E%0D%0A++++++++%3Cnumero%3E1001734898%3C%2Fnumero%3E%0D%0A++++++++%3Cchave%3Ee84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832%3C%2Fchave%3E%0D%0A++++%3C%2Fdados-ec%3E%0D%0A%3C%2Frequisicao-consulta%3E%0D%0A
+    body: mensagem=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22ISO-8859-1%22%3F%3E%0D%0A%3Crequisicao-consulta+id%3D%224c38f150-b67d-4059-88d1-b53b13e54a8e%22+versao%3D%221.3.0%22%3E%0D%0A++++%3Ctid%3E10017348980066641001%3C%2Ftid%3E%0D%0A++++%3Cdados-ec%3E%0D%0A++++++++%3Cnumero%3E1001734898%3C%2Fnumero%3E%0D%0A++++++++%3Cchave%3Ee84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832%3C%2Fchave%3E%0D%0A++++%3C%2Fdados-ec%3E%0D%0A%3C%2Frequisicao-consulta%3E%0D%0A
     headers: !!python/object/apply:__builtin__.frozenset
     - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
       - !!python/tuple [user-agent, python-cielo]
@@ -95,14 +95,41 @@
   response:
     body: {string: "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n<transacao versao=\"\
         1.3.0\" id=\"4c38f150-b67d-4059-88d1-b53b13e54a8e\" xmlns=\"http://ecommerce.cbmp.com.br\"\
-        >\n  <tid>10017348980066411001</tid>\n  <dados-pedido>\n    <numero>7DSD163AH6</numero>\n\
-        \    <valor>101</valor>\n    <moeda>986</moeda>\n    <data-hora>2013-10-18T19:43:18.821-03:00</data-hora>\n\
+        >\n  <tid>10017348980066641001</tid>\n  <dados-pedido>\n    <numero>7DSD163AHBPC5</numero>\n\
+        \    <valor>100</valor>\n    <moeda>986</moeda>\n    <data-hora>2013-10-18T21:08:49.469-03:00</data-hora>\n\
         \    <descricao>Transacao teste BuyPage Cielo</descricao>\n    <idioma>PT</idioma>\n\
         \    <taxa-embarque>0</taxa-embarque>\n  </dados-pedido>\n  <forma-pagamento>\n\
         \    <bandeira>visa</bandeira>\n    <produto>1</produto>\n    <parcelas>1</parcelas>\n\
         \  </forma-pagamento>\n  <status>1</status>\n</transacao>\n"}
-    headers: {content-length: '629', content-type: text/xml; charset=ISO-8859-1, date: 'Fri,
-        18 Oct 2013 22:43:19 GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x,
-      set-cookie: JSESSIONID=zNd5Sh5HMPWgHfv1ThpdqkJZ2m2wLDtLpwpT4NCXTT4Q2T6JyLGZ!-292205217;
+    headers: {content-length: '632', content-type: text/xml; charset=ISO-8859-1, date: 'Sat,
+        19 Oct 2013 00:08:49 GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x,
+      set-cookie: JSESSIONID=HQJgShNS0TnQsy9v1NQ6nV1czzJdPKsJKtJnfZwTclJ9yHbqjQMc!-1256102350;
+        path=/, x-powered-by: Servlet/2.5 JSP/2.1}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: mensagem=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22ISO-8859-1%22%3F%3E%0D%0A%3Crequisicao-consulta+id%3D%224c38f150-b67d-4059-88d1-b53b13e54a8e%22+versao%3D%221.3.0%22%3E%0D%0A++++%3Ctid%3E10017348980066671001%3C%2Ftid%3E%0D%0A++++%3Cdados-ec%3E%0D%0A++++++++%3Cnumero%3E1001734898%3C%2Fnumero%3E%0D%0A++++++++%3Cchave%3Ee84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832%3C%2Fchave%3E%0D%0A++++%3C%2Fdados-ec%3E%0D%0A%3C%2Frequisicao-consulta%3E%0D%0A
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [user-agent, python-cielo]
+      - !!python/tuple [Content-Length, !!python/unicode '468']
+      - !!python/tuple [Accept, '*/*']
+      - !!python/tuple [Content-Type, application/x-www-form-urlencoded]
+    host: qasecommerce.cielo.com.br
+    method: POST
+    path: /servicos/ecommwsec.do
+    port: 443
+    protocol: https
+  response:
+    body: {string: "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n<transacao versao=\"\
+        1.3.0\" id=\"4c38f150-b67d-4059-88d1-b53b13e54a8e\" xmlns=\"http://ecommerce.cbmp.com.br\"\
+        >\n  <tid>10017348980066671001</tid>\n  <dados-pedido>\n    <numero>7DSD163AHBPC2</numero>\n\
+        \    <valor>100</valor>\n    <moeda>986</moeda>\n    <data-hora>2013-10-18T21:08:51.774-03:00</data-hora>\n\
+        \    <descricao>Transacao teste BuyPage Cielo</descricao>\n    <idioma>PT</idioma>\n\
+        \    <taxa-embarque>0</taxa-embarque>\n  </dados-pedido>\n  <forma-pagamento>\n\
+        \    <bandeira>visa</bandeira>\n    <produto>1</produto>\n    <parcelas>1</parcelas>\n\
+        \  </forma-pagamento>\n  <status>1</status>\n</transacao>\n"}
+    headers: {content-length: '632', content-type: text/xml; charset=ISO-8859-1, date: 'Sat,
+        19 Oct 2013 00:08:52 GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x,
+      set-cookie: JSESSIONID=nVm1ShNVPyJ1nJ6bMwMvLP8v41N6DxcHt1ljhS1LjM3yYGS6JTpb!-1256102350;
         path=/, x-powered-by: Servlet/2.5 JSP/2.1}
     status: {code: 200, message: OK}
