@@ -14,19 +14,19 @@
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAE/5VUwW7bMAy99ysM3x1JthPbgaJiXQ/NYWiBpht2pC0lFRBbriSnRX93h/3GqNjZ
-        WqAdkFzyRPGJfORL+OVLu48OyjptulXMZjSOVNcYqbvdKl7f3yZlOa8SFl+KC+4tdA4aMEcCmJCf
-        BYaWq3hLq7yal3WS1YsyyRtaJ5VClLGs2Kb5ts5oGUdYrXOr+NH7fkmIakzbKtuoWVO3/QxPs9rG
-        4iKKuNdSMEpZkeVlVVK6wE84cxJuQkYPnVg/fX8t7qpXWO82P+VDzm7gB7m9IrJYy2fvn57r9AAb
-        X37b0BUngRGYEqRxSa+kliYUw3LdgH0YUVzfX7NF9uXm6u5rxckURQ6mHGBvbOiJkxGO4dYoCaIq
-        F5yMcAxL8JA8GgsipSxLGE1YuUnZkpbLOZuhqIRmS0o5+Zc4ErXUpgVxt+FkgmPcwwskqq3BPg1K
-        IPF9AJPCW++F8a2xLSQ97KBVnT+JraGTSmNrB+2Ak79HfAN19tbIAXMZDmyC0wXgpvbgRLg5Ybzi
-        5IMy3HnwgxM4lgmFTBg89qEbQBNNkw9e25mQNyHMwy6wXwc71YqNPZnOqTZ6+wAOXKEfQ9LIkf+f
-        Ofr4k5mP+0R7vV+tarQoOLpUh145eVv8GMGAsfr1bDW/f5mg5MiVcK6ORfGZdz7RsbciOA2/xjmB
-        7QVLs3yOywl4jHZuEDRdpCxH4yPG6FHysctpX7yB3g/oHLzEJU0bw2cmNIY/2N3EkxDhjzxyQ6Oc
-        M2cKz7P0HOGcTEXxn4v4k4vExR9EEsfy8wQAAA==
-    headers: {connection: Keep-Alive, content-encoding: gzip, content-length: '598',
-      content-type: text/xml; charset=ISO-8859-1, date: 'Sat, 19 Oct 2013 00:08:51
-        GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x, set-cookie: JSESSIONID=p9krShNTNMGKw3sfqrZlVTh7q12pGXmX6vnxKCN5gq6ZsR0zpbCQ!-292205217;
+        H4sIAAAAAAAE/5VUy27bMBC85ysE3WWSkqyHQTNomkN8KBIgboseVyLtELBEWaScwL/bQ3+jS0tu
+        YyAt4JOHwx3uzu5a/Pat2QUH1Vtt2mXIZjQMVFsbqdvtMlw9P0ZFMS8jFt6KG+56aC3UYE4CMD4+
+        8Qotl+GGlmk5L6ooqbIiSmtaRaVClLAk38TppkpoEQaYrbXL8MW5bkGIqk3TqL5Ws7pquhmeZlUf
+        ipsg4E5LwShleZIWZUFpluXMnznxNz6ig1as9t+O+VN5hNV2/UN+TdkDfCePd0TmK/nq3P61ig+w
+        dsWXNV1y4hVeKUEaG3VKaml8MkzXDliHEfn98z3Lkk8Pd0+fS04mFjUYcoCd6X1NnIxwpBujJIiy
+        yDgZ4UhLcBC9mB5ETFkSMRqxYh2zBSsWLJvlNIlosqCUk7+Bo1BLbRoQT2tOJjjyDt4gUk0F/X5Q
+        AoWXBAb5ty6N8Y3pG4g62EKjWnc2W0ErlcbSDtoCJ3+O+Ab67HojB4xl2LAJTheAk9qBFf7mjPGK
+        kw/ScOvADVZgWybkI2FwWIeuAZdo6rzfta3xcRPCOKwC67WwVY1Y9+els6oJ3j+ADVe4jz5o1Mj/
+        9zzL/tXzcZ64XpejVbUWOcct1b5WTt4nPzFImF4fr3bz66fxTk5aCdf6KOZX+tj1wm8a/ox9gr4T
+        LE7SOQ7H45Ft7SBonMXxHBcfMbIny6cqp3nxGjo34ObgJQ5pmhg+M6GR/mB2k05CgH/ywA61stZc
+        abxI2TXGOZmS4peLuPMWiZvf6yrwhPMEAAA=
+    headers: {connection: Keep-Alive, content-encoding: gzip, content-length: '596',
+      content-type: text/xml; charset=ISO-8859-1, date: 'Sat, 19 Oct 2013 00:18:15
+        GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x, set-cookie: JSESSIONID=CndHShPLVKb26NlLw0pWQmQSyLV32FbZLGL6LBmr76Dz9Dl01yTh!-1256102350;
         path=/, vary: 'Accept-Encoding, User-Agent', x-powered-by: Servlet/2.5 JSP/2.1}
     status: {code: 200, message: OK}

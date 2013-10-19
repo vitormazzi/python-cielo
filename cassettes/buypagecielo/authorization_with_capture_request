@@ -14,15 +14,15 @@
   response:
     body: {string: "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n<transacao versao=\"\
         1.3.0\" id=\"b646a02f-9983-4df8-91b9-75b48345715a\" xmlns=\"http://ecommerce.cbmp.com.br\"\
-        >\n  <tid>10017348980066631001</tid>\n  <dados-pedido>\n    <numero>7DSD163AHBPC4</numero>\n\
-        \    <valor>100</valor>\n    <moeda>986</moeda>\n    <data-hora>2013-10-18T21:08:47.736-03:00</data-hora>\n\
+        >\n  <tid>100173489800666D1001</tid>\n  <dados-pedido>\n    <numero>7DSD163AHBPC4</numero>\n\
+        \    <valor>100</valor>\n    <moeda>986</moeda>\n    <data-hora>2013-10-18T21:18:12.092-03:00</data-hora>\n\
         \    <descricao>Transacao teste BuyPage Cielo</descricao>\n    <idioma>PT</idioma>\n\
         \    <taxa-embarque>0</taxa-embarque>\n  </dados-pedido>\n  <forma-pagamento>\n\
         \    <bandeira>visa</bandeira>\n    <produto>1</produto>\n    <parcelas>1</parcelas>\n\
-        \  </forma-pagamento>\n  <status>0</status>\n  <url-autenticacao>https://qasecommerce.cielo.com.br/web/index.cbmp?id=b9772b32c26af4f18fec7875473e4308</url-autenticacao>\n\
+        \  </forma-pagamento>\n  <status>0</status>\n  <url-autenticacao>https://qasecommerce.cielo.com.br/web/index.cbmp?id=76a394df8f255163d139c429acf18bf0</url-autenticacao>\n\
         </transacao>\n"}
     headers: {content-length: '756', content-type: text/xml; charset=ISO-8859-1, date: 'Sat,
-        19 Oct 2013 00:08:47 GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x,
-      set-cookie: JSESSIONID=NVgRShNP7Jk8pnbLLwQZyxxJqPSKGW3DLhy4FGQwK6WCLVSpf3yj!-1256102350;
+        19 Oct 2013 00:18:11 GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x,
+      set-cookie: JSESSIONID=fqCyShPG0QDQCLPQrjTCV8VZdFPDmpmcshYkd23HJtX1HRhyBnQh!-1256102350;
         path=/, x-powered-by: Servlet/2.5 JSP/2.1}
     status: {code: 200, message: OK}

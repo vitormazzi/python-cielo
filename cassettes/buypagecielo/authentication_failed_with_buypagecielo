@@ -1,5 +1,5 @@
 - request: !!python/object:vcr.request.Request
-    body: mensagem=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22ISO-8859-1%22%3F%3E%0D%0A%3Crequisicao-consulta+id%3D%224c38f150-b67d-4059-88d1-b53b13e54a8e%22+versao%3D%221.3.0%22%3E%0D%0A++++%3Ctid%3E10017348980066621001%3C%2Ftid%3E%0D%0A++++%3Cdados-ec%3E%0D%0A++++++++%3Cnumero%3E1001734898%3C%2Fnumero%3E%0D%0A++++++++%3Cchave%3Ee84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832%3C%2Fchave%3E%0D%0A++++%3C%2Fdados-ec%3E%0D%0A%3C%2Frequisicao-consulta%3E%0D%0A
+    body: mensagem=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22ISO-8859-1%22%3F%3E%0D%0A%3Crequisicao-consulta+id%3D%224c38f150-b67d-4059-88d1-b53b13e54a8e%22+versao%3D%221.3.0%22%3E%0D%0A++++%3Ctid%3E100173489800666C1001%3C%2Ftid%3E%0D%0A++++%3Cdados-ec%3E%0D%0A++++++++%3Cnumero%3E1001734898%3C%2Fnumero%3E%0D%0A++++++++%3Cchave%3Ee84827130b9837473681c2787007da5914d6359947015a5cdb2b8843db0fa832%3C%2Fchave%3E%0D%0A++++%3C%2Fdados-ec%3E%0D%0A%3C%2Frequisicao-consulta%3E%0D%0A
     headers: !!python/object/apply:__builtin__.frozenset
     - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
       - !!python/tuple [user-agent, python-cielo]
@@ -14,19 +14,19 @@
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAE/5VUy27bMBC8+ysE3WWSlizJBs0gj0N8KGIgSoseVyLjELBEh6Sc1L/bQ3+jy0hx
-        EqAtmpOGwxkud0iKnz23u+igrNOmW8VsSuNIdY2Rutuu4vXtTVKW80XC4jMx4d5C56AB82IAE/Rp
-        cGi5irMmLe/ZnCZ1Xsgko+gqS8mSep7WLFXzDEoVR1itc6v4wfv9khDVmLZVtlHTpm73UxxNaxuL
-        SRRxr6VglLIizcpFSWme57Mw5iTMBMUeOrF+/HosNosjrLfVd3mXsWv4Rm4uiCzW8sn7x6d6doDK
-        l18quuIkOIJTgjQu2SuppQnFsFzX4z6MKK5ur1ienl9fbC5zTkYWPSg5wM5Y3BPjZIAD3RolQSxK
-        lA9woCV4SB6MBTGjLE0YTVhZzdiSlsssn2azNKHpklJO3oSjUbnGagxZVKe4vXJeRRf9jw1sVXSp
-        1c6g8SQcjFpq04LYVJyMcOA9PEOi2hrsY68EVvxIoAjXgo+J8HtjW0j2sIVWdf41pRo6qTT2dNAO
-        ODkNcQ0MaG+N7FHLMOkRjhOAR7wDJ8LMK8YpTv5QhjsPvndizsmIghJ6j/vAWEIwSGC5cEm3JuhG
-        NNC4X4cpte/ic6qN3i/AyUk0eOQ/DquYsjT/22ENF4FRbGyAw3qq0aLgeL11uF6cvC/+wiBhrD7C
-        /3dzjskGx6+fJurUFiR8tots/skudlaExvAzdNW5XtBZeIb4MhAj+9LaWyf4OO34ixCT3+5jJjBb
+        H4sIAAAAAAAE/5VUQW7bMBC85xWC7jJJS5Zlg2aQOIf4UMRAlBY9rkTGIWCJNkk5ab7bQ7/RpSU7
+        CdAWzcnD4QyXO1yLX7402+igrNOmXcRsRONItbWRut0s4tX9XVIUk1nC4ktxwb2F1kEN5mgAE/Rp
+        cGi5iLM6LR7ZhCZVPpVJRtFVFJIl1SStWKomGRQqjrBa6xbxk/e7OSGqNk2jbK1GddXsRrgaVTYW
+        F1HEvZaCUcqmaVbMCkrzPF+GNSdhJyh20IrV/uvrdD17hdWm/C4fMnYL38jdNZHTlXz2fv9cjQ9Q
+        +uJLSRecBEdwSpDGJTsltTShGJZrO7yHEdOb+xuWp1e31+tlzsnAogclB9gai3dinPSwpxujJIhZ
+        gfIe9rQED8mTsSDGlKUJowkryjGbs2LO6CjPsoSmc0o5eRMORuVqqzFkUZ7j9sp5FV13P9awUdFS
+        q61B41nYG7XUpgGxLjkZYM97eIFENRXYfacEVvxIoAjPgo+J8EdjG0h2sIFGtf6UUgWtVBp7OmgH
+        nJyXeAYGtLNGdqhlnJzgsAH4xFtwIuycMG5x8ocy3HnwnRMTTgYUlNB5vAfGEoJBAsuFId2YoBtQ
+        T+N9HabUvIvPqSZ6fwAnZ1Hvkf94LDbKJuxvj9UPAqPYWA/781StxZTjeOswXpy8L35kkDBWv8L/
+        d3OFyQbHr58matUGJHy2izz9ZBdbK0Jj+NN31bpO0HE+HuMMBYzssbW3TvDPaYdPhLj4Ddoo1oFb
         BAAA
     headers: {connection: Keep-Alive, content-encoding: gzip, content-length: '573',
-      content-type: text/xml; charset=ISO-8859-1, date: 'Sat, 19 Oct 2013 00:08:47
-        GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x, set-cookie: JSESSIONID=Q6W1ShNPZPbDlWCw0bTynvg2LvsgDchpc2TZxMxcVF92FWrs8qQT!-292205217;
+      content-type: text/xml; charset=ISO-8859-1, date: 'Sat, 19 Oct 2013 00:18:11
+        GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x, set-cookie: JSESSIONID=wndJShPDc12JpyyzKt5X8njt1TvCvH5CJTyGPBzXLlLmhVXNVSg1!-1256102350;
         path=/, vary: 'Accept-Encoding, User-Agent', x-powered-by: Servlet/2.5 JSP/2.1}
     status: {code: 200, message: OK}

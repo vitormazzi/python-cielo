@@ -1,10 +1,10 @@
 - request: !!python/object:vcr.request.Request
-    body: bin=0&cancelar=false&mes=05&numeroCartao=4012001037141112&ano=18&bandeira=visa&codSeguranca=123&id=c9d0b0afbd8d78c613b22cf35e4797c2
+    body: bin=0&cancelar=false&mes=05&numeroCartao=4012001037141112&ano=18&bandeira=visa&codSeguranca=123&id=a31bab69b88487a453fff947bc742721
     headers: !!python/object/apply:__builtin__.frozenset
     - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [User-Agent, python-requests/1.2.3 CPython/2.6.1 Darwin/10.8.0]
       - !!python/tuple [Content-Type, application/x-www-form-urlencoded]
       - !!python/tuple [Accept, '*/*']
+      - !!python/tuple [user-agent, python-cielo tests]
       - !!python/tuple [Content-Length, !!python/unicode '131']
     host: qasecommerce.cielo.com.br
     method: POST
@@ -20,17 +20,17 @@
         w/Gwei5e3naf+wKN/UeY0Nnba7wUsmO/yyDz2R9rP0dXGQEAAA==
     headers: {cache-control: no-cache="Set-Cookie", connection: Keep-Alive, content-encoding: gzip,
       content-length: '208', content-type: text/html; charset=ISO-8859-1, date: 'Sat,
-        19 Oct 2013 00:08:45 GMT', location: 'http://localhost:7777/orders/7DSD163AHBPC3/',
-      server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x, set-cookie: JSESSIONID=ncyqShNNlz55dG8Hn9n2Nsg3pr7LVRyzFDfHcGhV8L8VZ1TFwZT0!-1256102350;
+        19 Oct 2013 00:18:09 GMT', location: 'http://localhost:7777/orders/7DSD163AHBPC3/',
+      server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x, set-cookie: JSESSIONID=35QnShPCmkfyfCl2BSG1Syt0C1bpc2XKK2PjHgZkvtVTJ2C7Yrxh!-1256102350;
         path=/, vary: 'Accept-Encoding, User-Agent', x-powered-by: Servlet/2.5 JSP/2.1}
     status: {code: 302, message: Moved Temporarily}
 - request: !!python/object:vcr.request.Request
-    body: bin=0&cancelar=false&mes=05&numeroCartao=4012001037141112&ano=18&bandeira=visa&codSeguranca=123&id=122da45056b7bbe0041c6df166cfedb9
+    body: bin=0&cancelar=false&mes=05&numeroCartao=4012001037141112&ano=18&bandeira=visa&codSeguranca=123&id=9219be431658fc897e0c131dfd814773
     headers: !!python/object/apply:__builtin__.frozenset
     - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [User-Agent, python-requests/1.2.3 CPython/2.6.1 Darwin/10.8.0]
       - !!python/tuple [Content-Type, application/x-www-form-urlencoded]
       - !!python/tuple [Accept, '*/*']
+      - !!python/tuple [user-agent, python-cielo tests]
       - !!python/tuple [Content-Length, !!python/unicode '131']
     host: qasecommerce.cielo.com.br
     method: POST
@@ -46,17 +46,17 @@
         5Ue5WBW71/37YYW5+UeY0Jrf13gvZMZ+90Gy2Q0r7LyvGQEAAA==
     headers: {cache-control: no-cache="Set-Cookie", connection: Keep-Alive, content-encoding: gzip,
       content-length: '208', content-type: text/html; charset=ISO-8859-1, date: 'Sat,
-        19 Oct 2013 00:08:46 GMT', location: 'http://localhost:7777/orders/7DSD163AHBPC6/',
-      server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x, set-cookie: JSESSIONID=W1HKShNPQDTZpd7hYnlj5Kg7V2Vtk3WfxLJBxWT9vL0TDZgHQbnp!-292205217;
+        19 Oct 2013 00:18:11 GMT', location: 'http://localhost:7777/orders/7DSD163AHBPC6/',
+      server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x, set-cookie: JSESSIONID=tjYHShPDrh6ZX416mZ5dQWq80WqG84yLTypYBCBPd7GWWdzVLgHL!-292205217;
         path=/, vary: 'Accept-Encoding, User-Agent', x-powered-by: Servlet/2.5 JSP/2.1}
     status: {code: 302, message: Moved Temporarily}
 - request: !!python/object:vcr.request.Request
-    body: bin=0&cancelar=false&mes=05&numeroCartao=4012001037141112&ano=18&bandeira=visa&codSeguranca=123&id=b9772b32c26af4f18fec7875473e4308
+    body: bin=0&cancelar=false&mes=05&numeroCartao=4012001037141112&ano=18&bandeira=visa&codSeguranca=123&id=76a394df8f255163d139c429acf18bf0
     headers: !!python/object/apply:__builtin__.frozenset
     - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [User-Agent, python-requests/1.2.3 CPython/2.6.1 Darwin/10.8.0]
       - !!python/tuple [Content-Type, application/x-www-form-urlencoded]
       - !!python/tuple [Accept, '*/*']
+      - !!python/tuple [user-agent, python-cielo tests]
       - !!python/tuple [Content-Length, !!python/unicode '131']
     host: qasecommerce.cielo.com.br
     method: POST
@@ -72,17 +72,17 @@
         ZzP6mix3q+/1FDPzjzChNb+v8VXItP1eg/R7T5SaXXwZAQAA
     headers: {cache-control: no-cache="Set-Cookie", connection: Keep-Alive, content-encoding: gzip,
       content-length: '207', content-type: text/html; charset=ISO-8859-1, date: 'Sat,
-        19 Oct 2013 00:08:48 GMT', location: 'http://localhost:7777/orders/7DSD163AHBPC4/',
-      server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x, set-cookie: JSESSIONID=2w0BShNQSzqYJPx9YS76Qp3WKS1thrCG6JpgtHFB2t9lqhFPZkZX!-292205217;
+        19 Oct 2013 00:18:12 GMT', location: 'http://localhost:7777/orders/7DSD163AHBPC4/',
+      server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x, set-cookie: JSESSIONID=T4W5ShPGQ96wHpd2Xy81hLDhylWn186QTB1p1fJyX3DjGpCTTpHP!-292205217;
         path=/, vary: 'Accept-Encoding, User-Agent', x-powered-by: Servlet/2.5 JSP/2.1}
     status: {code: 302, message: Moved Temporarily}
 - request: !!python/object:vcr.request.Request
-    body: bin=0&cancelar=false&mes=05&numeroCartao=4012001037141112&ano=18&bandeira=visa&codSeguranca=123&id=e1c87acf4ef521b562efa9cb27773f6b
+    body: bin=0&cancelar=false&mes=05&numeroCartao=4012001037141112&ano=18&bandeira=visa&codSeguranca=123&id=8d93c03f10bf24e4de16bea2314fb5a9
     headers: !!python/object/apply:__builtin__.frozenset
     - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [User-Agent, python-requests/1.2.3 CPython/2.6.1 Darwin/10.8.0]
       - !!python/tuple [Content-Type, application/x-www-form-urlencoded]
       - !!python/tuple [Accept, '*/*']
+      - !!python/tuple [user-agent, python-cielo tests]
       - !!python/tuple [Content-Length, !!python/unicode '131']
     host: qasecommerce.cielo.com.br
     method: POST
@@ -98,7 +98,7 @@
         n83oa7Lcrb7XU8zMP8KE1vy+xlch0/Z7DdLvPQHrohX4GQEAAA==
     headers: {cache-control: no-cache="Set-Cookie", connection: Keep-Alive, content-encoding: gzip,
       content-length: '208', content-type: text/html; charset=ISO-8859-1, date: 'Sat,
-        19 Oct 2013 00:08:50 GMT', location: 'http://localhost:7777/orders/7DSD163AHBPC5/',
-      server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x, set-cookie: JSESSIONID=3QMLShNSw8JPNSyLrKVxpJ5JLWTDpGjwpbnYsQPvchDJFKlPnyt2!-1256102350;
+        19 Oct 2013 00:18:14 GMT', location: 'http://localhost:7777/orders/7DSD163AHBPC5/',
+      server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x, set-cookie: JSESSIONID=y4gGShPGTQVxHbRDTSp6QknXyp7hqM5wTG4QhYpyKPnBTv0TZZdQ!-1256102350;
         path=/, vary: 'Accept-Encoding, User-Agent', x-powered-by: Servlet/2.5 JSP/2.1}
     status: {code: 302, message: Moved Temporarily}

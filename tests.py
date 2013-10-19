@@ -426,7 +426,7 @@ class BuyPageCieloTest(FrozenTimeTest):
 
         # Customer gets the authentication page
         with BuyPageCieloTest.vcr.use_cassette('customer_viewing_authentication_page'):
-            authentication_page = requests.get(authentication_url)
+            authentication_page = requests.get(authentication_url, headers={'user-agent': 'python-cielo tests'})
 
         # Refresh the transaction status
         with BuyPageCieloTest.vcr.use_cassette('authorization_request_being_processed'):
@@ -456,7 +456,7 @@ class BuyPageCieloTest(FrozenTimeTest):
 
         # Customer gets the authentication page
         with BuyPageCieloTest.vcr.use_cassette('customer_viewing_authentication_page', record_mode='new_episodes'):
-            authentication_page = requests.get(authentication_url)
+            authentication_page = requests.get(authentication_url, headers={'user-agent': 'python-cielo tests'})
 
         # Refresh the transaction status
         with BuyPageCieloTest.vcr.use_cassette('authorization_request_being_processed', record_mode='new_episodes'):
@@ -476,7 +476,7 @@ class BuyPageCieloTest(FrozenTimeTest):
                 'id': auth_id,
                 'bin': '0',
                 'cancelar': 'false',
-            }, allow_redirects=False)
+            }, allow_redirects=False, headers={'user-agent': 'python-cielo tests'})
             self.assertEquals(authenticated_transaction.status_code, 302)
             self.assertEquals(
                 authenticated_transaction.headers['location'],
@@ -512,7 +512,7 @@ class BuyPageCieloTest(FrozenTimeTest):
 
         # Customer gets the authentication page
         with BuyPageCieloTest.vcr.use_cassette('customer_viewing_authentication_page', record_mode='new_episodes'):
-            authentication_page = requests.get(authentication_url)
+            authentication_page = requests.get(authentication_url, headers={'user-agent': 'python-cielo tests'})
 
         # Refresh the transaction status
         with BuyPageCieloTest.vcr.use_cassette('authorization_request_being_processed', record_mode='new_episodes'):
@@ -532,7 +532,7 @@ class BuyPageCieloTest(FrozenTimeTest):
                 'id': auth_id,
                 'bin': '0',
                 'cancelar': 'false',
-            }, allow_redirects=False)
+            }, allow_redirects=False, headers={'user-agent': 'python-cielo tests'})
             self.assertEquals(authenticated_transaction.status_code, 302)
             self.assertEquals(
                 authenticated_transaction.headers['location'],
@@ -569,7 +569,7 @@ class BuyPageCieloTest(FrozenTimeTest):
 
         # Customer gets the authentication page
         with BuyPageCieloTest.vcr.use_cassette('customer_viewing_authentication_page', record_mode='new_episodes'):
-            authentication_page = requests.get(authentication_url)
+            authentication_page = requests.get(authentication_url, headers={'user-agent': 'python-cielo tests'})
 
         # Refresh the transaction status
         with BuyPageCieloTest.vcr.use_cassette('authorization_request_being_processed', record_mode='new_episodes'):
@@ -589,7 +589,7 @@ class BuyPageCieloTest(FrozenTimeTest):
                 'id': auth_id,
                 'bin': '0',
                 'cancelar': 'false',
-            }, allow_redirects=False)
+            }, allow_redirects=False, headers={'user-agent': 'python-cielo tests'})
             self.assertEquals(authenticated_transaction.status_code, 302)
             self.assertEquals(
                 authenticated_transaction.headers['location'],
@@ -632,7 +632,7 @@ class BuyPageCieloTest(FrozenTimeTest):
 
         # Customer gets the authentication page
         with BuyPageCieloTest.vcr.use_cassette('customer_viewing_authentication_page', record_mode='new_episodes'):
-            authentication_page = requests.get(authentication_url)
+            authentication_page = requests.get(authentication_url, headers={'user-agent': 'python-cielo tests'})
 
         # Refresh the transaction status
         with BuyPageCieloTest.vcr.use_cassette('authorization_request_being_processed', record_mode='new_episodes'):
@@ -652,7 +652,7 @@ class BuyPageCieloTest(FrozenTimeTest):
                 'id': auth_id,
                 'bin': '0',
                 'cancelar': 'false',
-            }, allow_redirects=False)
+            }, allow_redirects=False, headers={'user-agent': 'python-cielo tests'})
             self.assertEquals(authenticated_transaction.status_code, 302)
             self.assertEquals(
                 authenticated_transaction.headers['location'],
