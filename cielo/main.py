@@ -51,7 +51,18 @@ class CieloRequest(object):
             timeout=30,
         )
 
-        response_dict = xmltodict.parse(self.cielo_response.content, encoding='latin-1')
+        try:
+            response_dict = xmltodict.parse(self.cielo_response.content, encoding='latin-1')
+        except Exception as e:
+            self.error = {
+                'type': e.__class__.__name__,
+                'args': repr(e.args),
+                'response': {
+                    'status_code': self.cielo_response.status_code,
+                    'content': self.cielo_response.content,
+                }
+            }
+            raise ValueError(self.error)
 
         if 'erro' in response_dict:
             self.error = response_dict['erro']

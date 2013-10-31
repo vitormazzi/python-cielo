@@ -377,6 +377,42 @@ class BuyPageLojaTest(FrozenTimeTest):
             u'mensagem': u'Não é permitido o envio do cartão.'
         })
 
+    def test_error_parsing_xml_raises_ValueError(self):
+        params = {
+            'affiliation_id': '1006993069',
+            'api_key': '25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3',
+            'card_type': VISA,
+            'total': Decimal('1.00'),  # when amount ends with .00 attempt is automatically authorized
+            'order_id': '7DSD163AHBPL1',  # strings are allowed here
+            'card_number': '4012001037141112',
+            'cvc2': 423,
+            'exp_month': 1,
+            'exp_year': 2010,
+            'card_holders_name': 'JOAO DA SILVA',
+            'installments': 1,
+            'transaction': CASH,
+            'sandbox': True,
+        }
+        attempt = PaymentAttempt(**params)
+
+        with BuyPageLojaTest.vcr.use_cassette('cielo_webservice_error'):
+            self.assertRaises(ValueError, attempt.get_authorized)
+
+        self.assertFalse(attempt._authorized)
+        self.assertFalse(attempt._captured)
+        self.assertEquals(attempt.error, {
+            'type': 'ExpatError',
+            'args': "('mismatched tag: line 9, column 7',)",
+            'response': {
+                'status_code': 503,
+                'content': (
+                    '<HTML>\n<HEAD>\n<TITLE>Weblogic Bridge Message\n</TITLE>\n</HEAD>\n <BODY>\n'
+                    '<H2>Failure of server APACHE bridge:</H2><P>\n<hr>No backend server available for connection: timed out after 4 seconds or idempotent set to OFF.\n<hr> '
+                    '</BODY>\n</HTML>\n'
+                )
+            },
+        })
+
 
 class BuyPageCieloTest(FrozenTimeTest):
 
