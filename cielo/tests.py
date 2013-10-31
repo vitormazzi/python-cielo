@@ -6,6 +6,8 @@ from freezegun import freeze_time
 
 from decimal import Decimal
 import requests
+from xml.parsers.expat import ExpatError
+
 from cielo import *
 from cielo.exceptions import *
 from cielo.constants import *
@@ -396,7 +398,7 @@ class BuyPageLojaTest(FrozenTimeTest):
         attempt = PaymentAttempt(**params)
 
         with BuyPageLojaTest.vcr.use_cassette('cielo_webservice_error'):
-            self.assertRaises(ValueError, attempt.get_authorized)
+            self.assertRaises(ExpatError, attempt.get_authorized)
 
         self.assertFalse(attempt._authorized)
         self.assertFalse(attempt._captured)

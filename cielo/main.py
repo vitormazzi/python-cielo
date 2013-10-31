@@ -4,6 +4,7 @@ from datetime import date, datetime
 from decimal import Decimal
 import requests
 import xmltodict
+from xml.parsers.expat import ExpatError
 
 from exceptions import CieloException, GetAuthorizedException, CaptureException, TokenException
 from constants import *
@@ -53,7 +54,7 @@ class CieloRequest(object):
 
         try:
             response_dict = xmltodict.parse(self.cielo_response.content, encoding='latin-1')
-        except Exception as e:
+        except ExpatError as e:
             self.error = {
                 'type': e.__class__.__name__,
                 'args': repr(e.args),
@@ -62,7 +63,7 @@ class CieloRequest(object):
                     'content': self.cielo_response.content,
                 }
             }
-            raise ValueError(self.error)
+            raise
 
         if 'erro' in response_dict:
             self.error = response_dict['erro']
