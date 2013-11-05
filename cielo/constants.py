@@ -1,15 +1,17 @@
 # coding: utf-8
 
-VISA, MASTERCARD, DINERS, DISCOVER, ELO, AMEX = (
-    'visa', 'mastercard', 'diners', 'discover', 'elo', 'amex'
+VISA, MASTERCARD, DINERS, DISCOVER, ELO, AMEX, AURA, JCB = (
+    'visa', 'mastercard', 'diners', 'discover', 'elo', 'amex', 'aura', 'jcb'
 )
 CARD_TYPE_C = (
     (VISA, u'Visa'),
     (MASTERCARD, u'Mastercard'),
+    (AMEX, u'American express'),
     (DINERS, u'Diners'),
+    (AURA, u'Aura'),
     (DISCOVER, u'Discover'),
     (ELO, u'ELO'),
-    (AMEX, u'American express'),
+    (JCB, u'JCB')
 )
 
 CASH, INSTALLMENT_STORE, INSTALLMENT_CIELO = 1, 2, 3
