@@ -86,7 +86,7 @@ class WithCardData(object):
 
     def __init__(self, **kwargs):
         super(WithCardData, self).__init__(**kwargs)
-        self.expiration = '%s%s' % (self.exp_year, self.exp_month)
+        self.expiration = self.expiration_date.strftime('%Y%m')
 
     def fetch_required_arguments(self, **kwargs):
         super(WithCardData, self).fetch_required_arguments(**kwargs)
@@ -108,8 +108,8 @@ class WithCardData(object):
             raise ValueError(reason)
 
         today = date.today()
-        expiration_date = date(self.exp_year, self.exp_month, 1)
-        if expiration_date < date(today.year, today.month, 1):
+        self.expiration_date = date(self.exp_year, self.exp_month, 1)
+        if self.expiration_date < date(today.year, today.month, 1):
             reason = 'Card expired since {0}/{1}'.format(self.exp_month, self.exp_year)
             raise ValueError(reason)
 
