@@ -25,7 +25,10 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+*.swp
+*.swo
 
 # virtualenv
 include
 lib
+local
