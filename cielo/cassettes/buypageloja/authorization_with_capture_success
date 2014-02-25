@@ -2,10 +2,10 @@
     body: mensagem=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22ISO-8859-1%22%3F%3E%0A%3Crequisicao-transacao+id%3D%22f094958b-3b68-4c0b-9e68-3137f24fb308%22+versao%3D%221.3.0%22%3E%0A++++%3Cdados-ec%3E%0A++++++++%3Cnumero%3E1006993069%3C%2Fnumero%3E%0A++++++++%3Cchave%3E25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3%3C%2Fchave%3E%0A++++%3C%2Fdados-ec%3E%0A++++%3Cdados-portador%3E%0A++++++++%3Cnumero%3E4012001037141112%3C%2Fnumero%3E%0A++++++++%3Cvalidade%3E20101%3C%2Fvalidade%3E%0A++++++++%3Cindicador%3E1%3C%2Findicador%3E%0A++++++++%3Ccodigo-seguranca%3E423%3C%2Fcodigo-seguranca%3E%0A++++++++%3Cnome-portador%3EJOAO+DA+SILVA%3C%2Fnome-portador%3E%0A++++%3C%2Fdados-portador%3E%0A++++%3Cdados-pedido%3E%0A++++++++%3Cnumero%3E7DSD163AHBPL10%3C%2Fnumero%3E%0A++++++++%3Cvalor%3E100%3C%2Fvalor%3E%0A++++++++%3Cmoeda%3E986%3C%2Fmoeda%3E%0A++++++++%3Cdata-hora%3E2009-12-14T12%3A00%3A01%3C%2Fdata-hora%3E%0A++++++++%3Cidioma%3EPT%3C%2Fidioma%3E%0A++++++++%3Csoft-descriptor%3E%3C%2Fsoft-descriptor%3E%0A++++%3C%2Fdados-pedido%3E%0A++++%3Cforma-pagamento%3E%0A++++++++%3Cbandeira%3Evisa%3C%2Fbandeira%3E%0A++++++++%3Cproduto%3E1%3C%2Fproduto%3E%0A++++++++%3Cparcelas%3E1%3C%2Fparcelas%3E%0A++++%3C%2Fforma-pagamento%3E%0A++++%3Curl-retorno%3E%3C%2Furl-retorno%3E%0A++++%3Cautorizar%3E3%3C%2Fautorizar%3E%0A++++%3Ccapturar%3Etrue%3C%2Fcapturar%3E%0A++++%3Cgerar-token%3Efalse%3C%2Fgerar-token%3E%0A%3C%2Frequisicao-transacao%3E%0A
     headers: !!python/object/apply:__builtin__.frozenset
     - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
-      - !!python/tuple [Accept, '*/*']
-      - !!python/tuple [Content-Type, application/x-www-form-urlencoded]
-      - !!python/tuple [Content-Length, !!python/unicode '1438']
       - !!python/tuple [user-agent, python-cielo]
+      - !!python/tuple [Content-Type, application/x-www-form-urlencoded]
+      - !!python/tuple [Accept, '*/*']
+      - !!python/tuple [Content-Length, !!python/unicode '1438']
     host: qasecommerce.cielo.com.br
     method: POST
     path: /servicos/ecommwsec.do
@@ -28,5 +28,37 @@
     headers: {connection: Keep-Alive, content-encoding: gzip, content-length: '593',
       content-type: text/xml; charset=ISO-8859-1, date: 'Sat, 19 Oct 2013 00:04:19
         GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x, set-cookie: JSESSIONID=1wvBShMDp2h1cv84mVLKTNfvqZn7r2yYXtZSfDpvx06FvQlz5NQZ!-1256102350;
+        path=/, vary: 'Accept-Encoding, User-Agent', x-powered-by: Servlet/2.5 JSP/2.1}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: mensagem=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22ISO-8859-1%22%3F%3E%0A%3Crequisicao-transacao+id%3D%22f094958b-3b68-4c0b-9e68-3137f24fb308%22+versao%3D%221.3.0%22%3E%0A++++%3Cdados-ec%3E%0A++++++++%3Cnumero%3E1006993069%3C%2Fnumero%3E%0A++++++++%3Cchave%3E25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3%3C%2Fchave%3E%0A++++%3C%2Fdados-ec%3E%0A++++%3Cdados-portador%3E%0A++++++++%3Cnumero%3E4012001037141112%3C%2Fnumero%3E%0A++++++++%3Cvalidade%3E201001%3C%2Fvalidade%3E%0A++++++++%3Cindicador%3E1%3C%2Findicador%3E%0A++++++++%3Ccodigo-seguranca%3E423%3C%2Fcodigo-seguranca%3E%0A++++++++%3Cnome-portador%3EJOAO+DA+SILVA%3C%2Fnome-portador%3E%0A++++%3C%2Fdados-portador%3E%0A++++%3Cdados-pedido%3E%0A++++++++%3Cnumero%3E7DSD163AHBPL10%3C%2Fnumero%3E%0A++++++++%3Cvalor%3E100%3C%2Fvalor%3E%0A++++++++%3Cmoeda%3E986%3C%2Fmoeda%3E%0A++++++++%3Cdata-hora%3E2009-12-14T12%3A00%3A01%3C%2Fdata-hora%3E%0A++++++++%3Cidioma%3EPT%3C%2Fidioma%3E%0A++++++++%3Csoft-descriptor%3E%3C%2Fsoft-descriptor%3E%0A++++%3C%2Fdados-pedido%3E%0A++++%3Cforma-pagamento%3E%0A++++++++%3Cbandeira%3Evisa%3C%2Fbandeira%3E%0A++++++++%3Cproduto%3E1%3C%2Fproduto%3E%0A++++++++%3Cparcelas%3E1%3C%2Fparcelas%3E%0A++++%3C%2Fforma-pagamento%3E%0A++++%3Curl-retorno%3E%3C%2Furl-retorno%3E%0A++++%3Cautorizar%3E3%3C%2Fautorizar%3E%0A++++%3Ccapturar%3Etrue%3C%2Fcapturar%3E%0A++++%3Cgerar-token%3Efalse%3C%2Fgerar-token%3E%0A%3C%2Frequisicao-transacao%3E%0A
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Content-Length, !!python/unicode '1439']
+      - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Content-Type, application/x-www-form-urlencoded]
+      - !!python/tuple [Accept, '*/*']
+      - !!python/tuple [user-agent, python-cielo]
+    host: qasecommerce.cielo.com.br
+    method: POST
+    path: /servicos/ecommwsec.do
+    port: 443
+    protocol: https
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAE/5VUXW+bMBR9769AvBObjxAcOa5aRVMjbWqlZpv2eMFOihQwsU1a9e/uYX9j14Fs
+        3dZMygscn3uu7yfw65dmFxyUsbVuF2E8oWGg2krLut0uwtXjfVQUUxbF4bW44s5Aa6ECfXQA7fWp
+        96jlItxQlrFpUUZpmRdRVtEyYgpRGqezTZJtypQWYYDRWrsIn5zr5oSoSjeNMpWaVGXTTfA0KU0o
+        roKAu1qKmNKcsRQf9ENys8zxHHPiLV7RQStW+y+vswf2Cqvt+pv8nMV38JXc3xI5W8ln5/bPZXKA
+        tSs+remCE+/hPSVIbaNOyVpqHwzDtT3mocVs+biM8/Tm7vbhY0w5GWl0Qs0BdtoITIKTAQ50o5UE
+        wYqckwEOtAQH0ZM2IBIaZxFNomS6jvN5ms2T6aQoWETTOcUYv4WDYy1r3YB4WHMywoF38AKRakow
+        +14JdPyTQBEnf1fGN9o0EHWwhUa17lRtCa1UNaZ2qC1w8uuId2CdndGyR23MyQmOBsBR7cAKbzlh
+        NHHyThhuHbjeCmzLiLwSeod51BXgFo2t98u21V43ItRhFpivha1qxNqcts6qJnh7ATZc4UJ60eAj
+        /99zdrbnwzz/Ga2qajHjuKa1z5WTt8GPDBLa1K8XV/Pju/aVHH0lXFgHS9Jzu3Omjp0RftPwNfQJ
+        TCfiJM2mOByPB7a1vWAsw48OFx8xsseSj1mO8+IVdK7HzUEjDmmcGF4zooF+Z3ajn4QAv/LA9pWy
+        Vl9UeD6hdHpJ4ZyMQfHXRdxpi8TVT8J+Fv70BAAA
+    headers: {connection: Keep-Alive, content-encoding: gzip, content-length: '600',
+      content-type: text/xml; charset=ISO-8859-1, date: 'Tue, 25 Feb 2014 19:34:25
+        GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x, set-cookie: JSESSIONID=qQzyTMwCF6YygFMLtWmwmLMFhT1npGnpYfY7jMcWrDkmrnj1ZJTf!-413602723;
         path=/, vary: 'Accept-Encoding, User-Agent', x-powered-by: Servlet/2.5 JSP/2.1}
     status: {code: 200, message: OK}

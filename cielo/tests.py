@@ -339,7 +339,7 @@ class BuyPageLojaTest(FrozenTimeTest):
             u'dados-token': {
                 u'status': u'1',
                 u'numero-cartao-truncado': u'401200******1112',
-                u'codigo-token': u'O/sN7IgUNo4FKXy6SeQRc+BbuZiFvYo4Sqdph0EWaoI='
+                u'codigo-token': u'mgbM+Tuo4hmxThAT+xdJ1ibra3jjeQ/mL914D68gbi4='
             }
         })
 
@@ -372,7 +372,7 @@ class BuyPageLojaTest(FrozenTimeTest):
             u'dados-token': {
                 u'status': u'1',
                 u'numero-cartao-truncado': u'401200******1112',
-                u'codigo-token': u'O/sN7IgUNo4FKXy6SeQRc+BbuZiFvYo4Sqdph0EWaoI='
+                u'codigo-token': u'mgbM+Tuo4hmxThAT+xdJ1ibra3jjeQ/mL914D68gbi4='
             }
         })
 
@@ -903,7 +903,7 @@ class CancelTransactionTest(FrozenTimeTest):
         self.assertEquals(new_attempt.transaction['cancelamentos'], {
             u'cancelamento': {
                 u'codigo': u'9',
-                u'data-hora': u'2013-10-18T20:57:12.263-03:00',
+                u'data-hora': u'2014-02-25T16:34:29.224-03:00',
                 u'mensagem': u'Transacao cancelada com sucesso',
                 u'valor': u'100'
             }
@@ -940,7 +940,7 @@ class CancelTransactionTest(FrozenTimeTest):
         self.assertEquals(attempt.transaction['cancelamentos'], {
             u'cancelamento': {
                 u'codigo': u'6',
-                u'data-hora': u'2013-10-18T20:57:10.290-03:00',
+                u'data-hora': u'2014-02-25T16:34:27.263-03:00',
                 u'mensagem': u'Cancelamento parcial realizado com sucesso',
                 u'valor': u'50'
             }

@@ -31,3 +31,36 @@
         GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x, set-cookie: JSESSIONID=T3rKShKYTfL1ks3wcSmvqY8217SDpJBjvnwlsySypQ6Jm4ng4ZR8!-1256102350;
         path=/, vary: 'Accept-Encoding, User-Agent', x-powered-by: Servlet/2.5 JSP/2.1}
     status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: mensagem=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22ISO-8859-1%22%3F%3E%0D%0A%3Crequisicao-cancelamento+id%3D%2239d36eb6-5ae9-4308-89a1-455d299460c0%22+versao%3D%221.3.0%22%3E%0D%0A++++%3Ctid%3E10069930690F2ADF1001%3C%2Ftid%3E%0D%0A++++%3Cdados-ec%3E%0D%0A++++++++%3Cnumero%3E1006993069%3C%2Fnumero%3E%0D%0A++++++++%3Cchave%3E25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3%3C%2Fchave%3E%0D%0A++++%3C%2Fdados-ec%3E%0D%0A++++%3Cvalor%3E000%3C%2Fvalor%3E%0D%0A%3C%2Frequisicao-cancelamento%3E%0D%0A
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [user-agent, python-cielo]
+      - !!python/tuple [Content-Length, !!python/unicode '514']
+      - !!python/tuple [Accept, '*/*']
+      - !!python/tuple [Content-Type, application/x-www-form-urlencoded]
+    host: qasecommerce.cielo.com.br
+    method: POST
+    path: /servicos/ecommwsec.do
+    port: 443
+    protocol: https
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAE/5VUy27bMBC85ysE3WVST0sGzSBtEMSHNgHituhxLbKOAEtUSMoJ8rs99De6FOUm
+        aR6AL/Zydoec4S7FTh/aXbCX2jSqW4bxjIaB7Golmm67DFc3V1FZ5lUUh6f8hFkNnYEa1EgA5epT
+        x2jEMkwrkRZyU0Q5yCrKUlpGZQVxlOW5SKoqK2iNe+NpnVmGt9b2C0JkrdpW6lrO6k3bz3A12+iQ
+        nwQBs43gMaVFVaX4Qy+Ss/MLXMeMuIyr6KHjq7vvj/Pr6hFW2/VP8S2LL+EHufpExHwl7q29u98k
+        e1jb8suaLhlxDMcUIJSJeikaodxheFw3oA7F5+c353GRnl1+PvuaMjKhyMGSPeyU5qiBER96uFVS
+        AK/KghEfeliAhehWaeAJjbOIJlGSr+NikWaLpJyVSRrRdEEpI0+FntiIRrXAr9eMTKHHLTxAJNsN
+        6LtBciS+BLDI7fXSGPuldAtRD1toZWcPZjfQCdmgtH1jgJF/S9wDffZaiQFrY0YO4ZQA7NQODHeZ
+        Q4wpRt44hhkLdjC8YmSKXCUMFnU0NeAQTTfvZm2rXN0UYR2qQL0GtrLla30YOiPb4PkGeOES59EV
+        eY74+M5T+t6d+36+aq2sGz5nOKWN08rI88NHBAGlm8ej3fz5rZyTkSvgaB/FkT52mrtJwz9/T6B7
+        HidpluPMutijnRk4vlMa5zj4GCM6Wh5VTv1iNfR2wMnBJDZp6ljFyBR5+I3eTTwBAT7ywAy1NEYd
+        a3yeH2McRT2JReFdLXf+GRjXPCcfnjAPORC/fa/nERNvuho3+NgVUj8azGqWJNk7vpD6zmiS+j/t
+        zu0oBmVahQ7xQ3l4OfzkL4itokDnBQAA
+    headers: {connection: Keep-Alive, content-encoding: gzip, content-length: '651',
+      content-type: text/xml; charset=ISO-8859-1, date: 'Tue, 25 Feb 2014 19:34:29
+        GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x, set-cookie: JSESSIONID=hW5pTMwFqQBZwVBLXpsKfXrG9T71zTZ25TZnHy4sGTv21jXcZRY9!-413602723;
+        path=/, vary: 'Accept-Encoding, User-Agent', x-powered-by: Servlet/2.5 JSP/2.1}
+    status: {code: 200, message: OK}

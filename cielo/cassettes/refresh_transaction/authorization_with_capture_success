@@ -62,3 +62,67 @@
         GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x, set-cookie: JSESSIONID=s8t2ShJCq3nvdj0pZHCrs3kJ9zvyT3yhZJ4XzBGJwsJyjYqvy4t2!-1256102350;
         path=/, vary: 'Accept-Encoding, User-Agent', x-powered-by: Servlet/2.5 JSP/2.1}
     status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: mensagem=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22ISO-8859-1%22%3F%3E%0A%3Crequisicao-transacao+id%3D%22f094958b-3b68-4c0b-9e68-3137f24fb308%22+versao%3D%221.3.0%22%3E%0A++++%3Cdados-ec%3E%0A++++++++%3Cnumero%3E1006993069%3C%2Fnumero%3E%0A++++++++%3Cchave%3E25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3%3C%2Fchave%3E%0A++++%3C%2Fdados-ec%3E%0A++++%3Cdados-portador%3E%0A++++++++%3Cnumero%3E4012001037141112%3C%2Fnumero%3E%0A++++++++%3Cvalidade%3E201001%3C%2Fvalidade%3E%0A++++++++%3Cindicador%3E1%3C%2Findicador%3E%0A++++++++%3Ccodigo-seguranca%3E423%3C%2Fcodigo-seguranca%3E%0A++++++++%3Cnome-portador%3EJOAO+DA+SILVA%3C%2Fnome-portador%3E%0A++++%3C%2Fdados-portador%3E%0A++++%3Cdados-pedido%3E%0A++++++++%3Cnumero%3E7DSD163AHREF3%3C%2Fnumero%3E%0A++++++++%3Cvalor%3E100%3C%2Fvalor%3E%0A++++++++%3Cmoeda%3E986%3C%2Fmoeda%3E%0A++++++++%3Cdata-hora%3E2009-12-14T12%3A00%3A01%3C%2Fdata-hora%3E%0A++++++++%3Cidioma%3EPT%3C%2Fidioma%3E%0A++++++++%3Csoft-descriptor%3E%3C%2Fsoft-descriptor%3E%0A++++%3C%2Fdados-pedido%3E%0A++++%3Cforma-pagamento%3E%0A++++++++%3Cbandeira%3Evisa%3C%2Fbandeira%3E%0A++++++++%3Cproduto%3E1%3C%2Fproduto%3E%0A++++++++%3Cparcelas%3E1%3C%2Fparcelas%3E%0A++++%3C%2Fforma-pagamento%3E%0A++++%3Curl-retorno%3E%3C%2Furl-retorno%3E%0A++++%3Cautorizar%3E3%3C%2Fautorizar%3E%0A++++%3Ccapturar%3Etrue%3C%2Fcapturar%3E%0A++++%3Cgerar-token%3Efalse%3C%2Fgerar-token%3E%0A%3C%2Frequisicao-transacao%3E%0A
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [user-agent, python-cielo]
+      - !!python/tuple [Content-Type, application/x-www-form-urlencoded]
+      - !!python/tuple [Accept, '*/*']
+      - !!python/tuple [Content-Length, !!python/unicode '1438']
+    host: qasecommerce.cielo.com.br
+    method: POST
+    path: /servicos/ecommwsec.do
+    port: 443
+    protocol: https
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAE/5VUXU/bMBR951dEeU9tx2mbVK4REyD6MIFGt2mPN7FbLDVxiJ2C+Lt72N/gukk3
+        kGBSX9rj63N8v04rzp/rXbTXnTO2WcZsQuNIN5VVptku49X9bZLn0yJh8bk8E76DxkEF9iAAG/g8
+        KIxaxhtaZMU0LxNezvIkq2iZFBoRZ3y+SbNNyWkeR5itccv4wft2QYiubF3rrtKTqqzbCZ4mZRfL
+        sygS3ijJKJ0VBccPep1eXOV4ZoKEm8BooZGrxx8v87viBVbb9S/1PWM38JPcfiFqvlJP3j8+leke
+        1j7/uqZLQYIiKBUo65JWK6NsSIbpmh7rsHJ+eX/JZvzi5tvVNRdkjKIGKXvY2S7UJMgAh3BttQJZ
+        5DNBBjiEFXhIHmwHMqUsS2iapNM1my14tuB8ktFpQvmCUkH+EQehUcbWIO/WgoxwiHt4hkTXJXSP
+        vZYofB9AUnjrfWNiY7sakha2UOvGH5stoVHaYGl740CQv0d8A/tsO6t65DJBjnC8ANzUDpwMN0eM
+        V4J8kEY4D753EscyosCE3mMdpgI00Tj54LWtDbwRIQ+rwHodbHUt193RdE7X0dsHcOAa/RhIg0b9
+        f+aMfTbzYZ9or/er1ZWRc4EuNaFWQd4mP0QwYDvzcnI3f37b0MlBq+DkPj71zid97DoZnIZfw5yg
+        ayVLeTbF5QQ8RBvXy6LIaJqh8RFj9NDyocpxX6KC1vfoHLzEJY0bw2dGNIQ/2N2oUxDhjzxyfaWd
+        s6c2Ps1OWaAgY1L85yL+6CJ59gq9cuBe8wQAAA==
+    headers: {connection: Keep-Alive, content-encoding: gzip, content-length: '598',
+      content-type: text/xml; charset=ISO-8859-1, date: 'Tue, 25 Feb 2014 19:34:33
+        GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x, set-cookie: JSESSIONID=WMwdTMwJlG3QgTcJzl9yxWX1b7JLslQplsCfLTY1GQPKHG42pQyh!277205951;
+        path=/, vary: 'Accept-Encoding, User-Agent', x-powered-by: Servlet/2.5 JSP/2.1}
+    status: {code: 200, message: OK}
+- request: !!python/object:vcr.request.Request
+    body: mensagem=%3C%3Fxml+version%3D%221.0%22+encoding%3D%22ISO-8859-1%22%3F%3E%0A%3Crequisicao-transacao+id%3D%22f094958b-3b68-4c0b-9e68-3137f24fb308%22+versao%3D%221.3.0%22%3E%0A++++%3Cdados-ec%3E%0A++++++++%3Cnumero%3E1006993069%3C%2Fnumero%3E%0A++++++++%3Cchave%3E25fbb99741c739dd84d7b06ec78c9bac718838630f30b112d033ce2e621b34f3%3C%2Fchave%3E%0A++++%3C%2Fdados-ec%3E%0A++++%3Cdados-portador%3E%0A++++++++%3Cnumero%3E4012001037141112%3C%2Fnumero%3E%0A++++++++%3Cvalidade%3E201001%3C%2Fvalidade%3E%0A++++++++%3Cindicador%3E1%3C%2Findicador%3E%0A++++++++%3Ccodigo-seguranca%3E423%3C%2Fcodigo-seguranca%3E%0A++++++++%3Cnome-portador%3EJOAO+DA+SILVA%3C%2Fnome-portador%3E%0A++++%3C%2Fdados-portador%3E%0A++++%3Cdados-pedido%3E%0A++++++++%3Cnumero%3E7DSD163AHREF2%3C%2Fnumero%3E%0A++++++++%3Cvalor%3E100%3C%2Fvalor%3E%0A++++++++%3Cmoeda%3E986%3C%2Fmoeda%3E%0A++++++++%3Cdata-hora%3E2009-12-14T12%3A00%3A01%3C%2Fdata-hora%3E%0A++++++++%3Cidioma%3EPT%3C%2Fidioma%3E%0A++++++++%3Csoft-descriptor%3E%3C%2Fsoft-descriptor%3E%0A++++%3C%2Fdados-pedido%3E%0A++++%3Cforma-pagamento%3E%0A++++++++%3Cbandeira%3Evisa%3C%2Fbandeira%3E%0A++++++++%3Cproduto%3E1%3C%2Fproduto%3E%0A++++++++%3Cparcelas%3E1%3C%2Fparcelas%3E%0A++++%3C%2Fforma-pagamento%3E%0A++++%3Curl-retorno%3E%3C%2Furl-retorno%3E%0A++++%3Cautorizar%3E3%3C%2Fautorizar%3E%0A++++%3Ccapturar%3Etrue%3C%2Fcapturar%3E%0A++++%3Cgerar-token%3Efalse%3C%2Fgerar-token%3E%0A%3C%2Frequisicao-transacao%3E%0A
+    headers: !!python/object/apply:__builtin__.frozenset
+    - - !!python/tuple [Accept-Encoding, 'gzip, deflate, compress']
+      - !!python/tuple [Accept, '*/*']
+      - !!python/tuple [Content-Type, application/x-www-form-urlencoded]
+      - !!python/tuple [Content-Length, !!python/unicode '1438']
+      - !!python/tuple [user-agent, python-cielo]
+    host: qasecommerce.cielo.com.br
+    method: POST
+    path: /servicos/ecommwsec.do
+    port: 443
+    protocol: https
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAE/5VUy27bMBC8+ysE3WVSD9tSQDNIkQTxoUjQqC16XIm0Q8ASFZJyAv9uD/2NLC25
+        jYGkgAHBGs7ucJ8yu3xttsFOGqt0uwzjKQ0D2dZaqHazDFeP91Gez4ooDi/5hDkDrYUa9EEA2vun
+        XqHEMlzTIitmeRWl1TyPsppWUSERpXG6WCfZukppHgYYrbXL8Mm57oIQWeumkaaW07pquimeppUJ
+        +SQImFOCx5TOiyLFH3qbXN1c4TlmxFu8RwctXz3/2C8eij2sNuUv8T2L7+Anuf9CxGIlXpx7fqmS
+        HZQu/1rSJSNe4ZUChLZRJ4US2gfDcG2PeWi+uH68jufp1d23m9uEkZFFDbrsYKuNz4mRAQ50o6UA
+        XuRzRgY40AIcRE/aAE9onEU0iZJZGc8v0gyfaZInEU0vKGXkn+MgVELpBvhDycgIB97BK0SyqcA8
+        95Kj8JRAJ3/XaWFsrU0DUQcbaGTrjsVW0AqpMLWdssDI3yPegXV2RosefWNGjnA0AE5qC5Z7yxGj
+        iZEPwjDrwPWWY1tG5D2hd5iHqgGXaOy837WN9n4jQj/MAvO1sJENL81x6axsgvcXYMMl7qN3GjTi
+        /z0v4s96PswT1+t0tLJWfMFwS5XPlZH3wQ8MEtqo/dnV/PmtfSUHrYCz61icWcfWcL9p+Br6BKbj
+        cZJmMxyOxwPb2p4XRUYTZD1G9lDyIctxXqyGzvW4OWjEIY0TQ8GIBvqD2Y06AQF+5IHta2mtPrPw
+        NP30o/logIyMQfGfi7jjFvHJGwGTcDjzBAAA
+    headers: {connection: Keep-Alive, content-encoding: gzip, content-length: '597',
+      content-type: text/xml; charset=ISO-8859-1, date: 'Tue, 25 Feb 2014 19:34:34
+        GMT', server: Apache/2.2.22 (Unix) mod_ssl/2.2.22 OpenSSL/0.9.8x, set-cookie: JSESSIONID=hgWBTMwKR2nFqCz1x7JypzlfGc8zh51C3GlYNvcrqQyPcXpfFgSB!-413602723;
+        path=/, vary: 'Accept-Encoding, User-Agent', x-powered-by: Servlet/2.5 JSP/2.1}
+    status: {code: 200, message: OK}
